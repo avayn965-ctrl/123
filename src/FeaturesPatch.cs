@@ -71,6 +71,22 @@ internal static class FeaturesPatch
             var second = Instruction.Create(OpCodes.Ldarg_0); var update = Instruction.Create(OpCodes.Call, Feature("UpdateUi"));
             il.InsertAfter(ret, first); il.InsertAfter(first, call); il.InsertAfter(call, second); il.InsertAfter(second, update); il.InsertAfter(update, Instruction.Create(OpCodes.Ret));
         });
+        // H/J/K are polled by UpdateButtons, including while H hides the UI.
+        // The original mod skips its frame monitor whenever Players.Count > 1,
+        // leaving multiplayer layouts with only occasional dialogue updates.
+        // Remove only that initial guard; keep the per-layout duplicate guard,
+        // process-frame loop and cleanup unchanged for both host and clients.
+        var monitor = Logic("EnsureVisibilityMonitorStarted");
+        var monitorEntry = monitor.Body.Instructions.First(i => i.OpCode == OpCodes.Ldarg_0);
+        var monitorPrefix = monitor.Body.Instructions.TakeWhile(i => i != monitorEntry).ToArray();
+        if (monitorPrefix.Count(i => i.Operand is MethodReference m && m.Name == "TryGetRunState") != 1
+            || monitorPrefix.Count(i => i.Operand is MethodReference m && m.Name == "get_Count") != 1
+            || monitorPrefix.Count(i => i.OpCode == OpCodes.Cgt) != 1
+            || monitorPrefix.Last().OpCode.Code is not (Code.Br or Code.Br_S)
+            || monitorPrefix.Last().Operand is not Instruction exit || exit.OpCode != OpCodes.Ret)
+            throw new InvalidOperationException("Unexpected multiplayer visibility-monitor guard.");
+        foreach (var instruction in monitorPrefix) monitor.Body.GetILProcessor().Remove(instruction);
+        Widen(monitor);
         var click = Logic("OnRefreshOptionsPressed");
         var entry = click.Body.Instructions[0]; var edit = click.Body.GetILProcessor();
         edit.InsertBefore(entry, Instruction.Create(OpCodes.Ldarg_0));
@@ -154,7 +170,7 @@ internal static class FeaturesPatch
         register.Body.GetILProcessor().InsertBefore(store, Instruction.Create(OpCodes.Call, Feature("AddRussianLabels")));
         Widen(register);
         var info = mod.Assembly.CustomAttributes.Single(a => a.AttributeType.FullName == "System.Reflection.AssemblyInformationalVersionAttribute");
-        info.ConstructorArguments[0] = new CustomAttributeArgument(mod.TypeSystem.String, "1.4.3+unofficial.sts2.0.111.0.compat6.move-buttons.config.sorted-catalogs.ru");
+        info.ConstructorArguments[0] = new CustomAttributeArgument(mod.TypeSystem.String, "1.4.3+unofficial.sts2.0.111.0.compat7.multiplayer-hotkeys.ru");
         mod.Mvid = Guid.NewGuid();
         if (mod.GetTypeReferences().Any(t => t.Scope?.Name == "RuntimeFeatures")) throw new InvalidOperationException("Unmerged runtime reference.");
         Console.WriteLine("Merged unique options/Ancients, view-only visual catalogs, modal/cancel guards and Russian localization.");

@@ -20,7 +20,8 @@ internal static class FeaturesVerification
             "GenerateFreshOptions", "RebuildOptionsFromTextKeys", "GetRefreshOptionsButtonText", "GetRefreshAncientButtonText",
             "GetSharedDisabledTooltip", "GetNoReplacementTooltip", "GetButtonFontSize", "SetCurrentAndGeneratedOptions",
             "UpdateButtons", "OnRefreshOptionsPressed", "L", "Register", "BuildRefreshableAncientsForCurrentAct",
-            "TryReplaceAncientSafely", "OnRefreshAncientPressed", "HideButtonsIfCancelPressed", "BuildEntries", "GetOptionsCost", "GetAncientCost"
+            "TryReplaceAncientSafely", "OnRefreshAncientPressed", "HideButtonsIfCancelPressed", "BuildEntries", "GetOptionsCost", "GetAncientCost",
+            "EnsureVisibilityMonitorStarted"
         };
         var resultMethods = Types(result).SelectMany(t => t.Methods).ToDictionary(m => m.FullName);
         var changed = new List<string>();
@@ -33,7 +34,7 @@ internal static class FeaturesVerification
                 changed.Add(old.Name);
             }
         }
-        Require(changed.Count == 19 && changed.ToHashSet().SetEquals(allowed), "Wrong feature hook set.");
+        Require(changed.Count == 20 && changed.ToHashSet().SetEquals(allowed), "Wrong feature hook set.");
         foreach (var old in baseline.Resources.OfType<EmbeddedResource>())
             Require(old.GetResourceData().SequenceEqual(result.Resources.OfType<EmbeddedResource>().Single(r => r.Name == old.Name).GetResourceData()), "Embedded game/mod resources changed.");
         Require(result.AssemblyReferences.All(a => a.Name != "RuntimeFeatures"), "External helper DLL dependency was left behind.");
@@ -64,6 +65,18 @@ internal static class FeaturesVerification
         RuntimeHook("HideButtonsIfCancelPressed", "CatalogUi", "ShouldSuppressCancel");
         RuntimeHook("GetOptionsCost", "ModSettings", "Cost");
         RuntimeHook("GetAncientCost", "ModSettings", "Cost");
+        var monitor = logic.Methods.Single(m => m.Name == "EnsureVisibilityMonitorStarted");
+        Require(monitor.Body.Instructions.First().OpCode == OpCodes.Ldarg_0
+            && !monitor.Body.Instructions.Any(i => i.Operand is MethodReference m && m.Name is "TryGetRunState" or "get_Players" or "get_Count"),
+            "The frame monitor must start independently of player count, for both host and clients.");
+        foreach (string method in new[] { "HasMeta", "GetMeta", "SetMeta", "MonitorLayoutVisibilityAsync", "RunSafely" })
+            Require(monitor.Body.Instructions.Count(i => i.Operand is MethodReference m && m.Name == method) == 1,
+                "Missing original monitor lifecycle/duplicate guard: " + method);
+        var monitorLoop = Types(result).Single(t => t.Name.StartsWith("<MonitorLayoutVisibilityAsync>"));
+        var tick = monitorLoop.Methods.Single(m => m.Name == "MoveNext");
+        foreach (string method in new[] { "IsInstanceValid", "IsInsideTree", "HideButtonsIfCancelPressed", "RefreshButtonsRealtime", "ToSignal", "RemoveMeta" })
+            Require(tick.Body.Instructions.Any(i => i.Operand is MethodReference m && m.Name == method),
+                "Missing per-frame update or monitor cleanup: " + method);
         var entries = Types(result).Single(t => t.Name == "ModConfigBridge").Methods.Single(m => m.Name == "BuildEntries");
         Require(entries.Body.Instructions.Any(i => i.Operand is MethodReference m && m.Name == "ExtendEntries" && m.DeclaringType.FullName == "RefreshAncient.Compat2.ModSettings"), "ModConfig keybindings and price callbacks are not registered.");
         Require(Types(result).Single(t => t.Name == "ModConfigBridge").Methods.Single(m => m.Name == "Register").Body.Instructions.Any(i => i.Operand is MethodReference m && m.Name == "ReloadBindings" && m.DeclaringType.FullName == "RefreshAncient.Compat2.ModSettings"), "Saved keys must reload after ModConfig registration.");
@@ -91,7 +104,8 @@ internal static class FeaturesVerification
         Require(tips.Methods.Any(m => m.IsStatic && m.Name == "CreateAndShow" && m.Parameters.Count == 3 && m.Parameters[0].ParameterType.FullName == "Godot.Control" && m.Parameters[1].ParameterType.FullName == "System.Collections.Generic.IEnumerable`1<MegaCrit.Sts2.Core.HoverTips.IHoverTip>"), "Game hover-tip factory API missing.");
         Require(tips.Methods.Any(m => m.IsStatic && m.Name == "Remove" && m.Parameters.Count == 1) && tips.Methods.Any(m => m.Name == "SetAlignment" && m.Parameters.Count == 2), "Game hover-tip cleanup/alignment API missing.");
         Require(Types(game).Single(t => t.FullName == "MegaCrit.Sts2.Core.Events.EventOption").Properties.Any(p => p.Name == "HoverTips"), "Event option hover-tip data missing.");
-        Console.WriteLine("PASS: exactly 19 original feature hooks changed; compat1 replacement core, refund paths and constructor fixes preserved.");
+        Console.WriteLine("PASS: exactly 20 original feature hooks changed; compat1 replacement core, refund paths and constructor fixes preserved.");
+        Console.WriteLine("PASS: local frame monitoring starts for solo, multiplayer host and clients without a player-count guard; original duplicate prevention, loop and cleanup remain intact.");
         Console.WriteLine("PASS: displayed prices and solo/host cost resolvers share ModSettings.Cost; existing resolved-cost network/refund paths are preserved.");
         Console.WriteLine("PASS: solo, host, remote reconstruction, commit, exhaustion preflight and UI paths are connected to the new logic.");
         Console.WriteLine("PASS: original act/unlock pool is preserved; Ancient history filters every pool path and guards/commits actual replacements.");

@@ -4,7 +4,7 @@ Requirements: .NET SDK 9, Python 3 for packaging, Mono.Cecil 0.11.6
 (automatically restored by dotnet build), ORIGINAL RefreshAncient 1.4.3 ZIP,
 and the user's sts2.dll v0.111.0. Input game/mod DLLs are not in this source.
 
-From the repository root, build, validate and package compat.6:
+From the repository root, build, validate and package compat.7:
   python tools/build_release.py --game-dll PATH/TO/sts2.dll --original-mod PATH/TO/ORIGINAL.zip
 
 Optional: --dotnet PATH/TO/dotnet --output-dir PATH/TO/OUTPUT
@@ -73,3 +73,8 @@ on all peers; placement/keybindings are local.
 Catalog order is stable within seen/current/available/unavailable groups.
 Reward frames use red/green/yellow/gray borders; underlying models stay paired
 with their original icons, descriptions and hover-tip data.
+
+compat.7 removes only the initial Players.Count > 1 return in
+EnsureVisibilityMonitorStarted, preserving its duplicate guard, async
+process-frame loop and cleanup. This enables local H/J/K polling for host
+and clients without modifying network messages or paid refresh paths.
