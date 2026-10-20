@@ -13,6 +13,7 @@ public static class UniqueOptions
     {
         public readonly HashSet<string> Seen = new(StringComparer.Ordinal);
         public readonly Dictionary<string, object> Pool = new(StringComparer.Ordinal);
+        public readonly Dictionary<string, object> Catalog = new(StringComparer.Ordinal);
         public readonly HashSet<string> Prepared = new(StringComparer.Ordinal);
         public Type ListType = null!;
         public int BatchSize;
@@ -24,7 +25,7 @@ public static class UniqueOptions
     private static Type? _locManager;
     private const BindingFlags InstanceFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
 
-    private static object? Get(object? target, string name)
+    internal static object? Get(object? target, string name)
     {
         if (target == null) return null;
         for (Type? type = target.GetType(); type != null; type = type.BaseType)
@@ -37,7 +38,7 @@ public static class UniqueOptions
         return null;
     }
 
-    private static object? Call(object target, string name, params object?[] args)
+    internal static object? Call(object target, string name, params object?[] args)
     {
         for (Type? type = target.GetType(); type != null; type = type.BaseType)
         foreach (MethodInfo method in type.GetMethods(InstanceFlags))
@@ -53,14 +54,14 @@ public static class UniqueOptions
         throw new MissingMethodException(target.GetType().FullName, name);
     }
 
-    private static void Set(object target, string name, object value)
+    internal static void Set(object target, string name, object value)
     {
         PropertyInfo? property = target.GetType().GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
         if (property == null || !property.CanWrite) throw new MissingMemberException(target.GetType().FullName, name);
         property.SetValue(target, value);
     }
 
-    private static IEnumerable Items(object? value) => value as IEnumerable ?? Array.Empty<object>();
+    internal static IEnumerable Items(object? value) => value as IEnumerable ?? Array.Empty<object>();
     private static string Key(object option) => Get(option, "TextKey") as string ?? string.Empty;
     private static bool Usable(object option) => !string.IsNullOrWhiteSpace(Key(option))
         && Get(option, "IsLocked") is not true && Get(option, "IsProceed") is not true
@@ -184,7 +185,17 @@ public static class UniqueOptions
             // AllPossibleOptions is materialized once. UI polling never advances
             // the game RNG; random setup such as DustyTome happens only on select.
             foreach (object option in Items(Get(ancient, "AllPossibleOptions")))
-                if (Eligible(ancient, option)) history.Pool.TryAdd(Key(option), option);
+            {
+                string key = Key(option);
+                if (!string.IsNullOrWhiteSpace(key) && Get(option, "IsProceed") is not true) history.Catalog.TryAdd(key, option);
+                if (Eligible(ancient, option))
+                {
+                    history.Pool.TryAdd(key, option);
+                    history.Catalog[key] = history.Pool[key];
+                }
+            }
+            foreach (object option in Items(current))
+                if (!string.IsNullOrWhiteSpace(Key(option)) && Get(option, "IsProceed") is not true) history.Catalog[Key(option)] = option;
             Histories.Add(ancient, history);
         }
         Observe(history, ancient);
@@ -204,6 +215,7 @@ public static class UniqueOptions
             option = Call(ancient, "RelicOption", relic, "INITIAL", null)!;
             if (Key(option) != key) throw new InvalidOperationException("Prepared relic option changed its text key.");
             history.Pool[key] = option;
+            history.Catalog[key] = option;
         }
         history.Prepared.Add(key);
         return option;
@@ -276,14 +288,24 @@ public static class UniqueOptions
         }
     }
 
-    private static object? CurrentAncient()
+    internal static object? CurrentAncient()
     {
-        Type? room = Type.GetType("MegaCrit.Sts2.Core.Nodes.Rooms.NEventRoom, sts2", false);
+        Type? room = LoadedType("MegaCrit.Sts2.Core.Nodes.Rooms.NEventRoom", "sts2");
         return Get(room?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null), "_event");
+    }
+
+    // Godot and mods can be loaded in different AssemblyLoadContexts. Resolve
+    // the existing game/engine types before attempting a name-based load.
+    internal static Type? LoadedType(string name, string assemblyName)
+    {
+        foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            if (assembly.GetName().Name == assemblyName && assembly.GetType(name, false) is Type type) return type;
+        return Type.GetType(name + ", " + assemblyName, false);
     }
 
     public static bool CanPress(object layout)
     {
+        if (CatalogUi.IsOpen()) return false;
         try
         {
             object? ancient = CurrentAncient();
@@ -319,7 +341,7 @@ public static class UniqueOptions
         }
     }
 
-    private static void Log(Exception error)
+    internal static void Log(Exception error)
     {
         string key = error.GetType().FullName + ": " + error.Message;
         lock (Gate) if (ReportedErrors.Add(key)) Console.WriteLine("[RefreshAncient UniqueOptions] " + error);
@@ -329,7 +351,7 @@ public static class UniqueOptions
     {
         try
         {
-            _locManager ??= Type.GetType("MegaCrit.Sts2.Core.Localization.LocManager, sts2", false);
+            _locManager ??= LoadedType("MegaCrit.Sts2.Core.Localization.LocManager", "sts2");
             object? manager = _locManager?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null);
             return Get(manager, "Language") as string ?? "eng";
         }
@@ -353,6 +375,29 @@ public static class UniqueOptions
     public static string ReplacementTooltip() => Translate(Language(), "Нет доступного Древнего для замены.", "No replacement ancient is available.", "没有可替换的先古之民。");
     public static string ExhaustedLabel(string language) => Translate(language, "Новых вариантов нет", "No new options", "没有新选项");
     public static string ExhaustedTooltip(string language) => Translate(language, "Все доступные варианты этого Древнего уже были показаны. Золото не списывается.", "All available choices for this Ancient have already been shown. No gold is charged.", "这位先古之民的所有可用选项都已展示，不会扣除金币。");
+
+    public static string[][] OptionCatalog(object ancient)
+    {
+        lock (Gate)
+        {
+            History history = GetHistory(ancient);
+            HashSet<string> current = new(StringComparer.Ordinal);
+            foreach (object option in Items(Get(ancient, "CurrentOptions"))) current.Add(Key(option));
+            List<string[]> rows = new();
+            foreach (KeyValuePair<string, object> entry in history.Catalog)
+            {
+                string status = current.Contains(entry.Key) ? "current" : history.Seen.Contains(entry.Key) ? "seen"
+                    : history.Pool.ContainsKey(entry.Key) ? "available" : "unavailable";
+                object? relic = Get(entry.Value, "Relic");
+                bool randomCard = HasBaseName(ancient, "Darv") && relic?.GetType().Name == "DustyTome" && !history.Prepared.Contains(entry.Key);
+                string description = randomCard
+                    ? Translate(Language(), "Случайная древняя карта определится при появлении этого варианта.", "The random Ancient card is determined when this option is offered.", "此选项出现时才会确定随机远古卡牌。")
+                    : CatalogUi.ModelText(entry.Value, "Description", string.Empty);
+                rows.Add(new[] { CatalogUi.ModelText(entry.Value, "Title", entry.Key), description, status });
+            }
+            return rows.ToArray();
+        }
+    }
 
     public static Dictionary<string, string> AddRussianLabels(Dictionary<string, string> labels)
     {

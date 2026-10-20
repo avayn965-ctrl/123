@@ -34,6 +34,10 @@ internal static class FeaturesPatch
         using var runtime = ModuleDefinition.ReadModule(runtimePath);
         var feature = RuntimeMerge.Merge(mod, runtime);
         MethodDefinition Feature(string name, int parameters = -1) => feature.Methods.Single(m => m.Name == name && (parameters < 0 || m.Parameters.Count == parameters));
+        var ancientHistory = Types(mod).Single(t => t.FullName == "RefreshAncient.Compat2.AncientHistory");
+        var catalog = Types(mod).Single(t => t.FullName == "RefreshAncient.Compat2.CatalogUi");
+        MethodDefinition Ancient(string name) => ancientHistory.Methods.Single(m => m.Name == name);
+        MethodDefinition Catalog(string name) => catalog.Methods.Single(m => m.Name == name);
         var logic = Types(mod).Single(t => t.Name == "AncientRefreshDualButtonsLogic");
         MethodDefinition Logic(string name) => logic.Methods.Single(m => m.Name == name);
         void Replace(string name, string called, bool cost = false)
@@ -62,7 +66,8 @@ internal static class FeaturesPatch
         BeforeReturn(Logic("UpdateButtons"), (il, ret) =>
         {
             var first = Instruction.Create(OpCodes.Ldarg_0); var call = Instruction.Create(OpCodes.Call, Feature("UpdateUi"));
-            il.InsertAfter(ret, first); il.InsertAfter(first, call); il.InsertAfter(call, Instruction.Create(OpCodes.Ret));
+            var second = Instruction.Create(OpCodes.Ldarg_0); var update = Instruction.Create(OpCodes.Call, Catalog("Update"));
+            il.InsertAfter(ret, first); il.InsertAfter(first, call); il.InsertAfter(call, second); il.InsertAfter(second, update); il.InsertAfter(update, Instruction.Create(OpCodes.Ret));
         });
         var click = Logic("OnRefreshOptionsPressed");
         var entry = click.Body.Instructions[0]; var edit = click.Body.GetILProcessor();
@@ -71,6 +76,46 @@ internal static class FeaturesPatch
         edit.InsertBefore(entry, Instruction.Create(OpCodes.Brtrue, entry));
         edit.InsertBefore(entry, Instruction.Create(OpCodes.Ret));
         Widen(click);
+        // Keep the repository's act/unlock logic intact and filter only its
+        // completed pool. Every solo/host/lookup caller uses the wrapper.
+        var rawPool = Logic("BuildRefreshableAncientsForCurrentAct");
+        var poolCalls = Types(mod).SelectMany(t => t.Methods).Where(m => m.HasBody)
+            .SelectMany(m => m.Body.Instructions).Where(i => i.Operand == rawPool).ToArray();
+        rawPool.Name = "BuildRefreshableAncientsUnfiltered";
+        var pool = new MethodDefinition("BuildRefreshableAncientsForCurrentAct", rawPool.Attributes, rawPool.ReturnType);
+        foreach (var p in rawPool.Parameters) pool.Parameters.Add(new ParameterDefinition(p.Name, p.Attributes, p.ParameterType));
+        logic.Methods.Add(pool);
+        var pi = pool.Body.GetILProcessor();
+        pi.Emit(OpCodes.Ldarg_0); pi.Emit(OpCodes.Ldarg_1); pi.Emit(OpCodes.Ldarg_0); pi.Emit(OpCodes.Ldarg_1);
+        pi.Emit(OpCodes.Call, rawPool); pi.Emit(OpCodes.Call, Ancient("Filter")); pi.Emit(OpCodes.Castclass, pool.ReturnType); pi.Emit(OpCodes.Ret);
+        foreach (var call in poolCalls) call.Operand = pool;
+        if (poolCalls.Length != 5) throw new InvalidOperationException("Unexpected Ancient pool caller count: " + poolCalls.Length);
+        var ancientClick = Logic("OnRefreshAncientPressed");
+        var ancientEntry = ancientClick.Body.Instructions[0]; var ac = ancientClick.Body.GetILProcessor();
+        ac.InsertBefore(ancientEntry, Instruction.Create(OpCodes.Ldarg_0));
+        ac.InsertBefore(ancientEntry, Instruction.Create(OpCodes.Call, Ancient("CanPress")));
+        ac.InsertBefore(ancientEntry, Instruction.Create(OpCodes.Brtrue, ancientEntry));
+        ac.InsertBefore(ancientEntry, Instruction.Create(OpCodes.Ret));
+        Widen(ancientClick);
+        var replaceGuard = Logic("TryReplaceAncientSafely");
+        var replaceEntry = replaceGuard.Body.Instructions[0]; var rg = replaceGuard.Body.GetILProcessor();
+        rg.InsertBefore(replaceEntry, Instruction.Create(OpCodes.Ldarg_2));
+        rg.InsertBefore(replaceEntry, Instruction.Create(OpCodes.Ldarg_3));
+        rg.InsertBefore(replaceEntry, Instruction.Create(OpCodes.Call, Ancient("CanReplace")));
+        rg.InsertBefore(replaceEntry, Instruction.Create(OpCodes.Brtrue, replaceEntry));
+        rg.InsertBefore(replaceEntry, Instruction.Create(OpCodes.Ldc_I4_0));
+        rg.InsertBefore(replaceEntry, Instruction.Create(OpCodes.Ret));
+        var replaceCall = replaceGuard.Body.Instructions.Single(i => i.Operand is MethodReference m && m.Name == "ReplaceAncientForSinglePlayer");
+        var old = Instruction.Create(OpCodes.Ldarg_2); var replacement = Instruction.Create(OpCodes.Ldarg_3);
+        var commit = Instruction.Create(OpCodes.Call, Ancient("CommitIfSuccessful"));
+        rg.InsertAfter(replaceCall, old); rg.InsertAfter(old, replacement); rg.InsertAfter(replacement, commit);
+        Widen(replaceGuard);
+        var cancel = Logic("HideButtonsIfCancelPressed");
+        var cancelEntry = cancel.Body.Instructions[0]; var ci = cancel.Body.GetILProcessor();
+        ci.InsertBefore(cancelEntry, Instruction.Create(OpCodes.Call, Catalog("ShouldSuppressCancel")));
+        ci.InsertBefore(cancelEntry, Instruction.Create(OpCodes.Brfalse, cancelEntry));
+        ci.InsertBefore(cancelEntry, Instruction.Create(OpCodes.Ret));
+        Widen(cancel);
         var config = Types(mod).Single(t => t.Name == "ModConfigBridge");
         BeforeReturn(config.Methods.Single(m => m.Name == "L"), (il, ret) =>
         {
@@ -89,9 +134,9 @@ internal static class FeaturesPatch
         register.Body.GetILProcessor().InsertBefore(store, Instruction.Create(OpCodes.Call, Feature("AddRussianLabels")));
         Widen(register);
         var info = mod.Assembly.CustomAttributes.Single(a => a.AttributeType.FullName == "System.Reflection.AssemblyInformationalVersionAttribute");
-        info.ConstructorArguments[0] = new CustomAttributeArgument(mod.TypeSystem.String, "1.4.3+unofficial.sts2.0.111.0.compat2.unique-options.ru");
+        info.ConstructorArguments[0] = new CustomAttributeArgument(mod.TypeSystem.String, "1.4.3+unofficial.sts2.0.111.0.compat3.catalogs.unique-ancients.ru");
         mod.Mvid = Guid.NewGuid();
         if (mod.GetTypeReferences().Any(t => t.Scope?.Name == "RuntimeFeatures")) throw new InvalidOperationException("Unmerged runtime reference.");
-        Console.WriteLine("Merged unique-option history, exhaustion guard, visible warning and Russian localization.");
+        Console.WriteLine("Merged unique options/Ancients, view-only catalogs, modal/cancel guards and Russian localization.");
     }
 }

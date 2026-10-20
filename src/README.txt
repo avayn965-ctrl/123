@@ -4,10 +4,15 @@ Requirements: .NET SDK 9, Python 3 for packaging, Mono.Cecil 0.11.6
 (automatically restored by dotnet build), ORIGINAL RefreshAncient 1.4.3 ZIP,
 and the user's sts2.dll v0.111.0. Input game/mod DLLs are not in this source.
 
-From the repository root, build, validate and package compat.2:
+From the repository root, build, validate and package compat.3:
   python tools/build_release.py --game-dll PATH/TO/sts2.dll --original-mod PATH/TO/ORIGINAL.zip
 
 Optional: --dotnet PATH/TO/dotnet --output-dir PATH/TO/OUTPUT
+Native window tests: --godot PATH/TO/Godot_v4.5.1-stable_mono_linux.x86_64
+Use Godot 4.5.1 Mono (the .NET build). Both source and merged helpers are
+tested in the engine, using the fake game API from tests/Fixtures.cs.
+The UI test project is ui-tests/UiTests.csproj; it is built automatically
+when --godot is supplied. Without that argument native tests are marked unrun.
 The script produces the binary ZIP, full source ZIP and validation report.
 
 Run the new feature tests without game files:
@@ -29,7 +34,9 @@ The test executable is deliberately named sts2.dll and defines tiny substitutes
 for the game API. It must NEVER be placed in the actual game directory.
 It is not the uploaded game DLL and is not included in the binary mod ZIP.
 
-These checks do not test actual gameplay/Godot startup/networking.
-History is in memory per event instance; game/save reload resets it.
+20 logic cases and 15 optional native Godot UI checks run in both modes.
+These checks do not launch the real game or test gameplay/networking.
+Option history is in memory per event instance. Ancient history is per
+run/player/room, surviving model replacements. Game/save reload resets both.
 Pre-update choices cannot be recovered from the existing save.
 Assembly MVID is regenerated, so independent builds may have different hashes.

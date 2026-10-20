@@ -142,4 +142,5 @@ Test("Orobas SeaGlass excludes locked/own characters and collapses identical tex
     orobas.Pool.Add(new Option { TextKey = "SEA_GLASS", Relic = new SeaGlass { CharacterId = "SILENT" } });
     Check(Remaining(orobas) == 1 && ((List<Option>)Generate(orobas)!)[0].Relic is SeaGlass { CharacterId: "SILENT" }, "invalid SeaGlass variant offered");
 });
+passed += CatalogFeatureTests.Run(api);
 Console.WriteLine($"{passed} feature tests passed ({(args.Length == 0 ? "runtime source" : "merged mod DLL")}).");

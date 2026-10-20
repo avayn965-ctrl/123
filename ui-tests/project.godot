@@ -1,0 +1,16 @@
+config_version=5
+
+[application]
+config/name="RefreshAncient native catalog tests"
+run/main_scene="res://Main.tscn"
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/subwindows/embed_subwindows=true
+
+[dotnet]
+project/assembly_name="sts2"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"

@@ -7,6 +7,8 @@ namespace Fixtures
         public bool IsProceed { get; set; }
         public Func<Task>? OnChosen { get; set; } = () => Task.CompletedTask;
         public object? Relic { get; set; }
+        public string Title { get; set; } = "Название награды";
+        public string Description { get; set; } = "Описание награды";
     }
     public sealed class Rng
     {
@@ -21,6 +23,9 @@ namespace Fixtures
         public List<Option> Pool { get; } = new();
         public Rng Rng { get; } = new();
         public Owner Owner { get; } = new();
+        public ModelId Id { get; set; } = new() { Entry = "ANCIENT" };
+        public string Title => "Древний " + Id.Entry;
+        public string InitialDescription => "Описание Древнего " + Id.Entry;
         public int Enumerations { get; private set; }
         public IEnumerable<Option> AllPossibleOptions { get { Enumerations++; return Pool; } }
         public void Apply(object value) => _currentOptions = (List<Option>)value;
@@ -35,7 +40,8 @@ namespace Fixtures
     public sealed class Owner
     {
         public Deck Deck { get; } = new();
-        public RunState RunState { get; } = new();
+        public RunState RunState { get; set; } = new();
+        public ulong NetId { get; set; } = 1;
         public UnlockState UnlockState { get; } = new();
         public Character Character { get; } = new() { Id = "IRONCLAD" };
         public bool HasPet { get; set; }
@@ -49,7 +55,12 @@ namespace Fixtures
         public string Rarity { get; set; } = "Basic";
         public string[] Tags { get; set; } = Array.Empty<string>();
     }
-    public sealed class RunState { public List<object> Modifiers { get; } = new(); }
+    public sealed class RunState
+    {
+        public List<object> Modifiers { get; } = new();
+        public string RunLocation { get; set; } = "act1-room1";
+    }
+    public sealed class ModelId { public string Entry { get; set; } = ""; }
     public sealed class UnlockState { public List<Character> Characters { get; } = new(); }
     public sealed class Character { public string Id { get; set; } = ""; }
     public sealed class Button
