@@ -1,0 +1,6 @@
+{
+  "GU_ZHEN_REN_POTION_SHENG_JI_YE.title": "Живительная жидкость",
+  "GU_ZHEN_REN_POTION_SHENG_JI_YE.description": "Восстановите {Heal:diff()} ОЗ.",
+  "GU_ZHEN_REN_POTION_FU_REN_XIN.title": "Ядовитое сердце",
+  "GU_ZHEN_REN_POTION_FU_REN_XIN.description": "Наложите {PoisonPower} Яда. Каждое убийство врага, кроме прислужника, увеличивает количество Яда этого зелья на 3."
+}

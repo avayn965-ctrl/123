@@ -1,4 +1,6 @@
 **/bin/
 **/obj/
 **/.godot/
+**/__pycache__/
 ui-tests/*.uid
+guzhenren-ru/tests/*.uid

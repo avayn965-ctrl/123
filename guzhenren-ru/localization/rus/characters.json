@@ -1,0 +1,19 @@
+{
+  "GU_ZHEN_REN_CHARACTER_FANG_YUAN_CHARACTER.title": "Гу Юэ Фан Юань",
+  "GU_ZHEN_REN_CHARACTER_FANG_YUAN_CHARACTER.titleObject": "Гу Юэ Фан Юань",
+  "GU_ZHEN_REN_CHARACTER_FANG_YUAN_CHARACTER.description": "Пусть горная дорога тверда, словно железо, — я снова начну свой путь с первого шага.\nПусть дух мой полон сил неба и земли, сердце всё так же стремится к небесам.",
+  "GU_ZHEN_REN_CHARACTER_FANG_YUAN_CHARACTER.cardsModifierTitle": "Карты Фан Юаня",
+  "GU_ZHEN_REN_CHARACTER_FANG_YUAN_CHARACTER.cardsModifierDescription": "Карты Фан Юаня теперь могут появляться в наградах и магазинах.",
+  "GU_ZHEN_REN_CHARACTER_FANG_YUAN_CHARACTER.possessiveAdjective": "его",
+  "GU_ZHEN_REN_CHARACTER_FANG_YUAN_CHARACTER.pronounObject": "его",
+  "GU_ZHEN_REN_CHARACTER_FANG_YUAN_CHARACTER.pronounPossessive": "его",
+  "GU_ZHEN_REN_CHARACTER_FANG_YUAN_CHARACTER.pronounSubject": "он",
+  "GU_ZHEN_REN_CHARACTER_FANG_YUAN_CHARACTER.unlockText": "Пройдите забег за персонажа [pink]{Prerequisite}[/pink], чтобы открыть этого персонажа.",
+  "GU_ZHEN_REN_CHARACTER_FANG_YUAN_CHARACTER.banter.alive.endTurnPing": "Не нужно ждать. Если у вас нет других ходов, давайте вместе завершим ход.",
+  "GU_ZHEN_REN_LONG_GONG_ACT4.kicker": "ИСПЫТАНИЕ ФИНАЛЬНОГО АКТА",
+  "GU_ZHEN_REN_LONG_GONG_ACT4.title": "Акт IV: Небесный двор",
+  "GU_ZHEN_REN_LONG_GONG_ACT4.description": "После акта III войдите в Небесный двор и сразитесь с Герцогом Луном.",
+  "GU_ZHEN_REN_LONG_GONG_ACT4.enabled": "Включено",
+  "GU_ZHEN_REN_LONG_GONG_ACT4.disabled": "Отключено",
+  "GU_ZHEN_REN_LONG_GONG_ACT4.host_configured": "Настройку определяет хост"
+}

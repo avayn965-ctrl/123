@@ -1,0 +1,12 @@
+{
+  "id": "GuZhenRenRussian",
+  "name": "GuZhenRen — Русский / English (P)",
+  "author": "Unofficial localization; original mod: miku332",
+  "description": "Русский перевод GuZhenRen 0.7.2 / 0.7.2-beta.1. P переключает только этот мод на английский и обратно, отдельно у каждого игрока.",
+  "version": "0.7.2-ru.1",
+  "min_game_version": "0.107.1",
+  "has_pck": false,
+  "has_dll": true,
+  "affects_gameplay": false,
+  "dependencies": [{ "id": "GuZhenRen" }]
+}

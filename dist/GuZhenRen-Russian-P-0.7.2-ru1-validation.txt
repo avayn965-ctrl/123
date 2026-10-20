@@ -1,0 +1,94 @@
+GuZhenRen Russian/P 0.7.2-ru.1 validation
+Game API input SHA256: 0861bfa1df347538d932f22d580e75420f08082792eb914e53b4882764acdbe9
+Addon SHA256: 8acef66e0d5e77bc38ab6bce45a3c965f14ee8c2b51f64fe96dc1640cc635fab
+Archive SHA256: ff40fbde8130ce711d4e011b5528127f8adf34f5f314bea4823092eb3aa5849f
+
+PASS: 1388 entries in 13 tables; keys, SmartFormat variable/selector trees and BBCode preserved.
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.95
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.70
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.40
+
+PASS: 4 direct game API calls resolve; locale refresh and card display reflection API exist.
+PASS: original ShuiWenGu async title getter matches the narrow gameplay-preservation hook; cleanup uses finally.
+PASS: addon contains both complete language sets and has no networking or RNG API references.
+
+PASS: exact original English values match all 13 PCK tables for 0.7.2-beta.1.
+
+Original ZIP release-beta.zip SHA256: ad3a8cc9d5ed111d942445ca7dba9e4b9d6543f023347ddb02cf6f17084b432a
+
+PASS: 4 direct game API calls resolve; locale refresh and card display reflection API exist.
+PASS: original ShuiWenGu async title getter matches the narrow gameplay-preservation hook; cleanup uses finally.
+PASS: addon contains both complete language sets and has no networking or RNG API references.
+
+PASS: exact original English values match all 13 PCK tables for 0.7.2.
+
+Original ZIP release.zip SHA256: 298f66466e0c8ba7e1e29aea3f78829526c38c5bbc55d6db6d9191ea92387391
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+[GuZhenRen Russian] Loaded. P switches only GuZhenRen: Русский / English.
+PASS: Russian is the default for this mod
+PASS: real Harmony patch overrides the original LocString method
+PASS: base game keys retain the original method
+PASS: other mods keep their own localization
+PASS: lookup respects the localization table
+PASS: original literal settings strings are translated
+PASS: title-length gameplay uses original text before and after await in Russian mode
+PASS: original-text scope does not leak into UI between async continuations
+PASS: gameplay exceptions restore the original-text scope
+[GuZhenRen Russian] English
+PASS: P changes already-visible text to exact original English
+PASS: visible cards refresh without resetting upgrade previews or their pile
+PASS: P keeps the game language and base text unchanged
+PASS: settings follow English mode
+PASS: different Russian/English choices produce the same relic gameplay input
+PASS: held P toggles once; initialization is idempotent
+[GuZhenRen Russian] Русский
+PASS: a second P restores Russian immediately
+PASS: P typed in chat/text fields does not switch language
+[GuZhenRen Russian] English
+PASS: P continues to work while gameplay is paused
+[GuZhenRen Russian] Русский
+PASS: Russian selection is saved only in local user storage
+PASS: one locale notification per accepted key press
+20 GU RUSSIAN NATIVE CHECKS PASSED
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+[GuZhenRen Russian] Loaded. P switches only GuZhenRen: Русский / English.
+[GuZhenRen Russian] English
+PASS: English saved to local settings
+LANGUAGE PROBE save PASSED
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+[GuZhenRen Russian] Loaded. P switches only GuZhenRen: Русский / English.
+PASS: another player's process keeps Russian independently
+LANGUAGE PROBE peer PASSED
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+[GuZhenRen Russian] Loaded. P switches only GuZhenRen: Русский / English.
+PASS: English restored in a new Godot process
+LANGUAGE PROBE read PASSED
+
+NOT RUN: full game launch or an actual multiplayer network session.
+Native Godot tests use fake game classes and real Harmony/input. Separate user-data directories simulate independent local preferences.

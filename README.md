@@ -1,5 +1,7 @@
 # RefreshAncient — игровые карточки наград и миниатюры Древних
 
+Также в репозитории: **[русский перевод GuZhenRen 0.7.2 / 0.7.2-beta.1 с локальным переключением P](guzhenren-ru/README.md)** — отдельное дополнение для одиночной и сетевой игры.
+
 Неофициальное обновление RefreshAncient 1.4.3 (автор исходного мода — Sparking3985) для **Slay the Spire 2 v0.111.0** от 14 августа 2026 года, commit `41cef1ea`.
 
 **[Скачать мод 1.4.3-compat.7](https://github.com/avayn965-ctrl/123/raw/refs/heads/main/dist/RefreshAncient-compat7-sts2-0.111.0.zip)**
