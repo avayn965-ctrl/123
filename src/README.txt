@@ -4,7 +4,7 @@ Requirements: .NET SDK 9, Python 3 for packaging, Mono.Cecil 0.11.6
 (automatically restored by dotnet build), ORIGINAL RefreshAncient 1.4.3 ZIP,
 and the user's sts2.dll v0.111.0. Input game/mod DLLs are not in this source.
 
-From the repository root, build, validate and package compat.5:
+From the repository root, build, validate and package compat.6:
   python tools/build_release.py --game-dll PATH/TO/sts2.dll --original-mod PATH/TO/ORIGINAL.zip
 
 Optional: --dotnet PATH/TO/dotnet --output-dir PATH/TO/OUTPUT
@@ -34,7 +34,7 @@ The test executable is deliberately named sts2.dll and defines tiny substitutes
 for the game API. It must NEVER be placed in the actual game directory.
 It is not the uploaded game DLL and is not included in the binary mod ZIP.
 
-20 logic cases and 40 optional native Godot UI checks run in both modes.
+27 logic cases and 63 optional native Godot UI checks run in both modes.
 These checks do not launch the real game or test gameplay/networking.
 Option history is in memory per event instance. Ancient history is per
 run/player/room, surviving model replacements. Game/save reload resets both.
@@ -60,3 +60,16 @@ The native harness uses a stand-in for that game factory; its real signatures
 are audited against the supplied game DLL. Actual game scenes are untested.
 H is polled through the original per-frame UI update hook, with rising-edge
 detection and text-editor focus protection. Both paid click guards honor it.
+
+ButtonPlacement saves normalized coordinates for each of the four buttons
+in user://refreshancient-button-positions.cfg, using an atomic temp-file move.
+Native save/read probes run as separate Godot processes, testing real restart
+persistence and viewport resizing. J edits placement; K removes overrides.
+The keyboard settings and existing price fields are added through the original
+ModConfig BuildEntries hook. Editing a price activates Custom. Labels and both
+original price resolvers use ModSettings.Cost; host-supplied resolved costs
+and the existing protocol/refunds remain intact. Matching prices are needed
+on all peers; placement/keybindings are local.
+Catalog order is stable within seen/current/available/unavailable groups.
+Reward frames use red/green/yellow/gray borders; underlying models stay paired
+with their original icons, descriptions and hover-tip data.

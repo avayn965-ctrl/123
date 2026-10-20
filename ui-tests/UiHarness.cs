@@ -41,6 +41,14 @@ public partial class UiHarness : Control
             // Use a real 1280x720 logical viewport for layout/scroll tests.
             GetWindow().ContentScaleMode = Window.ContentScaleModeEnum.Viewport;
             GetWindow().ContentScaleSize = new Vector2I(1280, 720);
+            string? probe = System.Environment.GetEnvironmentVariable("REFRESH_PLACEMENT_PROBE");
+            if (!string.IsNullOrEmpty(probe))
+            {
+                PlacementChecks.Probe(this, assembly, probe); GetTree().Quit(); return;
+            }
+            Type placement = assembly.GetType("RefreshAncient.Compat2.ButtonPlacement", true)!;
+            string positionFile = (string)placement.GetMethod("SettingsPath")!.Invoke(null, null)!;
+            if (File.Exists(positionFile)) File.Delete(positionFile);
             LocManager.Instance.Language = "rus";
             var current = new Ancient(); current.Fill(40); current.Id.Entry = "A";
             foreach (var option in current.Pool) option.Description = new string('Ж', 120) + "\nОписание награды и её эффектов.";
@@ -185,6 +193,9 @@ public partial class UiHarness : Control
             Input.ParseInputEvent(new InputEventKey { Keycode = Key.H, PhysicalKeycode = Key.H, Pressed = false }); editor.ReleaseFocus(); editor.QueueFree();
             options.Visible = false; ancients.Visible = false; Call(_catalog, "Update", this);
             Check(!allOptions.Visible && !allAncients.Visible, "catalog buttons follow original visibility rules");
+            PlacementChecks.Run(this, assembly, Check);
+            await Frames(2);
+            await CatalogChecks.Run(this, assembly, Check);
             GD.Print($"{_checks} native Godot 4.5.1 UI checks passed ({(string.IsNullOrEmpty(path) ? "runtime source" : "merged mod DLL")}).");
             GetTree().Quit();
         }

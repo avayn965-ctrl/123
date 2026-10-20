@@ -10,5 +10,6 @@
   <ItemGroup>
     <ProjectReference Include="../runtime/RuntimeFeatures.csproj" />
     <Compile Include="../tests/Fixtures.cs" Link="Fixtures.cs" />
+    <Compile Include="../tests/ModConfigFixture.cs" Link="ModConfigFixture.cs" />
   </ItemGroup>
 </Project>

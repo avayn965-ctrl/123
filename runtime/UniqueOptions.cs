@@ -305,7 +305,7 @@ public static class UniqueOptions
 
     public static bool CanPress(object layout)
     {
-        if (CatalogUi.IsOpen() || CatalogUi.ButtonsHidden(layout)) return false;
+        if (CatalogUi.IsOpen() || CatalogUi.ButtonsHidden(layout) || ButtonPlacement.BlocksClick(layout)) return false;
         try
         {
             object? ancient = CurrentAncient();

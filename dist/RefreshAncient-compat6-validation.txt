@@ -1,0 +1,274 @@
+RefreshAncient 1.4.3-compat.6 validation
+Target: STS2 v0.111.0 (41cef1ea).
+Original mod SHA-256: adee9483c4f47e5aaa4c5f352e0f65d7e436ca369cd12cc165d8d86f6a2e612a
+Game DLL SHA-256: 0861bfa1df347538d932f22d580e75420f08082792eb914e53b4882764acdbe9
+Patched mod SHA-256: eb553d8fd26531aea6a965dd5b31d8533f5ad048429385f508a202a371d79cd5
+Archive SHA-256: 2cf3f1043c96305411ddddd3baefb8ef8be5f2951e0b64578bd876b131fcafb8
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.20
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.10
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.18
+
+Patched /tmp/refresh-ancient-zj3kfqfs/compat1.dll; 53 game references resolved; 2 replacement callers guarded.
+
+PASS: exactly four existing method bodies changed; two helpers added; embedded resources preserved.
+PASS: new constructor parameter list and BeginEvent argument order match the supplied game DLL.
+PASS: reflected fields and methods needed for event replacement/options exist with the expected room API signatures.
+[RefreshAncient Compat 0.111.0] Replacement failed; caller will refund gold: System.InvalidOperationException: Synthetic replacement failure
+   at Tests.Harness.ReplacementCore(EventSynchronizer, Player, AncientEventModel, AncientEventModel)
+   at Tests.Harness.Guard(EventSynchronizer sync, Player player, AncientEventModel currentAncient, AncientEventModel replacementCanonical)
+[RefreshAncient Compat 0.111.0] Replacement failed; caller will refund gold: System.MissingMethodException: Method not found: 'Void MegaCrit.Sts2.Core.Models.EventModel.MissingOldBeginEvent()'.
+   at Tests.Harness.MissingMethodCore(EventSynchronizer, Player, AncientEventModel, AncientEventModel)
+   at Tests.Harness.JitGuard(EventSynchronizer sync, Player player, AncientEventModel currentAncient, AncientEventModel replacementCanonical)
+PASS: patched IL passes the same combat synchronizer, player and pre-finished flag to the new BeginEvent API.
+PASS: patched constructor selector resolves the six-parameter API; the old five-parameter signature is absent.
+PASS: replacement guard preserves true/false results and catches both runtime exceptions and actual JIT MissingMethodException.
+
+Merged unique options/Ancients, view-only visual catalogs, modal/cancel guards and Russian localization.
+Wrote /tmp/refresh-ancient-zj3kfqfs/RefreshAncient.dll
+
+PASS: 52 direct game API references resolve.
+PASS: exactly 19 original feature hooks changed; compat1 replacement core, refund paths and constructor fixes preserved.
+PASS: displayed prices and solo/host cost resolvers share ModSettings.Cost; existing resolved-cost network/refund paths are preserved.
+PASS: solo, host, remote reconstruction, commit, exhaustion preflight and UI paths are connected to the new logic.
+PASS: original act/unlock pool is preserved; Ancient history filters every pool path and guards/commits actual replacements.
+PASS: catalog windows are wired to UI updates and Escape cannot latch the pause controls while a catalog closes.
+PASS: new eligibility/localization reflection API exists in the supplied v0.111.0 game DLL.
+PASS: reward textures and Ancient top-bar room icon textures exist in the supplied game API.
+PASS: original option hover-tip data, factory, alignment and removal API exist in the supplied game DLL.
+PASS: no extra runtime DLL dependency; embedded resources are unchanged.
+
+PASS: third, fourth and fifth refresh never repeat initial or previously displayed choices
+PASS: last partial batch contains only the remaining choice; exhausted preview draws no RNG
+PASS: unpaid/unapplied previews do not consume choices
+PASS: duplicate text keys, locked/proceed/non-action options are excluded
+PASS: UI polling materializes the pool once and never consumes RNG
+PASS: history is isolated by player/event instance and resets for a replaced Ancient
+PASS: host/client selections and RNG remain equal for four refreshes; stale keys are rejected
+PASS: exhausted button visibly warns in Russian, stays disabled and rejects click preflight
+PASS: Russian uses game language; English and Chinese button text remain available
+PASS: Neow modifiers and relic eligibility are respected
+PASS: enchantment/card/pet restrictions for Nonupeipe, Tanx, Pael and Tezcatara are respected
+PASS: Darv filters are applied and DustyTome random setup is deferred until selection
+PASS: Orobas SeaGlass excludes locked/own characters and collapses identical text keys
+PASS: Ancient rerolls exclude the initial and every successful replacement until exhaustion
+PASS: failed Ancient replacements and inspection do not consume candidates; unknown/duplicate IDs are rejected
+PASS: Ancient history is per player and room and resets in a new run
+PASS: host/client Ancient histories produce equal pools and reject replayed replacements
+PASS: option catalog shows current, previous, remaining and ineligible entries without spending RNG
+PASS: Ancient catalog includes localized titles, descriptions and status of replaced models
+PASS: catalog preview does not roll DustyTome random card and strips display markup
+PASS: ModConfig keeps original controls and registers all three localized keyboard settings
+PASS: editing a price enables Custom immediately and leaves the other price intact
+PASS: price validation accepts free refreshes and clamps negative and oversized input to protocol limits
+PASS: both actual button labels follow independent price edits without a restart
+PASS: preset modes preserve their prices and Custom reads the shared configured values
+PASS: all three keybindings can change and reject duplicates and invalid key names
+PASS: saved ModConfig keybindings load during a fresh registration
+27 feature tests passed (runtime source).
+
+PASS: third, fourth and fifth refresh never repeat initial or previously displayed choices
+PASS: last partial batch contains only the remaining choice; exhausted preview draws no RNG
+PASS: unpaid/unapplied previews do not consume choices
+PASS: duplicate text keys, locked/proceed/non-action options are excluded
+PASS: UI polling materializes the pool once and never consumes RNG
+PASS: history is isolated by player/event instance and resets for a replaced Ancient
+PASS: host/client selections and RNG remain equal for four refreshes; stale keys are rejected
+PASS: exhausted button visibly warns in Russian, stays disabled and rejects click preflight
+PASS: Russian uses game language; English and Chinese button text remain available
+PASS: Neow modifiers and relic eligibility are respected
+PASS: enchantment/card/pet restrictions for Nonupeipe, Tanx, Pael and Tezcatara are respected
+PASS: Darv filters are applied and DustyTome random setup is deferred until selection
+PASS: Orobas SeaGlass excludes locked/own characters and collapses identical text keys
+PASS: Ancient rerolls exclude the initial and every successful replacement until exhaustion
+PASS: failed Ancient replacements and inspection do not consume candidates; unknown/duplicate IDs are rejected
+PASS: Ancient history is per player and room and resets in a new run
+PASS: host/client Ancient histories produce equal pools and reject replayed replacements
+PASS: option catalog shows current, previous, remaining and ineligible entries without spending RNG
+PASS: Ancient catalog includes localized titles, descriptions and status of replaced models
+PASS: catalog preview does not roll DustyTome random card and strips display markup
+PASS: ModConfig keeps original controls and registers all three localized keyboard settings
+PASS: editing a price enables Custom immediately and leaves the other price intact
+PASS: price validation accepts free refreshes and clamps negative and oversized input to protocol limits
+PASS: both actual button labels follow independent price edits without a restart
+PASS: preset modes preserve their prices and Custom reads the shared configured values
+PASS: all three keybindings can change and reject duplicates and invalid key names
+PASS: saved ModConfig keybindings load during a fresh registration
+27 feature tests passed (merged mod DLL).
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.42
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+PASS UI: both localized browse buttons are created
+PASS UI: wide layout puts catalog buttons beside paid buttons without overlap
+PASS UI: UI updates reuse buttons instead of duplicating them
+PASS UI: options button opens a real exclusive catalog window
+PASS UI: the first popup stays within screen height after its initial container layout
+PASS UI: long visual catalog has native scrollable visible content
+PASS UI: mouse wheel scrolls cards on the first opening without reopening
+PASS UI: every reward is a card using the original event background
+PASS UI: reward cards preserve the gold title, colored keywords and rich description
+PASS UI: game-style custom color effects survive copying without label scripts
+PASS UI: reward cards show the exact relic icon and outline
+PASS UI: hoverable catalog cards have no clickable or focusable gameplay controls
+PASS UI: visual copies have no original signals and leave live options unchanged
+PASS UI: long descriptions wrap and fit their cards without clipping
+PASS UI: modal window blocks both refresh actions
+PASS UI: opening catalog spends no RNG and consumes no options or Ancients
+PASS UI: keyboard PageDown scrolls on the first opening
+PASS UI: End reaches the last options on the first opening
+PASS UI: Home returns to the first options
+PASS UI: scrollbar is visible and fully inside the first popup
+PASS UI: mouse hover passes the option's original extra information to the game tip factory
+PASS UI: game tips appear inside the exclusive catalog window and stay within its bounds
+PASS UI: moving away removes the game tip
+PASS UI: scrolling over a hovered card keeps working and clears its stale tip
+PASS UI: Close button hides the window and shields the pause latch
+PASS UI: closing the catalog clears hover tips without consuming RNG
+PASS UI: pause suppression expires after closing
+PASS UI: Ancient catalog reuses the window with correct content
+PASS UI: Ancient names use the small top-bar icon rather than the map portrait
+PASS UI: Ancient miniature retains its outline and availability status
+PASS UI: Escape closes the native catalog window
+PASS UI: switching catalogs replaces old cards and resets scroll position
+PASS UI: window close request works and reopening does not duplicate dialogs
+PASS UI: narrow layout stacks buttons without overlap
+PASS UI: exhausted Ancient button is disabled while its catalog remains accessible
+PASS UI: H hides all four mod buttons and blocks refresh preflight
+PASS UI: holding H does not repeatedly toggle visibility during game UI updates
+PASS UI: pressing H again restores all four buttons and preserves exhaustion restrictions
+PASS UI: typing H into a text field does not toggle mod controls
+PASS UI: catalog buttons follow original visibility rules
+PASS UI: J enables move mode and the four-arrow cursor on all buttons
+PASS UI: holding J does not repeatedly leave move mode
+PASS UI: all four buttons can move independently, including a disabled paid button
+PASS UI: drag mode blocks paid refreshes and catalog opening
+PASS UI: normal game placement updates cannot overwrite the dragged positions
+PASS UI: all four positions are saved to the user settings file
+PASS UI: pressing J again ends dragging and restores button cursors
+PASS UI: normal mode does not move a button on mouse drag
+PASS UI: K restores all original positions and removes the saved overrides
+PASS UI: dragging clamps buttons to the visible screen
+PASS UI: live price labels refresh while exhaustion warnings keep priority
+PASS UI: the previous movement key stops working after rebinding
+PASS UI: configured movement key enables the same drag behavior
+PASS UI: configured reset key restores original placement
+PASS UI: configured hide key hides all four buttons
+PASS UI: configured hide key restores all four buttons
+PASS UI: catalog sorts all previously shown choices before current and still available choices
+PASS UI: ineligible rewards remain visible as a separate final group
+PASS UI: every already-shown choice has a red frame
+PASS UI: every current choice has a green frame
+PASS UI: every still-available choice has a yellow frame
+PASS UI: sorting preserves the pairing of each reward title, description and relic icon
+PASS UI: sorted cards keep the correct game hover tips without consuming RNG
+63 native Godot 4.5.1 UI checks passed (runtime source).
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+PLACEMENT PROBE SAVED: 4 positions in user storage.
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+PLACEMENT PROBE RESTORED: 4 positions after process restart; all fit a resized viewport.
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+PASS UI: both localized browse buttons are created
+PASS UI: wide layout puts catalog buttons beside paid buttons without overlap
+PASS UI: UI updates reuse buttons instead of duplicating them
+PASS UI: options button opens a real exclusive catalog window
+PASS UI: the first popup stays within screen height after its initial container layout
+PASS UI: long visual catalog has native scrollable visible content
+PASS UI: mouse wheel scrolls cards on the first opening without reopening
+PASS UI: every reward is a card using the original event background
+PASS UI: reward cards preserve the gold title, colored keywords and rich description
+PASS UI: game-style custom color effects survive copying without label scripts
+PASS UI: reward cards show the exact relic icon and outline
+PASS UI: hoverable catalog cards have no clickable or focusable gameplay controls
+PASS UI: visual copies have no original signals and leave live options unchanged
+PASS UI: long descriptions wrap and fit their cards without clipping
+PASS UI: modal window blocks both refresh actions
+PASS UI: opening catalog spends no RNG and consumes no options or Ancients
+PASS UI: keyboard PageDown scrolls on the first opening
+PASS UI: End reaches the last options on the first opening
+PASS UI: Home returns to the first options
+PASS UI: scrollbar is visible and fully inside the first popup
+PASS UI: mouse hover passes the option's original extra information to the game tip factory
+PASS UI: game tips appear inside the exclusive catalog window and stay within its bounds
+PASS UI: moving away removes the game tip
+PASS UI: scrolling over a hovered card keeps working and clears its stale tip
+PASS UI: Close button hides the window and shields the pause latch
+PASS UI: closing the catalog clears hover tips without consuming RNG
+PASS UI: pause suppression expires after closing
+PASS UI: Ancient catalog reuses the window with correct content
+PASS UI: Ancient names use the small top-bar icon rather than the map portrait
+PASS UI: Ancient miniature retains its outline and availability status
+PASS UI: Escape closes the native catalog window
+PASS UI: switching catalogs replaces old cards and resets scroll position
+PASS UI: window close request works and reopening does not duplicate dialogs
+PASS UI: narrow layout stacks buttons without overlap
+PASS UI: exhausted Ancient button is disabled while its catalog remains accessible
+PASS UI: H hides all four mod buttons and blocks refresh preflight
+PASS UI: holding H does not repeatedly toggle visibility during game UI updates
+PASS UI: pressing H again restores all four buttons and preserves exhaustion restrictions
+PASS UI: typing H into a text field does not toggle mod controls
+PASS UI: catalog buttons follow original visibility rules
+PASS UI: J enables move mode and the four-arrow cursor on all buttons
+PASS UI: holding J does not repeatedly leave move mode
+PASS UI: all four buttons can move independently, including a disabled paid button
+PASS UI: drag mode blocks paid refreshes and catalog opening
+PASS UI: normal game placement updates cannot overwrite the dragged positions
+PASS UI: all four positions are saved to the user settings file
+PASS UI: pressing J again ends dragging and restores button cursors
+PASS UI: normal mode does not move a button on mouse drag
+PASS UI: K restores all original positions and removes the saved overrides
+PASS UI: dragging clamps buttons to the visible screen
+PASS UI: live price labels refresh while exhaustion warnings keep priority
+PASS UI: the previous movement key stops working after rebinding
+PASS UI: configured movement key enables the same drag behavior
+PASS UI: configured reset key restores original placement
+PASS UI: configured hide key hides all four buttons
+PASS UI: configured hide key restores all four buttons
+PASS UI: catalog sorts all previously shown choices before current and still available choices
+PASS UI: ineligible rewards remain visible as a separate final group
+PASS UI: every already-shown choice has a red frame
+PASS UI: every current choice has a green frame
+PASS UI: every still-available choice has a yellow frame
+PASS UI: sorting preserves the pairing of each reward title, description and relic icon
+PASS UI: sorted cards keep the correct game hover tips without consuming RNG
+63 native Godot 4.5.1 UI checks passed (merged mod DLL).
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+PLACEMENT PROBE SAVED: 4 positions in user storage.
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+PLACEMENT PROBE RESTORED: 4 positions after process restart; all fit a resized viewport.
+
+NOT RUN: actual game launch, gameplay and network session.
+Option history is in memory per event instance; Ancient history is per run/player/room. Both reset on restart/save reload.

@@ -117,6 +117,27 @@ internal static class CatalogCards
         Passive(image);
         CatalogUi.Add(parent, image);
     }
+    public static int StatusRank(string status) => status == "seen" ? 0 : status == "current" ? 1 : status == "available" ? 2 : 3;
+    private static void Border(object card, string status)
+    {
+        object panel = CatalogUi.New("Panel");
+        CatalogUi.Name(panel, "StatusBorder");
+        object style = CatalogUi.New("StyleBoxFlat");
+        UniqueOptions.Set(style, "DrawCenter", false);
+        UniqueOptions.Set(style, "BorderWidthLeft", 3);
+        UniqueOptions.Set(style, "BorderWidthRight", 3);
+        UniqueOptions.Set(style, "BorderWidthTop", 3);
+        UniqueOptions.Set(style, "BorderWidthBottom", 3);
+        UniqueOptions.Set(style, "CornerRadiusTopLeft", 3);
+        UniqueOptions.Set(style, "CornerRadiusTopRight", 3);
+        UniqueOptions.Set(style, "CornerRadiusBottomLeft", 3);
+        UniqueOptions.Set(style, "CornerRadiusBottomRight", 3);
+        UniqueOptions.Set(style, "BorderColor", status == "seen" ? Color(1, 0.05f, 0.05f, 1)
+            : status == "current" ? Color(0.12f, 0.95f, 0.2f, 1)
+            : status == "available" ? Color(1, 0.87f, 0, 1) : Color(0.5f, 0.5f, 0.5f, 1));
+        Style(panel, style);
+        CatalogUi.Add(card, panel);
+    }
     internal static void Fill(object layout, object parent, string[][] rows, object[] models, bool ancients)
     {
         CatalogHover.Clear();
@@ -127,7 +148,9 @@ internal static class CatalogCards
         }
         object? imageTemplate = Template(layout, "Image");
         object? textTemplate = Template(layout, "Text");
-        for (int i = 0; i < rows.Length; i++)
+        IEnumerable<int> order = Enumerable.Range(0, rows.Length);
+        if (!ancients) order = order.OrderBy(i => StatusRank(rows[i][2]));
+        foreach (int i in order)
         {
             object card = CatalogUi.New("PanelContainer");
             CatalogUi.Name(card, "CatalogCard_" + i);
@@ -166,6 +189,7 @@ internal static class CatalogCards
             UniqueOptions.Set(status, "Modulate", Color(0.75f, 0.79f, 0.87f, 1));
             CatalogUi.Add(texts, status);
             CatalogUi.Add(body, texts); CatalogUi.Add(margin, body); CatalogUi.Add(card, margin);
+            if (!ancients) Border(card, rows[i][2]);
             Passive(card);
             if (!ancients && model != null) CatalogHover.Bind(card, model);
             CatalogUi.Add(parent, card);

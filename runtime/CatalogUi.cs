@@ -19,7 +19,7 @@ public static class CatalogUi
         public object? Rows;
         public object? Scroll;
         public bool ButtonsHidden;
-        public bool HWasDown;
+        public readonly bool[] KeyWasDown = new bool[3];
     }
     private static readonly ConditionalWeakTable<object, View> Views = new();
     private static WeakReference<object>? _openDialog;
@@ -60,6 +60,11 @@ public static class CatalogUi
     {
         EventInfo signal = range.GetType().GetEvent("ValueChanged")!;
         signal.AddEventHandler(range, Delegate.CreateDelegate(signal.EventHandlerType!, action.Target, action.Method));
+    }
+    internal static void OnGuiInput(object control, Action<object> input)
+    {
+        EventInfo signal = control.GetType().GetEvent("GuiInput")!;
+        signal.AddEventHandler(control, Delegate.CreateDelegate(signal.EventHandlerType!, input.Target, input.Method));
     }
     private static void BindScrollKeys(object bar)
     {
@@ -108,15 +113,20 @@ public static class CatalogUi
     {
         Type input = GodotType("Input");
         MethodInfo pressed = input.GetMethod("IsPhysicalKeyPressed", BindingFlags.Static | BindingFlags.Public)!;
-        bool down = pressed.Invoke(null, new[] { Enum.Parse(pressed.GetParameters()[0].ParameterType, "H") }) is true;
-        bool edge = down && !view.HWasDown;
-        view.HWasDown = down;
-        if (!edge || UniqueOptions.Call(view.Layout, "IsVisibleInTree") is not true) return;
-        object window = UniqueOptions.Call(view.Layout, "GetWindow")!;
+        bool[] edge = new bool[3];
+        for (int i = 0; i < edge.Length; i++)
+        {
+            bool down = pressed.Invoke(null, new[] { Enum.Parse(pressed.GetParameters()[0].ParameterType, ModSettings.KeyName(i)) }) is true;
+            edge[i] = down && !view.KeyWasDown[i]; view.KeyWasDown[i] = down;
+        }
+        if (UniqueOptions.Call(view.Layout, "IsVisibleInTree") is not true) return;
+        object window = UniqueOptions.Call(view.Layout, "GetLastExclusiveWindow") ?? UniqueOptions.Call(view.Layout, "GetWindow")!;
         object? focus = UniqueOptions.Call(window, "GuiGetFocusOwner");
         for (Type? type = focus?.GetType(); type != null; type = type.BaseType)
             if (type.FullName == "Godot.LineEdit" || type.FullName == "Godot.TextEdit") return;
-        view.ButtonsHidden = !view.ButtonsHidden;
+        if (edge[0]) view.ButtonsHidden = !view.ButtonsHidden;
+        if (edge[1] && !IsOpen()) ButtonPlacement.Toggle(view.Layout);
+        if (edge[2]) ButtonPlacement.Reset(view.Layout);
     }
 
     public static string LocalizedText(object? text, string fallback) => StripMarkup(RichText(text, fallback));
@@ -208,6 +218,7 @@ public static class CatalogUi
             object? options = UniqueOptions.Call(layout, "FindChild", "RefreshAncient_RefreshOptionsButton", true, false);
             object? ancients = UniqueOptions.Call(layout, "FindChild", "RefreshAncient_RefreshAncientButton", true, false);
             if (options == null && ancients == null) return;
+            ModSettings.SyncLabels(options, ancients);
             View view = Ensure(layout);
             PollHotkey(view);
             bool showOptions = options != null && UniqueOptions.Get(options, "Visible") is true;
@@ -234,6 +245,7 @@ public static class CatalogUi
                 UniqueOptions.Set(ancients!, "TooltipText", Text("Все доступные Древние в этой комнате уже были показаны. Золото не списывается.", "All available Ancients in this room have already been shown. No gold is charged.", "本房间所有可用的先古之民都已展示，不会扣除金币。"));
             }
             Place(layout, view, options, ancients, showOptions, showAncients);
+            ButtonPlacement.Apply(layout, options, ancients, view.OptionsButton, view.AncientsButton);
         }
         catch (Exception error) { UniqueOptions.Log(error); }
     }
@@ -265,7 +277,7 @@ public static class CatalogUi
 
     public static void Open(object layout, bool ancients)
     {
-        if (IsOpen() || ButtonsHidden(layout)) return;
+        if (IsOpen() || ButtonsHidden(layout) || ButtonPlacement.BlocksClick(layout)) return;
         try
         {
             object? current = UniqueOptions.CurrentAncient();

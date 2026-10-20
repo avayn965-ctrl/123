@@ -36,8 +36,10 @@ internal static class FeaturesPatch
         MethodDefinition Feature(string name, int parameters = -1) => feature.Methods.Single(m => m.Name == name && (parameters < 0 || m.Parameters.Count == parameters));
         var ancientHistory = Types(mod).Single(t => t.FullName == "RefreshAncient.Compat2.AncientHistory");
         var catalog = Types(mod).Single(t => t.FullName == "RefreshAncient.Compat2.CatalogUi");
+        var settings = Types(mod).Single(t => t.FullName == "RefreshAncient.Compat2.ModSettings");
         MethodDefinition Ancient(string name) => ancientHistory.Methods.Single(m => m.Name == name);
         MethodDefinition Catalog(string name) => catalog.Methods.Single(m => m.Name == name);
+        MethodDefinition Settings(string name) => settings.Methods.Single(m => m.Name == name);
         var logic = Types(mod).Single(t => t.Name == "AncientRefreshDualButtonsLogic");
         MethodDefinition Logic(string name) => logic.Methods.Single(m => m.Name == name);
         void Replace(string name, string called, bool cost = false)
@@ -65,8 +67,8 @@ internal static class FeaturesPatch
         });
         BeforeReturn(Logic("UpdateButtons"), (il, ret) =>
         {
-            var first = Instruction.Create(OpCodes.Ldarg_0); var call = Instruction.Create(OpCodes.Call, Feature("UpdateUi"));
-            var second = Instruction.Create(OpCodes.Ldarg_0); var update = Instruction.Create(OpCodes.Call, Catalog("Update"));
+            var first = Instruction.Create(OpCodes.Ldarg_0); var call = Instruction.Create(OpCodes.Call, Catalog("Update"));
+            var second = Instruction.Create(OpCodes.Ldarg_0); var update = Instruction.Create(OpCodes.Call, Feature("UpdateUi"));
             il.InsertAfter(ret, first); il.InsertAfter(first, call); il.InsertAfter(call, second); il.InsertAfter(second, update); il.InsertAfter(update, Instruction.Create(OpCodes.Ret));
         });
         var click = Logic("OnRefreshOptionsPressed");
@@ -117,12 +119,30 @@ internal static class FeaturesPatch
         ci.InsertBefore(cancelEntry, Instruction.Create(OpCodes.Ret));
         Widen(cancel);
         var config = Types(mod).Single(t => t.Name == "ModConfigBridge");
+        BeforeReturn(config.Methods.Single(m => m.Name == "BuildEntries"), (il, ret) =>
+        {
+            var call = Instruction.Create(OpCodes.Call, Settings("ExtendEntries"));
+            il.InsertAfter(ret, call); il.InsertAfter(call, Instruction.Create(OpCodes.Ret));
+        });
+        foreach (string name in new[] { "GetOptionsCost", "GetAncientCost" })
+        {
+            var cost = Logic(name); cost.Body = new MethodBody(cost);
+            var body = cost.Body.GetILProcessor();
+            body.Emit(name == "GetAncientCost" ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0);
+            body.Emit(OpCodes.Ldarg_0); body.Emit(OpCodes.Conv_I4); body.Emit(OpCodes.Call, Settings("Cost")); body.Emit(OpCodes.Ret);
+        }
         BeforeReturn(config.Methods.Single(m => m.Name == "L"), (il, ret) =>
         {
             var call = Instruction.Create(OpCodes.Call, Feature("AddRussianLabels"));
             il.InsertAfter(ret, call); il.InsertAfter(call, Instruction.Create(OpCodes.Ret));
         });
         var register = config.Methods.Single(m => m.Name == "Register");
+        // Some ModConfig versions expose saved values only after Register.
+        BeforeReturn(register, (il, ret) =>
+        {
+            var reload = Instruction.Create(OpCodes.Call, Settings("ReloadBindings"));
+            il.InsertAfter(ret, reload); il.InsertAfter(reload, Instruction.Create(OpCodes.Ret));
+        });
         var labelDictionary = register.Body.Variables.Single(v => v.VariableType.FullName == "System.Collections.Generic.Dictionary`2<System.String,System.String>");
         Instruction? store = null;
         foreach (var i in register.Body.Instructions)
@@ -134,7 +154,7 @@ internal static class FeaturesPatch
         register.Body.GetILProcessor().InsertBefore(store, Instruction.Create(OpCodes.Call, Feature("AddRussianLabels")));
         Widen(register);
         var info = mod.Assembly.CustomAttributes.Single(a => a.AttributeType.FullName == "System.Reflection.AssemblyInformationalVersionAttribute");
-        info.ConstructorArguments[0] = new CustomAttributeArgument(mod.TypeSystem.String, "1.4.3+unofficial.sts2.0.111.0.compat5.catalog-input.hover-tips.hide-hotkey.ru");
+        info.ConstructorArguments[0] = new CustomAttributeArgument(mod.TypeSystem.String, "1.4.3+unofficial.sts2.0.111.0.compat6.move-buttons.config.sorted-catalogs.ru");
         mod.Mvid = Guid.NewGuid();
         if (mod.GetTypeReferences().Any(t => t.Scope?.Name == "RuntimeFeatures")) throw new InvalidOperationException("Unmerged runtime reference.");
         Console.WriteLine("Merged unique options/Ancients, view-only visual catalogs, modal/cancel guards and Russian localization.");

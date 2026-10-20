@@ -1,4 +1,4 @@
-"""Build/test/package compat.5 without distributing the input game assembly."""
+"""Build/test/package compat.6 without distributing the input game assembly."""
 import argparse
 import hashlib
 import json
@@ -73,22 +73,32 @@ with ZipFile(args.original_mod) as original_zip, tempfile.TemporaryDirectory(pre
                                     env=environment, text=True, capture_output=True, timeout=60)
             native_output = native.stdout + native.stderr
             print(native_output, end='')
-            if native.returncode or '40 native Godot 4.5.1 UI checks passed' not in native_output or 'ERROR:' in native_output:
+            if native.returncode or '63 native Godot 4.5.1 UI checks passed' not in native_output or 'ERROR:' in native_output:
                 raise RuntimeError('Native UI test failed or did not complete:\n' + native_output)
             logs.append(native_output)
+            for probe, marker in [('save', 'PLACEMENT PROBE SAVED'), ('read', 'PLACEMENT PROBE RESTORED')]:
+                environment['REFRESH_PLACEMENT_PROBE'] = probe
+                persisted = subprocess.run([str(args.godot.resolve()), '--headless', '--path', str(root / 'ui-tests'), '--audio-driver', 'Dummy', '--quit-after', '240'],
+                                           env=environment, text=True, capture_output=True, timeout=60)
+                probe_output = persisted.stdout + persisted.stderr
+                print(probe_output, end='')
+                if persisted.returncode or marker not in probe_output or 'ERROR:' in probe_output:
+                    raise RuntimeError('Position persistence probe failed:\n' + probe_output)
+                logs.append(probe_output)
+            environment.pop('REFRESH_PLACEMENT_PROBE', None)
     else:
         logs.append('NOT RUN: native Godot UI tests (pass --godot with Godot 4.5.1 Mono).\n')
-    manifest['version'] = '1.4.3-compat.5'
+    manifest['version'] = '1.4.3-compat.6'
     manifest['min_game_version'] = '0.111.0'
-    manifest['description'] += ' Unofficial v0.111.0 patch: unique option/Ancient rerolls, visual catalogs with first-open scrolling, game hover tips, H visibility toggle and reward/top-bar icons and Russian localization.'
+    manifest['description'] += ' Unofficial v0.111.0 patch: unique option/Ancient rerolls, sorted visual catalogs with colored frames, saved draggable buttons, configurable H/J/K keys and refresh prices, game hover tips and Russian localization.'
     files = {
         'RefreshAncient.dll': result.read_bytes(),
         'RefreshAncient.json': (json.dumps(manifest, ensure_ascii=False, indent=2) + '\n').encode(),
         'RefreshAncient.pck': original_zip.read('RefreshAncient.pck'),
-        'README-compat-ru.txt': b'\xef\xbb\xbf' + (root / 'docs/INSTALL-compat5-ru.txt').read_bytes(),
+        'README-compat-ru.txt': b'\xef\xbb\xbf' + (root / 'docs/INSTALL-compat6-ru.txt').read_bytes(),
     }
     files['SHA256SUMS.txt'] = ''.join(f'{sha(data)}  {name}\n' for name, data in files.items()).encode()
-    binary_zip = output / 'RefreshAncient-compat5-sts2-0.111.0.zip'
+    binary_zip = output / 'RefreshAncient-compat6-sts2-0.111.0.zip'
     with ZipFile(binary_zip, 'w', ZIP_DEFLATED) as archive:
         for name, data in files.items():
             archive.writestr(name, data)
@@ -97,7 +107,7 @@ with ZipFile(args.original_mod) as original_zip, tempfile.TemporaryDirectory(pre
         assert archive.read('RefreshAncient.dll') == files['RefreshAncient.dll']
         assert archive.read('RefreshAncient.pck') == original_zip.read('RefreshAncient.pck')
     validation = (
-        'RefreshAncient 1.4.3-compat.5 validation\nTarget: STS2 v0.111.0 (41cef1ea).\n'
+        'RefreshAncient 1.4.3-compat.6 validation\nTarget: STS2 v0.111.0 (41cef1ea).\n'
         f'Original mod SHA-256: {sha(original.read_bytes())}\n'
         f'Game DLL SHA-256: {sha(game.read_bytes())}\n'
         f'Patched mod SHA-256: {sha(files["RefreshAncient.dll"])}\n'
@@ -106,8 +116,8 @@ with ZipFile(args.original_mod) as original_zip, tempfile.TemporaryDirectory(pre
         + '\nNOT RUN: actual game launch, gameplay and network session.\n'
         + 'Option history is in memory per event instance; Ancient history is per run/player/room. Both reset on restart/save reload.\n'
     )
-    (output / 'RefreshAncient-compat5-validation.txt').write_text(validation)
-source_zip = output / 'RefreshAncient-compat5-source.zip'
+    (output / 'RefreshAncient-compat6-validation.txt').write_text(validation)
+source_zip = output / 'RefreshAncient-compat6-source.zip'
 with ZipFile(source_zip, 'w', ZIP_DEFLATED) as archive:
     for folder in ['src', 'runtime', 'tests', 'ui-tests', 'tools', 'docs']:
         for path in sorted((root / folder).rglob('*')):
@@ -115,7 +125,7 @@ with ZipFile(source_zip, 'w', ZIP_DEFLATED) as archive:
             if path.is_file() and not {'bin', 'obj', '__pycache__', '.godot'}.intersection(relative.parts) and path.suffix != '.uid':
                 archive.write(path, relative.as_posix())
     archive.write(root / 'README.md', 'README.md')
-    archive.write(output / 'RefreshAncient-compat5-validation.txt', 'VALIDATION-compat5.txt')
+    archive.write(output / 'RefreshAncient-compat6-validation.txt', 'VALIDATION-compat6.txt')
 with ZipFile(source_zip) as archive:
     assert archive.testzip() is None
 print(f'Packaged {binary_zip.name} ({binary_zip.stat().st_size} bytes)')
