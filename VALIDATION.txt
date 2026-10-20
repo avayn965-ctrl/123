@@ -1,0 +1,28 @@
+RefreshAncient unofficial compatibility patch 1
+Target: Slay the Spire 2 v0.111.0, release commit 41cef1ea.
+These checks do not execute the game or establish gameplay/multiplayer readiness.
+
+Original mod SHA-256: adee9483c4f47e5aaa4c5f352e0f65d7e436ca369cd12cc165d8d86f6a2e612a
+Supplied game DLL SHA-256: 0861bfa1df347538d932f22d580e75420f08082792eb914e53b4882764acdbe9
+Patched mod SHA-256: 4d9f89b89ad6ccec57c07175555974b484d045987514d440a26efb160fa8eb99
+
+Game references: 53, unresolved: 0
+System.Threading.Tasks.Task MegaCrit.Sts2.Core.Models.EventModel::BeginEvent(MegaCrit.Sts2.Core.Entities.Players.Player,MegaCrit.Sts2.Core.Multiplayer.Game.EventCombatSynchronizer,System.Boolean)
+System.Void MegaCrit.Sts2.Core.Models.EventModel::.ctor()
+System.Void MegaCrit.Sts2.Core.Multiplayer.Game.EventSynchronizer::.ctor(MegaCrit.Sts2.Core.Multiplayer.Game.RunLocationTargetedMessageBuffer,MegaCrit.Sts2.Core.Multiplayer.Game.INetGameService,MegaCrit.Sts2.Core.Runs.IPlayerCollection,MegaCrit.Sts2.Core.Runs.IRunState,System.UInt64,System.UInt64)
+System.Void MegaCrit.Sts2.Core.Multiplayer.Game.EventSynchronizer::BeginEvent(MegaCrit.Sts2.Core.Models.EventModel,System.Boolean,System.Action`1<MegaCrit.Sts2.Core.Models.EventModel>)
+
+PASS: exactly four existing method bodies changed; two helpers added; embedded resources preserved.
+PASS: new constructor parameter list and BeginEvent argument order match the supplied game DLL.
+PASS: reflected fields and methods needed for event replacement/options exist with the expected room API signatures.
+[RefreshAncient Compat 0.111.0] Replacement failed; caller will refund gold: System.InvalidOperationException: Synthetic replacement failure
+   at Tests.Harness.ReplacementCore(EventSynchronizer, Player, AncientEventModel, AncientEventModel)
+   at Tests.Harness.Guard(EventSynchronizer sync, Player player, AncientEventModel currentAncient, AncientEventModel replacementCanonical)
+[RefreshAncient Compat 0.111.0] Replacement failed; caller will refund gold: System.MissingMethodException: Method not found: 'Void MegaCrit.Sts2.Core.Models.EventModel.MissingOldBeginEvent()'.
+   at Tests.Harness.MissingMethodCore(EventSynchronizer, Player, AncientEventModel, AncientEventModel)
+   at Tests.Harness.JitGuard(EventSynchronizer sync, Player player, AncientEventModel currentAncient, AncientEventModel replacementCanonical)
+PASS: patched IL passes the same combat synchronizer, player and pre-finished flag to the new BeginEvent API.
+PASS: patched constructor selector resolves the six-parameter API; the old five-parameter signature is absent.
+PASS: replacement guard preserves true/false results and catches both runtime exceptions and actual JIT MissingMethodException.
+
+NOT RUN: in-game startup, Ancient replacement, event combat, multiplayer/network synchronization.
