@@ -9,6 +9,12 @@ namespace Fixtures
         public object? Relic { get; set; }
         public string Title { get; set; } = "Название награды";
         public string Description { get; set; } = "Описание награды";
+        public List<PreviewTip> HoverTips { get; } = new();
+    }
+    public sealed class PreviewTip
+    {
+        public string Title { get; set; } = "Замысел";
+        public string Description { get; set; } = "Дополнительное описание игрового эффекта.";
     }
     public sealed class Rng
     {

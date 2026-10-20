@@ -17,6 +17,9 @@ public static class CatalogUi
         public object? Dialog;
         public object? Text;
         public object? Rows;
+        public object? Scroll;
+        public bool ButtonsHidden;
+        public bool HWasDown;
     }
     private static readonly ConditionalWeakTable<object, View> Views = new();
     private static WeakReference<object>? _openDialog;
@@ -50,8 +53,35 @@ public static class CatalogUi
         }
         throw new MissingMethodException(parent.GetType().FullName, "AddChild");
     }
-    private static void On(object node, string signal, Action action)
+    internal static void On(object node, string signal, Action action)
         => (node.GetType().GetEvent(signal) ?? throw new MissingMemberException(node.GetType().FullName, signal)).AddEventHandler(node, action);
+
+    internal static void OnValueChanged(object range, Action<double> action)
+    {
+        EventInfo signal = range.GetType().GetEvent("ValueChanged")!;
+        signal.AddEventHandler(range, Delegate.CreateDelegate(signal.EventHandlerType!, action.Target, action.Method));
+    }
+    private static void BindScrollKeys(object bar)
+    {
+        CatalogCards.EnumProperty(bar, "FocusMode", 2);
+        Action<object> input = value =>
+        {
+            if (UniqueOptions.Get(value, "Pressed") is not true) return;
+            string? key = UniqueOptions.Get(value, "Keycode")?.ToString();
+            double position = Convert.ToDouble(UniqueOptions.Get(bar, "Value"));
+            double page = Convert.ToDouble(UniqueOptions.Get(bar, "Page"));
+            double maximum = Convert.ToDouble(UniqueOptions.Get(bar, "MaxValue")) - page;
+            if (key == "Pagedown") position += Math.Max(60, page * 0.9);
+            else if (key == "Pageup") position -= Math.Max(60, page * 0.9);
+            else if (key == "Home") position = 0;
+            else if (key == "End") position = maximum;
+            else return;
+            UniqueOptions.Set(bar, "Value", Math.Clamp(position, 0, Math.Max(0, maximum)));
+            UniqueOptions.Call(bar, "AcceptEvent");
+        };
+        EventInfo signal = bar.GetType().GetEvent("GuiInput")!;
+        signal.AddEventHandler(bar, Delegate.CreateDelegate(signal.EventHandlerType!, input.Target, input.Method));
+    }
 
     internal static void Font(object control, string key, int size)
     {
@@ -72,6 +102,22 @@ public static class CatalogUi
         return engine == null ? 0UL : Convert.ToUInt64(engine.GetMethod("GetProcessFrames", BindingFlags.Public | BindingFlags.Static)!.Invoke(null, null));
     }
     public static bool ShouldSuppressCancel() => IsOpen() || (_suppressCancelUntil != 0 && Frame() <= _suppressCancelUntil);
+    public static bool ButtonsHidden(object layout) => Views.TryGetValue(layout, out View? view) && view.ButtonsHidden;
+
+    private static void PollHotkey(View view)
+    {
+        Type input = GodotType("Input");
+        MethodInfo pressed = input.GetMethod("IsPhysicalKeyPressed", BindingFlags.Static | BindingFlags.Public)!;
+        bool down = pressed.Invoke(null, new[] { Enum.Parse(pressed.GetParameters()[0].ParameterType, "H") }) is true;
+        bool edge = down && !view.HWasDown;
+        view.HWasDown = down;
+        if (!edge || UniqueOptions.Call(view.Layout, "IsVisibleInTree") is not true) return;
+        object window = UniqueOptions.Call(view.Layout, "GetWindow")!;
+        object? focus = UniqueOptions.Call(window, "GuiGetFocusOwner");
+        for (Type? type = focus?.GetType(); type != null; type = type.BaseType)
+            if (type.FullName == "Godot.LineEdit" || type.FullName == "Godot.TextEdit") return;
+        view.ButtonsHidden = !view.ButtonsHidden;
+    }
 
     public static string LocalizedText(object? text, string fallback) => StripMarkup(RichText(text, fallback));
     private static string RichText(object? text, string fallback)
@@ -163,8 +209,15 @@ public static class CatalogUi
             object? ancients = UniqueOptions.Call(layout, "FindChild", "RefreshAncient_RefreshAncientButton", true, false);
             if (options == null && ancients == null) return;
             View view = Ensure(layout);
+            PollHotkey(view);
             bool showOptions = options != null && UniqueOptions.Get(options, "Visible") is true;
             bool showAncients = ancients != null && UniqueOptions.Get(ancients, "Visible") is true;
+            if (view.ButtonsHidden)
+            {
+                if (options != null) UniqueOptions.Set(options, "Visible", false);
+                if (ancients != null) UniqueOptions.Set(ancients, "Visible", false);
+                showOptions = false; showAncients = false;
+            }
             UniqueOptions.Set(view.OptionsButton, "Visible", showOptions);
             UniqueOptions.Set(view.AncientsButton, "Visible", showAncients);
             UniqueOptions.Set(view.OptionsButton, "Disabled", false);
@@ -212,7 +265,7 @@ public static class CatalogUi
 
     public static void Open(object layout, bool ancients)
     {
-        if (IsOpen()) return;
+        if (IsOpen() || ButtonsHidden(layout)) return;
         try
         {
             object? current = UniqueOptions.CurrentAncient();
@@ -226,6 +279,8 @@ public static class CatalogUi
                 Name(view.Dialog, "RefreshAncient_CatalogDialog");
                 UniqueOptions.Set(view.Dialog, "Transient", true);
                 UniqueOptions.Set(view.Dialog, "Exclusive", true);
+                CatalogCards.EnumProperty(view.Dialog, "ProcessMode", 3);
+                UniqueOptions.Set(view.Dialog, "GuiDisableInput", false);
                 UniqueOptions.Set(view.Dialog, "DialogHideOnOk", true);
                 UniqueOptions.Set(view.Dialog, "DialogCloseOnEscape", true);
                 UniqueOptions.Set(view.Dialog, "Visible", false);
@@ -237,13 +292,23 @@ public static class CatalogUi
                 UniqueOptions.Set(view.Text, "BbcodeEnabled", false);
                 UniqueOptions.Set(view.Text, "ScrollActive", false);
                 UniqueOptions.Set(view.Text, "SelectionEnabled", true);
-                UniqueOptions.Set(view.Text, "FitContent", true);
+                // At width zero, FitContent can report thousands of pixels
+                // of minimum height before the first container sort. Window
+                // then grows beyond the screen and retains that height.
+                UniqueOptions.Set(view.Text, "FitContent", false);
+                UniqueOptions.Set(view.Text, "CustomMinimumSize", Vector(0, 100));
+                CatalogCards.EnumProperty(view.Text, "AutowrapMode", 3);
                 Font(view.Text, "normal_font_size", 16);
                 Add(content, view.Text);
                 object scroll = New("ScrollContainer");
+                view.Scroll = scroll;
                 Name(scroll, "RefreshAncient_CatalogScroll");
                 CatalogCards.EnumProperty(scroll, "SizeFlagsVertical", 3);
                 CatalogCards.EnumProperty(scroll, "HorizontalScrollMode", 0);
+                CatalogCards.EnumProperty(scroll, "FocusMode", 2);
+                UniqueOptions.Set(scroll, "MouseForcePassScrollEvents", true);
+                OnValueChanged(UniqueOptions.Call(scroll, "GetVScrollBar")!, _ => CatalogHover.Clear());
+                BindScrollKeys(UniqueOptions.Call(scroll, "GetVScrollBar")!);
                 view.Rows = New("VBoxContainer");
                 Name(view.Rows, "RefreshAncient_CatalogRows");
                 CatalogCards.EnumProperty(view.Rows, "SizeFlagsHorizontal", 3);
@@ -261,15 +326,41 @@ public static class CatalogUi
             CatalogCards.Fill(layout, view.Rows!, rows, models, ancients);
             _openDialog = new WeakReference<object>(view.Dialog);
             UniqueOptions.Call(view.Dialog, "PopupCenteredClamped", VectorI(1180, 740), 0.9f);
-            UniqueOptions.Call(UniqueOptions.Call(view.Dialog, "GetOkButton")!, "GrabFocus");
+            UniqueOptions.Call(view.Dialog, "GrabFocus");
+            UniqueOptions.Call(view.Scroll!, "GrabFocus");
+            FinishPopupLayout(view);
         }
         catch (Exception error) { _openDialog = null; UniqueOptions.Log(error); }
     }
 
     private static void Close(View view)
     {
+        CatalogHover.Clear();
         if (view.Dialog != null) UniqueOptions.Call(view.Dialog, "Hide");
         _openDialog = null;
         _suppressCancelUntil = Frame() + 2;
+    }
+
+    private static void FinishPopupLayout(View view)
+    {
+        // A new window's container sorts/scrollbar limits settle after it is
+        // shown. Focus the actual scrollbar after that first layout, not OK.
+        object tree = UniqueOptions.Call(view.Dialog!, "GetTree")!;
+        EventInfo frame = tree.GetType().GetEvent("ProcessFrame")!;
+        int frames = 0;
+        Action? ready = null;
+        ready = () =>
+        {
+            if (frames++ == 0) return;
+            frame.RemoveEventHandler(tree, ready);
+            try
+            {
+                if (UniqueOptions.Get(view.Dialog, "Visible") is not true) return;
+                object bar = UniqueOptions.Call(view.Scroll!, "GetVScrollBar")!;
+                UniqueOptions.Call(UniqueOptions.Get(bar, "Visible") is true ? bar : view.Scroll!, "GrabFocus");
+            }
+            catch (Exception error) { UniqueOptions.Log(error); }
+        };
+        frame.AddEventHandler(tree, ready);
     }
 }

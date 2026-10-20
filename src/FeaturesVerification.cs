@@ -82,12 +82,17 @@ internal static class FeaturesVerification
             Require(relic.Properties.Any(p => p.Name == property && p.PropertyType.FullName == "Godot.Texture2D"), "Reward icon API missing: " + property);
         var topBarIcon = Types(game).Single(t => t.FullName == "MegaCrit.sts2.Core.Nodes.TopBar.NTopBarRoomIcon");
         Require(topBarIcon.Methods.Single(m => m.Name == "UpdateIcon").Body.Instructions.Any(i => i.Operand is MethodReference m && m.Name == "GetRoomIconPath"), "Top-bar icon no longer uses the room icon path.");
+        var tips = Types(game).Single(t => t.FullName == "MegaCrit.Sts2.Core.Nodes.HoverTips.NHoverTipSet");
+        Require(tips.Methods.Any(m => m.IsStatic && m.Name == "CreateAndShow" && m.Parameters.Count == 3 && m.Parameters[0].ParameterType.FullName == "Godot.Control" && m.Parameters[1].ParameterType.FullName == "System.Collections.Generic.IEnumerable`1<MegaCrit.Sts2.Core.HoverTips.IHoverTip>"), "Game hover-tip factory API missing.");
+        Require(tips.Methods.Any(m => m.IsStatic && m.Name == "Remove" && m.Parameters.Count == 1) && tips.Methods.Any(m => m.Name == "SetAlignment" && m.Parameters.Count == 2), "Game hover-tip cleanup/alignment API missing.");
+        Require(Types(game).Single(t => t.FullName == "MegaCrit.Sts2.Core.Events.EventOption").Properties.Any(p => p.Name == "HoverTips"), "Event option hover-tip data missing.");
         Console.WriteLine("PASS: exactly 16 original feature hooks changed; compat1 replacement core, refund paths and constructor fixes preserved.");
         Console.WriteLine("PASS: solo, host, remote reconstruction, commit, exhaustion preflight and UI paths are connected to the new logic.");
         Console.WriteLine("PASS: original act/unlock pool is preserved; Ancient history filters every pool path and guards/commits actual replacements.");
         Console.WriteLine("PASS: catalog windows are wired to UI updates and Escape cannot latch the pause controls while a catalog closes.");
         Console.WriteLine("PASS: new eligibility/localization reflection API exists in the supplied v0.111.0 game DLL.");
         Console.WriteLine("PASS: reward textures and Ancient top-bar room icon textures exist in the supplied game API.");
+        Console.WriteLine("PASS: original option hover-tip data, factory, alignment and removal API exist in the supplied game DLL.");
         Console.WriteLine("PASS: no extra runtime DLL dependency; embedded resources are unchanged.");
     }
 }

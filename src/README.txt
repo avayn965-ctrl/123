@@ -4,7 +4,7 @@ Requirements: .NET SDK 9, Python 3 for packaging, Mono.Cecil 0.11.6
 (automatically restored by dotnet build), ORIGINAL RefreshAncient 1.4.3 ZIP,
 and the user's sts2.dll v0.111.0. Input game/mod DLLs are not in this source.
 
-From the repository root, build, validate and package compat.4:
+From the repository root, build, validate and package compat.5:
   python tools/build_release.py --game-dll PATH/TO/sts2.dll --original-mod PATH/TO/ORIGINAL.zip
 
 Optional: --dotnet PATH/TO/dotnet --output-dir PATH/TO/OUTPUT
@@ -34,7 +34,7 @@ The test executable is deliberately named sts2.dll and defines tiny substitutes
 for the game API. It must NEVER be placed in the actual game directory.
 It is not the uploaded game DLL and is not included in the binary mod ZIP.
 
-20 logic cases and 25 optional native Godot UI checks run in both modes.
+20 logic cases and 40 optional native Godot UI checks run in both modes.
 These checks do not launch the real game or test gameplay/networking.
 Option history is in memory per event instance. Ancient history is per
 run/player/room, surviving model replacements. Game/save reload resets both.
@@ -47,3 +47,16 @@ Relic icons use Icon/IconOutline; Ancient miniatures use RunHistoryIcon and
 RunHistoryIconOutline, matching the top-bar room icon (not the map portrait).
 Game custom text effects, effective fonts and outline/shadow colors are kept.
 The actual reward-selection button is never duplicated or reparented.
+
+The popup header has a bounded height to prevent the initial zero-width
+FitContent pass from forcing the Window thousands of pixels off-screen.
+Window input is processed independently of paused gameplay. The scroll area
+receives initial focus after layout and supports Page Up/Down and Home/End.
+Option cards have hover-only input and pass wheel events to the scroller.
+NHoverTipSet receives the original option HoverTips. Its output is reparented
+to a CanvasLayer in the catalog Window so it is visible above the exclusive
+modal. Cleanup runs on mouse exit, scroll, close and card removal.
+The native harness uses a stand-in for that game factory; its real signatures
+are audited against the supplied game DLL. Actual game scenes are untested.
+H is polled through the original per-frame UI update hook, with rising-edge
+detection and text-editor focus protection. Both paid click guards honor it.

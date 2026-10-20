@@ -119,6 +119,7 @@ internal static class CatalogCards
     }
     internal static void Fill(object layout, object parent, string[][] rows, object[] models, bool ancients)
     {
+        CatalogHover.Clear();
         foreach (object child in UniqueOptions.Items(UniqueOptions.Call(parent, "GetChildren", false)))
         {
             UniqueOptions.Call(parent, "RemoveChild", child);
@@ -166,10 +167,11 @@ internal static class CatalogCards
             CatalogUi.Add(texts, status);
             CatalogUi.Add(body, texts); CatalogUi.Add(margin, body); CatalogUi.Add(card, margin);
             Passive(card);
+            if (!ancients && model != null) CatalogHover.Bind(card, model);
             CatalogUi.Add(parent, card);
         }
         object? scroll = UniqueOptions.Call(parent, "GetParent");
-        Passive(parent);
+        EnumProperty(parent, "MouseFilter", 2);
         if (scroll != null) UniqueOptions.Set(scroll, "ScrollVertical", 0);
     }
 }

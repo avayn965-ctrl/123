@@ -134,7 +134,7 @@ internal static class FeaturesPatch
         register.Body.GetILProcessor().InsertBefore(store, Instruction.Create(OpCodes.Call, Feature("AddRussianLabels")));
         Widen(register);
         var info = mod.Assembly.CustomAttributes.Single(a => a.AttributeType.FullName == "System.Reflection.AssemblyInformationalVersionAttribute");
-        info.ConstructorArguments[0] = new CustomAttributeArgument(mod.TypeSystem.String, "1.4.3+unofficial.sts2.0.111.0.compat4.visual-catalogs.unique-ancients.ru");
+        info.ConstructorArguments[0] = new CustomAttributeArgument(mod.TypeSystem.String, "1.4.3+unofficial.sts2.0.111.0.compat5.catalog-input.hover-tips.hide-hotkey.ru");
         mod.Mvid = Guid.NewGuid();
         if (mod.GetTypeReferences().Any(t => t.Scope?.Name == "RuntimeFeatures")) throw new InvalidOperationException("Unmerged runtime reference.");
         Console.WriteLine("Merged unique options/Ancients, view-only visual catalogs, modal/cancel guards and Russian localization.");

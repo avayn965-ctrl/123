@@ -102,7 +102,7 @@ public static class AncientHistory
 
     public static bool CanPress(object layout)
     {
-        if (CatalogUi.IsOpen()) return false;
+        if (CatalogUi.IsOpen() || CatalogUi.ButtonsHidden(layout)) return false;
         try
         {
             object? current = UniqueOptions.CurrentAncient();
