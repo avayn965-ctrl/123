@@ -166,4 +166,26 @@ if(args[0]=="audit") {
 } else if(args[0]=="verify") {
     using var original=ModuleDefinition.ReadModule(args[3]);
     Verification.Run(original,mod,game);
+} else if(args[0]=="ancients") {
+    foreach(var type in Types(game).Where(t=>t.BaseType?.Name=="AncientEventModel"))Console.WriteLine(type.FullName);
+} else if(args[0]=="members") {
+    foreach(var type in Types(game).Where(t=>t.Name==args[3])) {
+        Console.WriteLine(type.FullName);
+        foreach(var p in type.Properties)Console.WriteLine(p.FullName);
+        foreach(var f in type.Fields)Console.WriteLine(f.FullName);
+        foreach(var m in type.Methods.Where(m=>!m.IsGetter&&!m.IsSetter))Console.WriteLine(m.FullName);
+    }
+} else if(args[0]=="features") {
+    if(Audit(mod,game).Count!=0)throw new InvalidOperationException("Input must have the v0.111.0 compatibility fix applied first.");
+    FeaturesPatch.Apply(mod,args[4]);
+    var problems=Audit(mod,game);
+    if(problems.Count>0)throw new InvalidOperationException(string.Join("\n",problems));
+    mod.Write(args[3]);
+    Console.WriteLine("Wrote "+args[3]);
+} else if(args[0]=="verify-features") {
+    using var baseline=ModuleDefinition.ReadModule(args[3]);
+    var problems=Audit(mod,game);
+    if(problems.Count>0)throw new InvalidOperationException(string.Join("\n",problems));
+    Console.WriteLine($"PASS: {Members(mod).Count()} direct game API references resolve.");
+    FeaturesVerification.Run(baseline,mod,game);
 } else throw new ArgumentException("Unknown command");

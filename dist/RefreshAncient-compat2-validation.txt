@@ -1,0 +1,84 @@
+RefreshAncient 1.4.3-compat.2 validation
+Target: STS2 v0.111.0 (41cef1ea).
+Original mod SHA-256: adee9483c4f47e5aaa4c5f352e0f65d7e436ca369cd12cc165d8d86f6a2e612a
+Game DLL SHA-256: 0861bfa1df347538d932f22d580e75420f08082792eb914e53b4882764acdbe9
+Patched mod SHA-256: 3c4f47c701b92dc659cf9c640db23bd865dda6041c7973afe5d322d9ccacd5b9
+Archive SHA-256: c2ced3387497a518dc76ce8181c253f6c81fdac7fb8e1089d716a22891e32014
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.48
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.11
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.52
+
+Patched /tmp/refresh-ancient-hl8w8jkl/compat1.dll; 53 game references resolved; 2 replacement callers guarded.
+
+PASS: exactly four existing method bodies changed; two helpers added; embedded resources preserved.
+PASS: new constructor parameter list and BeginEvent argument order match the supplied game DLL.
+PASS: reflected fields and methods needed for event replacement/options exist with the expected room API signatures.
+[RefreshAncient Compat 0.111.0] Replacement failed; caller will refund gold: System.InvalidOperationException: Synthetic replacement failure
+   at Tests.Harness.ReplacementCore(EventSynchronizer, Player, AncientEventModel, AncientEventModel)
+   at Tests.Harness.Guard(EventSynchronizer sync, Player player, AncientEventModel currentAncient, AncientEventModel replacementCanonical)
+[RefreshAncient Compat 0.111.0] Replacement failed; caller will refund gold: System.MissingMethodException: Method not found: 'Void MegaCrit.Sts2.Core.Models.EventModel.MissingOldBeginEvent()'.
+   at Tests.Harness.MissingMethodCore(EventSynchronizer, Player, AncientEventModel, AncientEventModel)
+   at Tests.Harness.JitGuard(EventSynchronizer sync, Player player, AncientEventModel currentAncient, AncientEventModel replacementCanonical)
+PASS: patched IL passes the same combat synchronizer, player and pre-finished flag to the new BeginEvent API.
+PASS: patched constructor selector resolves the six-parameter API; the old five-parameter signature is absent.
+PASS: replacement guard preserves true/false results and catches both runtime exceptions and actual JIT MissingMethodException.
+
+Merged unique-option history, exhaustion guard, visible warning and Russian localization.
+Wrote /tmp/refresh-ancient-hl8w8jkl/RefreshAncient.dll
+
+PASS: 52 direct game API references resolve.
+PASS: exactly 12 original feature hooks changed; compat1 replacement, refund and constructor fixes preserved.
+PASS: solo, host, remote reconstruction, commit, exhaustion preflight and UI paths are connected to the new logic.
+PASS: new eligibility/localization reflection API exists in the supplied v0.111.0 game DLL.
+PASS: no extra runtime DLL dependency; embedded resources are unchanged.
+
+PASS: third, fourth and fifth refresh never repeat initial or previously displayed choices
+PASS: last partial batch contains only the remaining choice; exhausted preview draws no RNG
+PASS: unpaid/unapplied previews do not consume choices
+PASS: duplicate text keys, locked/proceed/non-action options are excluded
+PASS: UI polling materializes the pool once and never consumes RNG
+PASS: history is isolated by player/event instance and resets for a replaced Ancient
+PASS: host/client selections and RNG remain equal for four refreshes; stale keys are rejected
+PASS: exhausted button visibly warns in Russian, stays disabled and rejects click preflight
+PASS: Russian uses game language; English and Chinese button text remain available
+PASS: Neow modifiers and relic eligibility are respected
+PASS: enchantment/card/pet restrictions for Nonupeipe, Tanx, Pael and Tezcatara are respected
+PASS: Darv filters are applied and DustyTome random setup is deferred until selection
+PASS: Orobas SeaGlass excludes locked/own characters and collapses identical text keys
+13 feature tests passed (runtime source).
+
+PASS: third, fourth and fifth refresh never repeat initial or previously displayed choices
+PASS: last partial batch contains only the remaining choice; exhausted preview draws no RNG
+PASS: unpaid/unapplied previews do not consume choices
+PASS: duplicate text keys, locked/proceed/non-action options are excluded
+PASS: UI polling materializes the pool once and never consumes RNG
+PASS: history is isolated by player/event instance and resets for a replaced Ancient
+PASS: host/client selections and RNG remain equal for four refreshes; stale keys are rejected
+PASS: exhausted button visibly warns in Russian, stays disabled and rejects click preflight
+PASS: Russian uses game language; English and Chinese button text remain available
+PASS: Neow modifiers and relic eligibility are respected
+PASS: enchantment/card/pet restrictions for Nonupeipe, Tanx, Pael and Tezcatara are respected
+PASS: Darv filters are applied and DustyTome random setup is deferred until selection
+PASS: Orobas SeaGlass excludes locked/own characters and collapses identical text keys
+13 feature tests passed (merged mod DLL).
+
+NOT RUN: actual game launch, gameplay and network session.
+History is in memory per event instance; it resets on restart/save reload.

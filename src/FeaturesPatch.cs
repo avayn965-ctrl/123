@@ -1,0 +1,97 @@
+using Mono.Cecil;
+using Mono.Cecil.Cil;
+
+internal static class FeaturesPatch
+{
+    static IEnumerable<TypeDefinition> Types(ModuleDefinition m) => m.Types.SelectMany(Expand);
+    static IEnumerable<TypeDefinition> Expand(TypeDefinition t) => new[] { t }.Concat(t.NestedTypes.SelectMany(Expand));
+    static void Widen(MethodDefinition m)
+    {
+        foreach (var i in m.Body.Instructions) i.OpCode = i.OpCode.Code switch
+        {
+            Code.Br_S => OpCodes.Br, Code.Brtrue_S => OpCodes.Brtrue, Code.Brfalse_S => OpCodes.Brfalse,
+            Code.Beq_S => OpCodes.Beq, Code.Bne_Un_S => OpCodes.Bne_Un, Code.Bge_S => OpCodes.Bge,
+            Code.Bge_Un_S => OpCodes.Bge_Un, Code.Bgt_S => OpCodes.Bgt, Code.Bgt_Un_S => OpCodes.Bgt_Un,
+            Code.Ble_S => OpCodes.Ble, Code.Ble_Un_S => OpCodes.Ble_Un, Code.Blt_S => OpCodes.Blt,
+            Code.Blt_Un_S => OpCodes.Blt_Un, Code.Leave_S => OpCodes.Leave, _ => i.OpCode
+        };
+    }
+    static void BeforeReturn(MethodDefinition m, Action<ILProcessor, Instruction> inject)
+    {
+        var il = m.Body.GetILProcessor();
+        foreach (var ret in m.Body.Instructions.Where(i => i.OpCode == OpCodes.Ret).ToArray())
+        {
+            // Keep the old return instruction as the branch destination, so
+            // branches targeting it cannot skip the injected postfix.
+            ret.OpCode = OpCodes.Nop; ret.Operand = null;
+            inject(il, ret);
+        }
+        Widen(m);
+    }
+    public static void Apply(ModuleDefinition mod, string runtimePath)
+    {
+        if (Types(mod).Any(t => t.FullName == "RefreshAncient.Compat2.UniqueOptions")) throw new InvalidOperationException("Features already applied.");
+        using var runtime = ModuleDefinition.ReadModule(runtimePath);
+        var feature = RuntimeMerge.Merge(mod, runtime);
+        MethodDefinition Feature(string name, int parameters = -1) => feature.Methods.Single(m => m.Name == name && (parameters < 0 || m.Parameters.Count == parameters));
+        var logic = Types(mod).Single(t => t.Name == "AncientRefreshDualButtonsLogic");
+        MethodDefinition Logic(string name) => logic.Methods.Single(m => m.Name == name);
+        void Replace(string name, string called, bool cost = false)
+        {
+            var method = Logic(name);
+            method.Body = new MethodBody(method); var il = method.Body.GetILProcessor();
+            if (cost) il.Emit(OpCodes.Call, Logic(name.Contains("Ancient") ? "get_RefreshAncientCost" : "get_RefreshOptionsCost"));
+            else foreach (var p in method.Parameters) il.Emit(OpCodes.Ldarg, p);
+            il.Emit(OpCodes.Call, Feature(called));
+            if (method.ReturnType.FullName != Feature(called).ReturnType.FullName) il.Emit(OpCodes.Castclass, method.ReturnType);
+            il.Emit(OpCodes.Ret);
+        }
+        Replace("GenerateFreshOptions", "Generate");
+        Replace("RebuildOptionsFromTextKeys", "Rebuild");
+        Replace("GetRefreshOptionsButtonText", "OptionsText", true);
+        Replace("GetRefreshAncientButtonText", "AncientText", true);
+        Replace("GetSharedDisabledTooltip", "SharedTooltip");
+        Replace("GetNoReplacementTooltip", "ReplacementTooltip");
+        Replace("GetButtonFontSize", "ButtonFontSize");
+        BeforeReturn(Logic("SetCurrentAndGeneratedOptions"), (il, ret) =>
+        {
+            var first = Instruction.Create(OpCodes.Ldarg_0); var second = Instruction.Create(OpCodes.Ldarg_1);
+            var call = Instruction.Create(OpCodes.Call, Feature("Commit")); var end = Instruction.Create(OpCodes.Ret);
+            il.InsertAfter(ret, first); il.InsertAfter(first, second); il.InsertAfter(second, call); il.InsertAfter(call, end);
+        });
+        BeforeReturn(Logic("UpdateButtons"), (il, ret) =>
+        {
+            var first = Instruction.Create(OpCodes.Ldarg_0); var call = Instruction.Create(OpCodes.Call, Feature("UpdateUi"));
+            il.InsertAfter(ret, first); il.InsertAfter(first, call); il.InsertAfter(call, Instruction.Create(OpCodes.Ret));
+        });
+        var click = Logic("OnRefreshOptionsPressed");
+        var entry = click.Body.Instructions[0]; var edit = click.Body.GetILProcessor();
+        edit.InsertBefore(entry, Instruction.Create(OpCodes.Ldarg_0));
+        edit.InsertBefore(entry, Instruction.Create(OpCodes.Call, Feature("CanPress")));
+        edit.InsertBefore(entry, Instruction.Create(OpCodes.Brtrue, entry));
+        edit.InsertBefore(entry, Instruction.Create(OpCodes.Ret));
+        Widen(click);
+        var config = Types(mod).Single(t => t.Name == "ModConfigBridge");
+        BeforeReturn(config.Methods.Single(m => m.Name == "L"), (il, ret) =>
+        {
+            var call = Instruction.Create(OpCodes.Call, Feature("AddRussianLabels"));
+            il.InsertAfter(ret, call); il.InsertAfter(call, Instruction.Create(OpCodes.Ret));
+        });
+        var register = config.Methods.Single(m => m.Name == "Register");
+        var labelDictionary = register.Body.Variables.Single(v => v.VariableType.FullName == "System.Collections.Generic.Dictionary`2<System.String,System.String>");
+        Instruction? store = null;
+        foreach (var i in register.Body.Instructions)
+        {
+            int index = i.OpCode.Code switch { Code.Stloc_0 => 0, Code.Stloc_1 => 1, Code.Stloc_2 => 2, Code.Stloc_3 => 3, Code.Stloc or Code.Stloc_S => ((VariableDefinition)i.Operand).Index, _ => -1 };
+            if (index == labelDictionary.Index) { store = i; break; }
+        }
+        if (store == null) throw new InvalidOperationException("ModConfig title dictionary initializer was not found.");
+        register.Body.GetILProcessor().InsertBefore(store, Instruction.Create(OpCodes.Call, Feature("AddRussianLabels")));
+        Widen(register);
+        var info = mod.Assembly.CustomAttributes.Single(a => a.AttributeType.FullName == "System.Reflection.AssemblyInformationalVersionAttribute");
+        info.ConstructorArguments[0] = new CustomAttributeArgument(mod.TypeSystem.String, "1.4.3+unofficial.sts2.0.111.0.compat2.unique-options.ru");
+        mod.Mvid = Guid.NewGuid();
+        if (mod.GetTypeReferences().Any(t => t.Scope?.Name == "RuntimeFeatures")) throw new InvalidOperationException("Unmerged runtime reference.");
+        Console.WriteLine("Merged unique-option history, exhaustion guard, visible warning and Russian localization.");
+    }
+}
