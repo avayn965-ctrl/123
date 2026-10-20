@@ -16,27 +16,28 @@ public static class CatalogUi
         public object AncientsButton = null!;
         public object? Dialog;
         public object? Text;
+        public object? Rows;
     }
     private static readonly ConditionalWeakTable<object, View> Views = new();
     private static WeakReference<object>? _openDialog;
     private static ulong _suppressCancelUntil;
 
     private static Assembly? _godotSharp;
-    private static Type GodotType(string name)
+    internal static Type GodotType(string name)
     {
         _godotSharp ??= UniqueOptions.LoadedType("Godot.GodotObject", "GodotSharp")?.Assembly
             ?? throw new InvalidOperationException("GodotSharp is not loaded.");
         return _godotSharp.GetType("Godot." + name, true)!;
     }
-    private static object New(string name) => Activator.CreateInstance(GodotType(name))!;
-    private static object Vector(float x, float y) => Activator.CreateInstance(GodotType("Vector2"), x, y)!;
+    internal static object New(string name) => Activator.CreateInstance(GodotType(name))!;
+    internal static object Vector(float x, float y) => Activator.CreateInstance(GodotType("Vector2"), x, y)!;
     private static object VectorI(int x, int y) => Activator.CreateInstance(GodotType("Vector2I"), x, y)!;
-    private static void Name(object node, string name)
+    internal static void Name(object node, string name)
     {
         Type type = node.GetType().GetProperty("Name")!.PropertyType;
         UniqueOptions.Set(node, "Name", Activator.CreateInstance(type, name)!);
     }
-    private static void Add(object parent, object child)
+    internal static void Add(object parent, object child)
     {
         foreach (MethodInfo method in parent.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance))
         {
@@ -52,7 +53,7 @@ public static class CatalogUi
     private static void On(object node, string signal, Action action)
         => (node.GetType().GetEvent(signal) ?? throw new MissingMemberException(node.GetType().FullName, signal)).AddEventHandler(node, action);
 
-    private static void Font(object control, string key, int size)
+    internal static void Font(object control, string key, int size)
     {
         object name = Activator.CreateInstance(GodotType("StringName"), key)!;
         UniqueOptions.Call(control, "AddThemeFontSizeOverride", name, size);
@@ -72,27 +73,34 @@ public static class CatalogUi
     }
     public static bool ShouldSuppressCancel() => IsOpen() || (_suppressCancelUntil != 0 && Frame() <= _suppressCancelUntil);
 
-    public static string LocalizedText(object? text, string fallback)
+    public static string LocalizedText(object? text, string fallback) => StripMarkup(RichText(text, fallback));
+    private static string RichText(object? text, string fallback)
     {
         if (text == null) return fallback;
-        if (text is string plain) return StripMarkup(plain);
-        try { return StripMarkup(Convert.ToString(UniqueOptions.Call(text, "GetFormattedText")) ?? fallback); }
+        if (text is string plain) return plain;
+        try { return Convert.ToString(UniqueOptions.Call(text, "GetFormattedText")) ?? fallback; }
         catch
         {
-            try { return StripMarkup(Convert.ToString(UniqueOptions.Call(text, "GetRawText")) ?? fallback); }
+            try { return Convert.ToString(UniqueOptions.Call(text, "GetRawText")) ?? fallback; }
             catch { return fallback; }
         }
     }
     internal static string ModelText(object model, string property, string fallback)
+        => ModelDisplayText(model, property, fallback, false);
+    internal static string ModelDisplayText(object model, string property, string fallback, bool rich)
     {
-        try { return LocalizedText(UniqueOptions.Get(model, property), fallback); }
+        try
+        {
+            object? text = UniqueOptions.Get(model, property);
+            return rich ? RichText(text, fallback) : LocalizedText(text, fallback);
+        }
         catch { return fallback; }
     }
     private static string StripMarkup(string text) => Regex.Replace(text, @"\[/?[a-zA-Z][^\]]*\]", string.Empty);
-    private static string Text(string russian, string english, string chinese)
+    internal static string Text(string russian, string english, string chinese)
         => UniqueOptions.Translate(UniqueOptions.Language(), russian, english, chinese);
 
-    public static string FormatCatalog(string[][] rows, bool ancients)
+    private static string FormatSummary(string[][] rows, bool ancients)
     {
         StringBuilder result = new();
         int available = 0;
@@ -104,19 +112,27 @@ public static class CatalogUi
             : Text("Все варианты текущего Древнего. Недоступные награды отмечены отдельно.", "All options for this Ancient. Ineligible rewards are marked separately.", "当前先古之民的全部选项，不可用的奖励会单独标记。"));
         result.AppendLine(Text("Только просмотр — золото не расходуется.", "View only — no gold is spent.", "仅供查看，不会消耗金币。")).AppendLine();
         if (rows.Length == 0) result.AppendLine(Text("Вариантов нет.", "No entries.", "没有条目。"));
+        return result.ToString();
+    }
+
+    public static string FormatCatalog(string[][] rows, bool ancients)
+    {
+        StringBuilder result = new(FormatSummary(rows, ancients));
         int index = 0;
         foreach (string[] row in rows)
         {
-            string status = row[2] == "current" ? Text(ancients ? "Сейчас здесь" : "На экране", "Current", "当前")
-                : row[2] == "seen" ? Text("Уже показан", "Already shown", "已展示")
-                : row[2] == "available" ? Text("Ещё доступен", "Available", "仍可获得")
-                : Text("Недоступен", "Unavailable", "不可用");
+            string status = Status(row[2], ancients);
             result.Append(++index).Append(". ").Append(row[0]).Append("  [").Append(status).AppendLine("]");
             if (!string.IsNullOrWhiteSpace(row[1])) result.AppendLine(row[1]);
             result.AppendLine();
         }
         return result.ToString();
     }
+
+    internal static string Status(string status, bool ancients) => status == "current" ? Text(ancients ? "Сейчас здесь" : "На экране", "Current", "当前")
+        : status == "seen" ? Text("Уже показан", "Already shown", "已展示")
+        : status == "available" ? Text("Ещё доступен", "Available", "仍可获得")
+        : Text("Недоступен", "Unavailable", "不可用");
 
     private static View Ensure(object layout)
     {
@@ -202,7 +218,8 @@ public static class CatalogUi
             object? current = UniqueOptions.CurrentAncient();
             if (current == null) return;
             View view = Ensure(layout);
-            string[][] rows = ancients ? AncientHistory.Catalog(current) : UniqueOptions.OptionCatalog(current);
+            string[][] rows = ancients ? AncientHistory.CatalogRich(current) : UniqueOptions.OptionCatalogRich(current);
+            object[] models = ancients ? AncientHistory.CatalogModels(current) : UniqueOptions.OptionModels(current);
             if (view.Dialog == null)
             {
                 view.Dialog = New("AcceptDialog");
@@ -213,15 +230,26 @@ public static class CatalogUi
                 UniqueOptions.Set(view.Dialog, "DialogCloseOnEscape", true);
                 UniqueOptions.Set(view.Dialog, "Visible", false);
                 UniqueOptions.Set(view.Dialog, "DialogText", string.Empty);
+                object content = New("VBoxContainer");
+                UniqueOptions.Set(content, "CustomMinimumSize", Vector(720, 380));
                 view.Text = New("RichTextLabel");
                 Name(view.Text, "RefreshAncient_CatalogText");
                 UniqueOptions.Set(view.Text, "BbcodeEnabled", false);
-                UniqueOptions.Set(view.Text, "ScrollActive", true);
+                UniqueOptions.Set(view.Text, "ScrollActive", false);
                 UniqueOptions.Set(view.Text, "SelectionEnabled", true);
-                UniqueOptions.Set(view.Text, "FitContent", false);
-                UniqueOptions.Set(view.Text, "CustomMinimumSize", Vector(720, 380));
-                Font(view.Text, "normal_font_size", 20);
-                Add(view.Dialog, view.Text); Add(layout, view.Dialog);
+                UniqueOptions.Set(view.Text, "FitContent", true);
+                Font(view.Text, "normal_font_size", 16);
+                Add(content, view.Text);
+                object scroll = New("ScrollContainer");
+                Name(scroll, "RefreshAncient_CatalogScroll");
+                CatalogCards.EnumProperty(scroll, "SizeFlagsVertical", 3);
+                CatalogCards.EnumProperty(scroll, "HorizontalScrollMode", 0);
+                view.Rows = New("VBoxContainer");
+                Name(view.Rows, "RefreshAncient_CatalogRows");
+                CatalogCards.EnumProperty(view.Rows, "SizeFlagsHorizontal", 3);
+                CatalogCards.Constant(view.Rows, "separation", 12);
+                Add(scroll, view.Rows); Add(content, scroll);
+                Add(view.Dialog, content); Add(layout, view.Dialog);
                 UniqueOptions.Set(UniqueOptions.Call(view.Dialog, "GetLabel")!, "Visible", false);
                 On(view.Dialog, "Confirmed", () => Close(view));
                 On(view.Dialog, "Canceled", () => Close(view));
@@ -229,9 +257,10 @@ public static class CatalogUi
             }
             UniqueOptions.Set(view.Dialog, "Title", ancients ? Text("Все Древние", "All Ancients", "全部先古之民") : Text("Все варианты", "All Options", "全部选项"));
             UniqueOptions.Set(view.Dialog, "OkButtonText", Text("Закрыть", "Close", "关闭"));
-            UniqueOptions.Set(view.Text!, "Text", FormatCatalog(rows, ancients));
+            UniqueOptions.Set(view.Text!, "Text", FormatSummary(rows, ancients).TrimEnd());
+            CatalogCards.Fill(layout, view.Rows!, rows, models, ancients);
             _openDialog = new WeakReference<object>(view.Dialog);
-            UniqueOptions.Call(view.Dialog, "PopupCenteredClamped", VectorI(860, 540), 0.9f);
+            UniqueOptions.Call(view.Dialog, "PopupCenteredClamped", VectorI(1180, 740), 0.9f);
             UniqueOptions.Call(UniqueOptions.Call(view.Dialog, "GetOkButton")!, "GrabFocus");
         }
         catch (Exception error) { _openDialog = null; UniqueOptions.Log(error); }

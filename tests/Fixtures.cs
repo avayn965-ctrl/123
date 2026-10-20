@@ -26,6 +26,9 @@ namespace Fixtures
         public ModelId Id { get; set; } = new() { Entry = "ANCIENT" };
         public string Title => "Древний " + Id.Entry;
         public string InitialDescription => "Описание Древнего " + Id.Entry;
+        public object? RunHistoryIcon { get; set; }
+        public object? RunHistoryIconOutline { get; set; }
+        public object? MapIcon { get; set; }
         public int Enumerations { get; private set; }
         public IEnumerable<Option> AllPossibleOptions { get { Enumerations++; return Pool; } }
         public void Apply(object value) => _currentOptions = (List<Option>)value;
@@ -127,7 +130,12 @@ namespace MegaCrit.Sts2.Core.Models.Enchantments
 }
 namespace MegaCrit.Sts2.Core.Models.Relics
 {
-    public class Relic { public virtual string Id => GetType().Name; }
+    public class Relic
+    {
+        public virtual string Id => GetType().Name;
+        public object? Icon { get; set; }
+        public object? IconOutline { get; set; }
+    }
     public sealed class BeautifulBracelet : Relic { }
     public sealed class TriBoomerang : Relic { }
     public sealed class PaelsClaw : Relic { }

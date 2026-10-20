@@ -113,7 +113,13 @@ public static class AncientHistory
         return false;
     }
 
-    public static string[][] Catalog(object current)
+    public static string[][] Catalog(object current) => CatalogCore(current, false);
+    internal static string[][] CatalogRich(object current) => CatalogCore(current, true);
+    internal static object[] CatalogModels(object current)
+    {
+        lock (Gate) return History(Run(current), current).Known.Values.ToArray();
+    }
+    private static string[][] CatalogCore(object current, bool rich)
     {
         lock (Gate)
         {
@@ -126,8 +132,8 @@ public static class AncientHistory
                     : history.Seen.Contains(entry.Key) ? "seen" : history.Eligible.Contains(entry.Key) ? "available" : "unavailable";
                 rows.Add(new[]
                 {
-                    CatalogUi.ModelText(entry.Value, "Title", entry.Key),
-                    CatalogUi.ModelText(entry.Value, "InitialDescription", string.Empty), status
+                    CatalogUi.ModelDisplayText(entry.Value, "Title", entry.Key, rich),
+                    CatalogUi.ModelDisplayText(entry.Value, "InitialDescription", string.Empty, rich), status
                 });
             }
             return rows.ToArray();

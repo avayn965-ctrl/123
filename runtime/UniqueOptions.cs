@@ -376,7 +376,13 @@ public static class UniqueOptions
     public static string ExhaustedLabel(string language) => Translate(language, "Новых вариантов нет", "No new options", "没有新选项");
     public static string ExhaustedTooltip(string language) => Translate(language, "Все доступные варианты этого Древнего уже были показаны. Золото не списывается.", "All available choices for this Ancient have already been shown. No gold is charged.", "这位先古之民的所有可用选项都已展示，不会扣除金币。");
 
-    public static string[][] OptionCatalog(object ancient)
+    public static string[][] OptionCatalog(object ancient) => OptionCatalogCore(ancient, false);
+    internal static string[][] OptionCatalogRich(object ancient) => OptionCatalogCore(ancient, true);
+    internal static object[] OptionModels(object ancient)
+    {
+        lock (Gate) return GetHistory(ancient).Catalog.Values.ToArray();
+    }
+    private static string[][] OptionCatalogCore(object ancient, bool rich)
     {
         lock (Gate)
         {
@@ -392,8 +398,8 @@ public static class UniqueOptions
                 bool randomCard = HasBaseName(ancient, "Darv") && relic?.GetType().Name == "DustyTome" && !history.Prepared.Contains(entry.Key);
                 string description = randomCard
                     ? Translate(Language(), "Случайная древняя карта определится при появлении этого варианта.", "The random Ancient card is determined when this option is offered.", "此选项出现时才会确定随机远古卡牌。")
-                    : CatalogUi.ModelText(entry.Value, "Description", string.Empty);
-                rows.Add(new[] { CatalogUi.ModelText(entry.Value, "Title", entry.Key), description, status });
+                    : CatalogUi.ModelDisplayText(entry.Value, "Description", string.Empty, rich);
+                rows.Add(new[] { CatalogUi.ModelDisplayText(entry.Value, "Title", entry.Key, rich), description, status });
             }
             return rows.ToArray();
         }

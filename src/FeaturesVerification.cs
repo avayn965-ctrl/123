@@ -74,11 +74,20 @@ internal static class FeaturesVerification
         Require(Types(game).Single(t => t.Name == "Player").Properties.Any(p => p.Name == "NetId"), "Player identity API missing.");
         Require(Types(game).Single(t => t.Name == "Darv").Fields.Any(f => f.Name == "_validRelicSets"), "Darv eligibility table missing.");
         Require(Types(game).Single(t => t.Name == "DustyTome").Methods.Any(m => m.Name == "SetupForPlayer" && m.Parameters.Count == 1), "DustyTome setup API missing.");
+        var ancient = Types(game).Single(t => t.FullName == "MegaCrit.Sts2.Core.Models.AncientEventModel");
+        var relic = Types(game).Single(t => t.FullName == "MegaCrit.Sts2.Core.Models.RelicModel");
+        foreach (var property in new[] { "RunHistoryIcon", "RunHistoryIconOutline" })
+            Require(ancient.Properties.Any(p => p.Name == property && p.PropertyType.FullName == "Godot.Texture2D"), "Ancient top-bar icon API missing: " + property);
+        foreach (var property in new[] { "Icon", "IconOutline" })
+            Require(relic.Properties.Any(p => p.Name == property && p.PropertyType.FullName == "Godot.Texture2D"), "Reward icon API missing: " + property);
+        var topBarIcon = Types(game).Single(t => t.FullName == "MegaCrit.sts2.Core.Nodes.TopBar.NTopBarRoomIcon");
+        Require(topBarIcon.Methods.Single(m => m.Name == "UpdateIcon").Body.Instructions.Any(i => i.Operand is MethodReference m && m.Name == "GetRoomIconPath"), "Top-bar icon no longer uses the room icon path.");
         Console.WriteLine("PASS: exactly 16 original feature hooks changed; compat1 replacement core, refund paths and constructor fixes preserved.");
         Console.WriteLine("PASS: solo, host, remote reconstruction, commit, exhaustion preflight and UI paths are connected to the new logic.");
         Console.WriteLine("PASS: original act/unlock pool is preserved; Ancient history filters every pool path and guards/commits actual replacements.");
         Console.WriteLine("PASS: catalog windows are wired to UI updates and Escape cannot latch the pause controls while a catalog closes.");
         Console.WriteLine("PASS: new eligibility/localization reflection API exists in the supplied v0.111.0 game DLL.");
+        Console.WriteLine("PASS: reward textures and Ancient top-bar room icon textures exist in the supplied game API.");
         Console.WriteLine("PASS: no extra runtime DLL dependency; embedded resources are unchanged.");
     }
 }
