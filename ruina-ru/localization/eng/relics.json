@@ -1,0 +1,51 @@
+{
+  "RUINA2-GLIMPSE_OF_EGO.description": "Upon pickup, obtain a random [gold]EGO[/gold] card to add to your [gold]Deck[/gold].",
+  "RUINA2-GLIMPSE_OF_EGO.eventDescription": "Obtain a random [gold]EGO[/gold] card.",
+  "RUINA2-GLIMPSE_OF_EGO.flavor": "The human mind holds infinite potential. This is but a tiny sliver of it.",
+  "RUINA2-GLIMPSE_OF_EGO.title": "Glimpse of EGO",
+
+  "RUINA2-BOOK_OF_EGO.description": "Upon pickup, choose [blue]1[/blue] of [blue]3[/blue] [gold]EGO[/gold] cards to add to your Deck, and add [blue]1[/blue] [red]Decay[/red] to your [gold]Deck[/gold].",
+  "RUINA2-BOOK_OF_EGO.eventDescription": "Choose [blue]1[/blue] of [blue]3[/blue] [gold]EGO[/gold] cards to add to your Deck. Add [blue]1[/blue] [red]Decay[/red] to your [gold]Deck[/gold].",
+  "RUINA2-BOOK_OF_EGO.flavor": "There is a light within all of us. A light that will one day break free and change the world.",
+  "RUINA2-BOOK_OF_EGO.title": "Book of EGO",
+
+  "RUINA2-GOODBYE.description": "The first [gold]Attack[/gold] you play each combat deals double damage.",
+  "RUINA2-GOODBYE.flavor": "It tries to mimic humans. Looking into a mirror, mumbling to itself, trying to fix its skeletal structure . . . it's as if it was trying to become human.",
+  "RUINA2-GOODBYE.title": "Goodbye",
+
+  "RUINA2-FALSE_PRESENT.description": "Upon pickup, lose [blue]{HpLoss}[/blue] Max HP. The first [blue]{Cards}[/blue] cards you draw each combat cost [blue]0[/blue] until played.",
+  "RUINA2-FALSE_PRESENT.flavor": "Poor Ozma. She didn't know that lying adults don't approach others without reason.",
+  "RUINA2-FALSE_PRESENT.title": "False Present",
+
+  "RUINA2-PRESCRIPTS_GRACE.description": "At start of each turn, randomly chooses between [gold]Attack[/gold], [gold]Skill[/gold], and [gold]Power[/gold]. The first card you play each turn of the chosen type is played twice.",
+  "RUINA2-PRESCRIPTS_GRACE.flavor": "It all made sense now. All those pointless endeavours converged onto a single, definite meaning.",
+  "RUINA2-PRESCRIPTS_GRACE.title": "Prescript's Grace",
+
+  "RUINA2-MALICE.description": "At the start of your turn, deal [blue]{Damage}[/blue] to ALL enemies. If your HP is at or below [blue]{HPThreshold}%[/blue], deal [blue]{IncreasedDamage}[/blue] damage to ALL enemies instead.",
+  "RUINA2-MALICE.flavor": "The inherent malice caused all life to crumble as soon as it bloomed.",
+  "RUINA2-MALICE.title": "Malice",
+
+  "RUINA2-SEVENTH_BULLET.description": "Gain [blue]{StrengthPower}[/blue] [gold]Strength[/gold] at the start of combat. Whenever you play [blue]{Cards}[/blue] [gold]Attacks[/gold], take [blue]{Damage}[/blue] damage.",
+  "RUINA2-SEVENTH_BULLET.flavor": "One day, the marksman realized the Devil no longer followed him. He pondered why, then realized that his soul had already fallen to Hell from the beginning.",
+  "RUINA2-SEVENTH_BULLET.title": "The Seventh Bullet",
+
+  "RUINA2-OVEREXERTION.description": "Start each combat with an additional {Energy:energyIcons()}. Gain [blue]{WeakPower}[/blue] [gold]Weak[/gold] and [gold]Frail[/gold] at the start of your second turn.",
+  "RUINA2-OVEREXERTION.flavor": "She just had to keep pushing forward. Keep on pushing until the way was clear. Keep on pushing until she could push no more.",
+  "RUINA2-OVEREXERTION.title": "Overexertion",
+
+  "RUINA2-LIFE_FIBERS.description": "The next time you die, heal [blue]{Heal}[/blue] HP instead. At the end of combat, increase the heal amount by [blue]{HealIncrease}[/blue].",
+  "RUINA2-LIFE_FIBERS.flavor": "When night falls in the Backstreets, they will come.",
+  "RUINA2-LIFE_FIBERS.title": "Life Fibers",
+
+  "RUINA2-LOWELLS_GIFT.description": "At the start of your [blue]3rd[/blue] turn, gain [blue]{StrengthPower}[/blue] [gold]Strength[/gold] and [blue]{DexterityPower}[/blue] [gold]Dexterity[/gold].",
+  "RUINA2-LOWELLS_GIFT.flavor": "It's those small moments you end up remembering for the rest of your life.",
+  "RUINA2-LOWELLS_GIFT.title": "Lowell's Gift",
+
+  "RUINA2-FOUR_TRIGRAMS.description": "At the start of your turn, activate the effect that corresponds to the current turn:\n[blue]1st[/blue] turn - Draw [blue]{Cards}[/blue] card.\n[blue]2nd[/blue] turn - Gain {Energy:energyIcons()}.\n[blue]3rd[/blue] turn - Gain [blue]{StrengthPower}[/blue] [gold]Strength[/gold].\n[blue]4th[/blue] turn - Gain [blue]{DexterityPower}[/blue] [gold]Dexterity[/gold].",
+  "RUINA2-FOUR_TRIGRAMS.flavor": "The balance of the City must be upheld.",
+  "RUINA2-FOUR_TRIGRAMS.title": "Four Trigrams",
+
+  "RUINA2-BOOK_OF_SOMEONE.description": "At the end of combat, heal [blue]{Heal}%[/blue] of your HP.",
+  "RUINA2-BOOK_OF_SOMEONE.flavor": "Some must fight so that all may be free.",
+  "RUINA2-BOOK_OF_SOMEONE.title": "Book of Someone"
+}

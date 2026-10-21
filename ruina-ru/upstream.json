@@ -1,0 +1,33 @@
+{
+  "repository": "https://github.com/Darkglade1/Ruina2",
+  "commit": "f83f90a165aa49c1ec1371b4594d8bed605c7e47",
+  "branch": "main (public-beta source)",
+  "version": "v1.1.5",
+  "workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=3787624064",
+  "english_sha256": {
+    "acts.json": "4ba3b04edc0debe2cdfd61fed7220eb258159187e6340d5797b2674e62814a87",
+    "afflictions.json": "2fc7bda18ecdf3380d3bf62847369088b5fcf4a80391398c5ab4d643eeb8d29e",
+    "ancients.json": "52fc85121321b8ea50e500d57e66953dd6cc643821fbf9dbcebd9ddc830a599b",
+    "card_keywords.json": "7b89b83551ff94293ae093b25ac820524cac2e2e37da37047a4a8ed2132981d9",
+    "card_library.json": "f235500494dfe3e345bdd940e1525b8b41a0004c705d8838882a23c94c9d7ab7",
+    "card_selection.json": "107f06c21029a6f391b8035d1fde848fcd1fcaa99ca24945bb2037adf744f77d",
+    "cards.json": "176c4de7f4b8e22917cc93a87ad032fb54a3773f0d028967958b7574abc50697",
+    "enchantments.json": "37e3b638c3cc92127ee70bf2e75ed59dc138c56e73e9600f9ecc10e01faf5e8b",
+    "encounters.json": "530805085b9948b0a781f0fb3aaec5222b47095f2ee8079e3e80141adcfec617",
+    "events.json": "531d3d6414fdd912da9e6509baae8d220d11920214113b85ead9314cc5c8bcb3",
+    "ftues.json": "7c1fd386d8a5f25cd2afaf99e99919aef2021ad1c5a9607f52fe7c538b82ffaf",
+    "gameplay_ui.json": "9959ad0911ddbfd0c6a49edd4cc13b41c1c02ed4b60a1714e11f99dfa134775e",
+    "intents.json": "336552dc6fc7b611b93fe599d5d6b3c50f0e2ea51d0c3630bf51af29b8223a0d",
+    "merchant_room.json": "373388238731118cbac5a26a67f44b2f3ae5abc78a6931c9e278826c44c3fcca",
+    "monsters.json": "be5e3bca8bfa7b9288c5ec65e248fb54c4134c85029eeb3a0995084d0242d50c",
+    "orbs.json": "85761b6469e359dcbacb695a98c65765db09ca82bfb5e098c0685190778e8dac",
+    "potions.json": "03342a997687ced066b9d224d9f7ae45d4cfd9358dc8839c30e2537b9f51216b",
+    "powers.json": "9b775b6bbdae292bb8c517c168066020f5267953b5afad3462367fdfdbabaaeb",
+    "relics.json": "bbbf2cf2d32e081ab25cc36dd0c31867051fc94473f1dbba53f53c79e4505991",
+    "rest_site_ui.json": "ff582806320b8d7f1a43517cdbd61b034ff1c209cde9fdfbe1021c33c0e46bbc",
+    "settings_ui.json": "c6d6801fbc34d0d99c2c9ac257b93612fdd04831c01b7f7a2907b85f7e84cb67",
+    "static_hover_tips.json": "723cecf164738e0194759bfa5ce1c1ff6a2b3e741cc17947a9da05bd72b2916e"
+  },
+  "uploaded_archive_verified": false,
+  "reason": "3787624064.zip exceeds the attachment transfer limit of 32 MiB. Translation is based on the pinned public author source, not an inspected Workshop binary."
+}

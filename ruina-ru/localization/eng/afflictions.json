@@ -1,0 +1,37 @@
+﻿{
+  "RUINA2-LAUREL_WREATH.title": "Laurel Wreath",
+  "RUINA2-LAUREL_WREATH.description": "This card deals full damage to [gold]Alriune[/gold].",
+  "RUINA2-LAUREL_WREATH.extraCardText": "",
+
+  "RUINA2-JUDAS.title": "Judas",
+  "RUINA2-JUDAS.description": "This card gains [gold]Replay[/gold] but causes you to lose HP when played.",
+  "RUINA2-JUDAS.extraCardText": "[purple]Lose 1 HP.[/purple]",
+
+  "RUINA2-FROZEN.title": "Frozen",
+  "RUINA2-FROZEN.description": "This card is [gold]Unplayable[/gold].",
+  "RUINA2-FROZEN.extraCardText": "",
+
+  "RUINA2-COFFIN.title": "Coffin",
+  "RUINA2-COFFIN.description": "This card is [gold]Ethereal[/gold] and [gold]Unplayable[/gold].",
+  "RUINA2-COFFIN.extraCardText": "",
+
+  "RUINA2-PUNISHED.title": "Punished",
+  "RUINA2-PUNISHED.description": "This card costs [blue]1[/blue] more.",
+  "RUINA2-PUNISHED.extraCardText": "",
+
+  "RUINA2-APOSTLE.title": "Apostle",
+  "RUINA2-APOSTLE.description": "At the end of your turn, if this card is in your [gold]Hand[/gold], it is [gold]Transformed[/gold] into a [gold]Status[/gold].",
+  "RUINA2-APOSTLE.extraCardText": "",
+
+  "RUINA2-NAIL.title": "Nail",
+  "RUINA2-NAIL.description": "Whenever you play a card this turn, take [blue]{Amount}[/blue] damage.",
+  "RUINA2-NAIL.extraCardText": "[purple]Take {Amount} damage.[/purple]",
+
+  "RUINA2-BLEED.title": "Bleed",
+  "RUINA2-BLEED.description": "Whenever you hit with an [gold]Attack[/gold] this turn, take [blue]{Amount}[/blue] damage.",
+  "RUINA2-BLEED.extraCardText": "",
+
+  "RUINA2-CAPTIVATED.title": "Captivated",
+  "RUINA2-CAPTIVATED.description": "This card can only target the enemy with [gold]Spotlight[/gold].",
+  "RUINA2-CAPTIVATED.extraCardText": "[purple]Can only target the enemy with Spotlight.[/purple]"
+}

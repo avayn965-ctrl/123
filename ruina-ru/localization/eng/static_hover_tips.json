@@ -1,0 +1,14 @@
+{
+  "RUINA2-ALLY_BLOCK_BUTTON.title": "Transfer Block",
+  "RUINA2-ALLY_BLOCK_BUTTON.description": "[gold]Left-Click:[/gold] transfer up to [blue]\\{0\\}[/blue] [gold]Block[/gold] from you to this [green]ally[/green].",
+  "RUINA2-PERFORMER_TYPE.description": "{Type} | Performer",
+
+  "RUINA2-SLASH_STANCE_BUTTON.title": "Slash Stance",
+  "RUINA2-SLASH_STANCE_BUTTON.description": "[gold]Left-Click:[/gold] switch this [green]ally[/green] to [gold]Slash Stance[/gold], which focuses on dealing damage.",
+
+  "RUINA2-PIERCE_STANCE_BUTTON.title": "Pierce Stance",
+  "RUINA2-PIERCE_STANCE_BUTTON.description": "[gold]Left-Click:[/gold] switch this [green]ally[/green] to [gold]Pierce Stance[/gold], which focuses on applying debuffs",
+
+  "RUINA2-GUARD_STANCE_BUTTON.title": "Guard Stance",
+  "RUINA2-GUARD_STANCE_BUTTON.description": "[gold]Left-Click:[/gold] switch this [green]ally[/green] to [gold]Guard Stance[/gold], which focuses on [gold]Blocking[/gold] and negating debuffs."
+}

@@ -1,0 +1,11 @@
+{
+  "RUINA2-ALLY_BLOCK_BUTTON.title": "Передать Блок",
+  "RUINA2-ALLY_BLOCK_BUTTON.description": "[gold]ЛКМ:[/gold] передайте до [blue]\\{0\\}[/blue] [gold]Блока[/gold] этому [green]союзнику[/green].",
+  "RUINA2-PERFORMER_TYPE.description": "{Type} | Исполнитель",
+  "RUINA2-SLASH_STANCE_BUTTON.title": "Рубящая стойка",
+  "RUINA2-SLASH_STANCE_BUTTON.description": "[gold]ЛКМ:[/gold] переключите этого [green]союзника[/green] в [gold]Рубящую стойку[/gold], сосредоточенную на нанесении урона.",
+  "RUINA2-PIERCE_STANCE_BUTTON.title": "Колющая стойка",
+  "RUINA2-PIERCE_STANCE_BUTTON.description": "[gold]ЛКМ:[/gold] переключите этого [green]союзника[/green] в [gold]Колющую стойку[/gold], сосредоточенную на наложении ослаблений.",
+  "RUINA2-GUARD_STANCE_BUTTON.title": "Защитная стойка",
+  "RUINA2-GUARD_STANCE_BUTTON.description": "[gold]ЛКМ:[/gold] переключите этого [green]союзника[/green] в [gold]Защитную стойку[/gold], сосредоточенную на [gold]Блоке[/gold] и отмене ослаблений."
+}

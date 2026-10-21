@@ -1,0 +1,226 @@
+{
+  "RUINA2-NIGHTMARE_WOLF.name": "Wolf in Her Nightmares",
+  "RUINA2-LITTLE_RED.name": "Little Red Riding Hooded Mercenary",
+  "RUINA2-LITTLE_RED.killWolf": "The nightmare . . . is finally over.",
+  "RUINA2-LITTLE_RED.killStolen": "YOU DARE STEAL MY PREY?",
+  "RUINA2-LITTLE_RED.onAllyDeath": "Still not . . . strong enough . . .",
+
+  "RUINA2-MOUNTAIN.name": "Mountain of Smiling Bodies",
+  "RUINA2-CORPSE.name": "Melted Corpses",
+
+  "RUINA2-NOSFERATU.name": "Nosferatu",
+  "RUINA2-SANGUINE_BAT.name": "Sanguine Bat",
+
+  "RUINA2-WOODSMAN.name": "Warm-Hearted Woodsman",
+
+  "RUINA2-A_WOLF.name": "A Wolf",
+  "RUINA2-BAD_WOLF.name": "Big and Will Be Bad Wolf",
+
+  "RUINA2-OZMA.name": "Ozma",
+  "RUINA2-JACK.name": "Jack",
+
+  "RUINA2-KNIGHT_OF_DESPAIR.name": "Knight of Despair",
+  "RUINA2-SWORD.name": "Sword Sharpened by Tears",
+
+  "RUINA2-KING_OF_GREED.name": "King of Greed",
+  "RUINA2-BRILLIANT_BLISS.name": "Brilliant Bliss",
+
+  "RUINA2-QUEEN_OF_HATE.name": "Queen of Hate",
+
+  "RUINA2-SCARECROW.name": "Scarecrow Searching for Wisdom",
+
+  "RUINA2-SERVANT_OF_WRATH.name": "Servant of Wrath",
+  "RUINA2-WRATH.combatStart": "EMBODIMENTS OF EVIL!",
+  "RUINA2-WRATH.hermitDeath": "Law and order . . . has prevailed.",
+  "RUINA2-HERMIT.name": "Hermit of the Azure Forest",
+  "RUINA2-HERMIT_STAFF.name": "Hermit's Staff",
+
+  "RUINA2-QUEEN_OF_LOVE.name": "Queen of Love",
+  "RUINA2-LOVE.victory": "Love and Justice prevail once more!",
+  "RUINA2-LOVE.death": "My strength fades . . .",
+  "RUINA2-SERVANT_OF_COURAGE.name": "Servant of Courage",
+  "RUINA2-COURAGE.victory": "The law is upheld",
+  "RUINA2-COURAGE.death": "The others will carry on.",
+  "RUINA2-JESTER_OF_NIHIL.name": "Jester of Nihil",
+
+  "RUINA2-ROAD_HOME.name": "Road Home",
+  "RUINA2-ROAD.catDeath": "Aw, you killed my friend!",
+  "RUINA2-SCAREDY_CAT.name": "Scaredy Cat",
+  "RUINA2-HOME.name": "Home",
+
+  "RUINA2-FORSAKEN_MURDERER.name": "Forsaken Murderer",
+
+  "RUINA2-FRAGMENT.name": "Fragment of the Universe",
+
+  "RUINA2-BUTTERFLIES.name": "Funeral Butterflies",
+
+  "RUINA2-CRAZED_EMPLOYEE.name": "Crazed Employee",
+
+  "RUINA2-ALRIUNE.name": "Alriune",
+
+  "RUINA2-ALL_AROUND_HELPER.name": "All-Around Helper",
+
+  "RUINA2-LAETITIA.name": "Laetitia",
+  "RUINA2-GIFT_FRIEND.name": "Gift-Wrapped Friend",
+  "RUINA2-WITCH_FRIEND.name": "Wee Witch's Friend",
+
+  "RUINA2-FAIRY_QUEEN.name": "Fairy Queen",
+  "RUINA2-FAIRY_MASS.name": "Fairy Mass",
+
+  "RUINA2-SCORCHED_GIRL.name": "Scorched Girl",
+  "RUINA2-MATCH_FLAME.name": "Match Flame",
+
+  "RUINA2-TEDDY_BEAR.name": "Happy Teddy Bear",
+
+  "RUINA2-PORCCUBUS.name": "Porccubus",
+
+  "RUINA2-ORCHESTRA.name": "Silent Orchestra",
+
+  "RUINA2-QUEEN_BEE.name": "Queen Bee",
+  "RUINA2-WORKER_BEE.name": "Worker Bee",
+
+  "RUINA2-LEFT_SHOE.name": "Left Shoe",
+  "RUINA2-RIGHT_SHOE.name": "Right Shoe",
+
+  "RUINA2-NOTHING_THERE.name": "Nothing There",
+  "RUINA2-NOTHING_THERE.greeting": "h e L l O",
+  "RUINA2-NOTHING_THERE.goodbye": "g o O d B y E",
+  "RUINA2-DER_FREISCHUTZ.name": "Der Freischütz",
+  "RUINA2-DER_FREISCHUTZ.greeting": "Cease your ramblings, mutt! I shall put both of you down!",
+  "RUINA2-DER_FREISCHUTZ.goodbye": "One down, one to go.",
+
+  "RUINA2-GALAXY_FRIEND.name": "Friend to the Galaxy",
+
+  "RUINA2-SHY_LOOK.name": "Today's Shy Look",
+
+  "RUINA2-WHITE_NIGHT.name": "White Night",
+
+  "RUINA2-BIG_BIRD.name": "Big Bird",
+  "RUINA2-SAGE.name": "Sage of the Forest (1)",
+  "RUINA2-SAGE2.name": "Sage of the Forest (2)",
+  "RUINA2-SAGE.combatStart1": "The guardian has gone mad!",
+  "RUINA2-SAGE.combatStart2": "We must stop him!",
+  "RUINA2-SAGE.birdDeath1": "I hope he has come to his senses.",
+  "RUINA2-SAGE.birdDeath2": "That was a harrowing ordeal.",
+
+  "RUINA2-BLOODBATH.name": "Bloodbath",
+
+  "RUINA2-HEART_OF_ASPIRATION.name": "Heart of Aspiration",
+  "RUINA2-LUNGS_OF_CRAVING.name": "Lungs of Craving",
+
+  "RUINA2-TWILIGHT.name": "Twilight",
+  "RUINA2-BIG_EGG.name": "Big Egg",
+  "RUINA2-SMALL_EGG.name": "Small Egg",
+  "RUINA2-LONG_EGG.name": "Long Egg",
+
+  "RUINA2-WORSHIPPER.name": "Worshipper",
+  "RUINA2-BLUE_STAR.name": "Shrine to the Blue Star",
+
+  "RUINA2-SNOW_QUEEN.name": "Snow Queen",
+  "RUINA2-PRISON_OF_ICE.name": "Prison of Ice",
+
+  "RUINA2-RUNAWAY_BIRD.name": "Runaway Bird",
+  "RUINA2-EYEBALL_CHICK.name": "Eyeball Chick",
+
+  "RUINA2-BURROWING_HEAVEN.name": "Burrowing Heaven",
+
+  "RUINA2-PINOCCHIO.name": "Pinocchio",
+
+  "RUINA2-KEEPER.name": "Forest Keeper",
+  "RUINA2-PUNISHING_BIRD.name": "Punishing Bird",
+
+  "RUINA2-JUDGEMENT_BIRD.name": "Judgement Bird",
+  
+  "RUINA2-PRICE_OF_SILENCE.name": "Price of Silence",
+  "RUINA2-REMNANT_OF_TIME.name": "Remnant of Time",
+
+  "RUINA2-BLACK_SWAN.name": "Dream of a Black Swan",
+  "RUINA2-BROTHER.name": "Brother",
+
+  "RUINA2-OZ.name": "Adult Who Tells Lies",
+  "RUINA2-SCOWLING_FACE.name": "Scowling Face",
+
+  "RUINA2-SCYTHE_APOSTLE.name": "Scythe Apostle",
+  "RUINA2-SPEAR_APOSTLE.name": "Spear Apostle",
+  "RUINA2-STAFF_APOSTLE.name": "Staff Apostle",
+  
+  "RUINA2-SPIDER_BUD.name": "Spider Bud",
+  "RUINA2-SPIDERLING.name": "Spiderling",
+
+  "RUINA2-SILENT_GIRL.name": "Silent Girl",
+  "RUINA2-HAMMER.name": "Hammer",
+  "RUINA2-NAIL.name": "Nail",
+
+  "RUINA2-FUNERAL.name": "Funeral of the Dead Butterflies",
+
+  "RUINA2-OSWALD.name": "Oswald",
+  "RUINA2-OSWALD.talk": "Fancy some clown-to-clown communication?",
+  "RUINA2-TIPH.name": "Tiphereth",
+  "RUINA2-TIPH.response": "The only clown here is you.",
+  "RUINA2-TIPH.victory": "What a nuisance.",
+
+  "RUINA2-EILEEN.name": "Eileen",
+  "RUINA2-EILEEN.talk": "A gear is most beautiful when it spins with another.",
+  "RUINA2-YESOD.name": "Yesod",
+  "RUINA2-YESOD.response": "People are more than just gears in a machine.",
+  "RUINA2-YESOD.victory": "Your assistance was most welcome.",
+  "RUINA2-GEAR_WORSHIPPER.name": "Gear Worshipper",
+  "RUINA2-GEAR_WORSHIPPER2.name": "Gear Worshipper",
+
+  "RUINA2-GRETA.name": "Greta",
+  "RUINA2-GRETA.talk": "All the ingredients here are so filthy! It makes my stomach churn.",
+  "RUINA2-HOD.name": "Hod",
+  "RUINA2-HOD.response": "No one is untainted. But that doesn't mean we can't hope to become better.",
+  "RUINA2-HOD.victory": "Thank you kindly, stranger.",
+  "RUINA2-FRESH_MEAT.name": "Fresh Meat",
+
+  "RUINA2-BREMEN.name": "Bremen",
+  "RUINA2-BREMEN.talk": "RARF! BAWK! NEIGHHH!",
+  "RUINA2-NETZACH.name": "Netzach",
+  "RUINA2-NETZACH.response": ". . . Shut up.",
+  "RUINA2-NETZACH.victory": "At least that's over now. Care for a drink?",
+
+  "RUINA2-PHILIP.name": "Philip",
+  "RUINA2-PHILIP.talk": "Passion is a deception that will only lead to despair.",
+  "RUINA2-MALKUTH.name": "Malkuth",
+  "RUINA2-MALKUTH.response": "What a sad way to live.",
+  "RUINA2-MALKUTH.victory": "I hope he can finally rest now.",
+  "RUINA2-CRYING_CHILD.name": "Crying Child",
+  "RUINA2-CRYING_CHILD2.name": "Crying Child",
+
+  "RUINA2-PUPPETEER.name": "Jae-heon",
+  "RUINA2-PUPPETEER.talk": "We are all bound by the strings of others.",
+  "RUINA2-CHESED.name": "Chesed",
+  "RUINA2-CHESED.response": "That's a rather cynical way of looking at things.",
+  "RUINA2-CHESED.victory": "Thanks for the help, stranger.",
+  "RUINA2-CHESED.disposal": "Time for a finishing blow.",
+  "RUINA2-PUPPET.name": "Puppet",
+
+  "RUINA2-PLUTO.name": "Pluto",
+  "RUINA2-PLUTO.talk": "Empty words and hollow faith are meaningless.",
+  "RUINA2-HOKMA.name": "Hokma",
+  "RUINA2-HOKMA.response": "A faith is only as strong as the one who carries it.",
+  "RUINA2-HOKMA.victory": "I had faith that we would prevail.",
+
+  "RUINA2-ARGALIA.name": "Argalia",
+  "RUINA2-ARGALIA.talk": "You won't talk to me, Roland? What a shame.",
+  "RUINA2-ROLAND.name": "Roland",
+  "RUINA2-ROLAND.response": ". . .",
+  "RUINA2-ROLAND.victory": "Rot in hell.",
+
+  "RUINA2-TANYA.name": "Tanya",
+  "RUINA2-TANYA.talk": "It's the right of the strong to rule over the weak.",
+  "RUINA2-GEBURA.name": "Gebura",
+  "RUINA2-GEBURA.response": "What a load of rubbish.",
+  "RUINA2-GEBURA.victory": "Look where all that strength got you.",
+
+  "RUINA2-ELENA.name": "Elena",
+  "RUINA2-ELENA.talk": "A grand feast awaits us in the Light!",
+  "RUINA2-VERMILION.name": "Vermilion Cross",
+  "RUINA2-BINAH.name": "Binah",
+  "RUINA2-BINAH.response": "No feast would be served to the likes of you.",
+  "RUINA2-BINAH.victory": "That was quite bothersome.",
+
+  "RUINA2-KNIFE.name": "Mr. Knife",
+  "RUINA2-MERMAID.name": "Mrs. Mermaid"
+}

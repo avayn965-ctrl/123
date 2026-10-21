@@ -1,0 +1,103 @@
+Ruina Russian/P 1.1.5-ru.1 validation
+Game API input SHA256: 0861bfa1df347538d932f22d580e75420f08082792eb914e53b4882764acdbe9
+Addon SHA256: 83e27e2a796f3124efd49863c04800dc4ed47b8b0e847632c2e7dfe3967ddab1
+Archive SHA256: 6e7350cc9a97a297915e6897353d0ca0ca24e4746734e08d1b822ff65f76a2a5
+
+PASS: 1418 entries in 22 tables; keys, variables, formatters, conditions and markup checked. English plural constructs replaced by number-neutral Russian.
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.96
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.87
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.01
+
+PASS: 4 direct game API calls resolve; locale refresh and card display reflection API exist.
+PASS: addon contains both complete language sets and has no networking or RNG API references.
+
+PASS: all 22 English files match pinned source hashes: f83f90a165aa49c1ec1371b4594d8bed605c7e47
+
+NOT VERIFIED: user Workshop ZIP exceeds 32 MiB transfer limit. Binary/PCK version was not inspected.
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+[Ruina Russian] P: Ruina 2; Shift+P: GuZhenRen. Languages remain independent.
+[Ruina Russian] Loaded. P switches only Ruina2: Русский / English.
+PASS: Russian is the default for this mod
+PASS: real Harmony patch overrides the original LocString method
+PASS: base game keys retain the original method
+PASS: other mods keep their own localization
+PASS: lookup respects the localization table
+PASS: title-counting gameplay keeps original text even before GuZhenRenRussian initializes
+PASS: fallback gameplay guard does not change normal display text
+[Ruina Russian] English
+PASS: P changes already-visible text to exact original English
+PASS: English plural text formats correctly even with Chinese game culture
+PASS: mod formatter never changes base game culture or formatting
+PASS: visible cards refresh without resetting upgrade previews or their pile
+PASS: P keeps the game language and base text unchanged
+PASS: held P toggles once; initialization is idempotent
+[Ruina Russian] Русский
+PASS: a second P restores Russian immediately
+PASS: P typed in chat/text fields does not switch language
+[Ruina Russian] English
+PASS: P continues to work while gameplay is paused
+[Ruina Russian] Русский
+PASS: Russian selection is saved only in local user storage
+PASS: one locale notification per accepted key press
+[GuZhenRen Russian] Loaded. P switches only GuZhenRen: Русский / English.
+[Ruina Russian] English
+PASS: P affects Ruina only with the GuZhenRen addon present
+[GuZhenRen Russian] English
+PASS: Shift+P independently switches the prior GuZhenRen addon
+[Ruina Russian] Русский
+PASS: Ruina can use Russian while GuZhenRen uses English
+[Ruina Russian] English
+PASS: GuZhenRen's title-counting relic sees identical unmodified Ruina titles in both languages
+PASS: original text scope never leaks into Ruina display
+[Ruina Russian] Русский
+[GuZhenRen Russian] Русский
+PASS: releasing Shift during held P does not trigger Ruina
+PASS: multiline chat input suppresses both hotkeys
+PASS: Ruina's non-prefixed Melody key is translated
+PASS: Melody exception never affects another table
+27 RUINA RUSSIAN NATIVE CHECKS PASSED
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+[Ruina Russian] P: Ruina 2; Shift+P: GuZhenRen. Languages remain independent.
+[Ruina Russian] Loaded. P switches only Ruina2: Русский / English.
+[Ruina Russian] English
+PASS: English saved to local settings
+LANGUAGE PROBE save PASSED
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+[Ruina Russian] P: Ruina 2; Shift+P: GuZhenRen. Languages remain independent.
+[Ruina Russian] Loaded. P switches only Ruina2: Русский / English.
+PASS: another player's process keeps Russian independently
+LANGUAGE PROBE peer PASSED
+
+Godot Engine v4.5.1.stable.mono.official.f62fdbde1 - https://godotengine.org
+
+[Ruina Russian] P: Ruina 2; Shift+P: GuZhenRen. Languages remain independent.
+[Ruina Russian] Loaded. P switches only Ruina2: Русский / English.
+PASS: English restored in a new Godot process
+LANGUAGE PROBE read PASSED
+
+NOT RUN: full game launch or an actual multiplayer network session.
+Native Godot tests use fake game classes, real Harmony/input and the prior GuZhenRenRussian addon. Separate user-data directories simulate independent local preferences.

@@ -1,0 +1,15 @@
+{
+  "id": "RuinaRussian",
+  "name": "Ruina 2 — Русский / English (P)",
+  "author": "Community translation",
+  "description": "Русский перевод Ruina 2. P переключает русский и английский локально. При установленном GuZhenRenRussian для него используется Shift+P.",
+  "version": "1.1.5-ru.1",
+  "has_pck": false,
+  "has_dll": true,
+  "affects_gameplay": false,
+  "dependencies": [
+    {
+      "id": "Ruina2"
+    }
+  ]
+}

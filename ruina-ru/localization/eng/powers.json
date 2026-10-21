@@ -1,0 +1,517 @@
+{
+  "RUINA2-FURY.description": "",
+  "RUINA2-FURY.smartDescription": "[gold]Little Red[/gold] begins as your [green]ally[/green]. If she lands the killing blow on the [gold]Wolf[/gold], you win. If the [gold]Wolf[/gold] dies by any other means, [gold]Little Red[/gold] heals to full HP, enters an [red]enraged[/red] state, and becomes your [red]enemy[/red].",
+  "RUINA2-FURY.title": "Fury With No Outlet",
+
+  "RUINA2-PARALYSIS.description": "The next Attack you play this turn deals less damage.",
+  "RUINA2-PARALYSIS.smartDescription": "The next Attack you play this turn deals [blue]{DamageReduction:diff()}%[/blue] less damage.",
+  "RUINA2-PARALYSIS.title": "Paralysis",
+
+  "RUINA2-ABSORPTION.description": "",
+  "RUINA2-ABSORPTION.smartDescription": "[gold]Shrinks[/gold] to a lower [gold]Stage[/gold] on death.",
+  "RUINA2-ABSORPTION.title": "Absorption",
+
+  "RUINA2-BODIES.description": "",
+  "RUINA2-BODIES.smartDescription": "If [gold]Melted Corpses[/gold] has died, spawns a new one at the end of the round.",
+  "RUINA2-BODIES.title": "Mountain of Bodies",
+
+  "RUINA2-CORPSES.description": "",
+  "RUINA2-CORPSES.smartDescription": "[gold]Fatal[/gold] effects do not trigger off this creature.",
+  "RUINA2-CORPSES.title": "Corpses",
+
+  "RUINA2-WARM_HEART.description": "",
+  "RUINA2-WARM_HEART.smartDescription": "At the start of your turn, you gain {Amount:energyIcons()}. At the end of this creature's turn, it gains [gold]Strength[/gold] equal to your unspent [gold]Energy[/gold] (max [blue]{StrengthCap:diff()}[/blue] [gold]Strength[/gold] per turn).",
+  "RUINA2-WARM_HEART.title": "Warm Heart",
+
+  "RUINA2-HUNTER.description": "",
+  "RUINA2-HUNTER.smartDescription": "The next time this creature is below [blue]{HPThreshold:diff()}%[/blue] HP at the end of its turn, it gains [blue]{Amount}[/blue] [gold]Strength[/gold] and [blue]{Intangible:diff()}[/blue] [gold]Intangible[/gold].",
+  "RUINA2-HUNTER.title": "Hunter in the Dark",
+
+  "RUINA2-OBLIVION.description": "",
+  "RUINA2-OBLIVION.smartDescription": "Draw [blue]{Amount}[/blue] less {Amount:plural:card|cards} each turn.",
+  "RUINA2-OBLIVION.title": "Oblivion",
+
+  "RUINA2-STEAL.description": "",
+  "RUINA2-STEAL.smartDescription": "On death, you draw [blue]{Amount}[/blue] less {Amount:plural:card|cards} at the start of your next turn.",
+  "RUINA2-STEAL.title": "Steal or be Stolen",
+
+  "RUINA2-DRAW_REDUCTION.description": "",
+  "RUINA2-DRAW_REDUCTION.smartDescription": "Draw [blue]{Amount}[/blue] less {Amount:plural:card|cards} at the start of your next turn.",
+  "RUINA2-DRAW_REDUCTION.title": "Draw Reduction",
+
+  "RUINA2-WORTHLESS.description": "",
+  "RUINA2-WORTHLESS.smartDescription": "If {IsMultiplayer:everyone|you} fully {IsMultiplayer:blocks|block} this creature's attack, it [red]dies[/red].",
+  "RUINA2-WORTHLESS.title": "Worthless",
+
+  "RUINA2-DESPAIR.description": "",
+  "RUINA2-DESPAIR.smartDescription": "Whenever a minion dies, this creature loses [blue]{Amount}[/blue] HP.",
+  "RUINA2-DESPAIR.title": "Despair",
+
+  "RUINA2-ROAD.description": "",
+  "RUINA2-ROAD.smartDescription": "Uses a [gold]powerful[/gold] attack every [blue]{Amount}[/blue] turns.",
+  "RUINA2-ROAD.title": "Road of the King",
+
+  "RUINA2-BLISS.description": "",
+  "RUINA2-BLISS.smartDescription": "On death, add a [gold]Fragment of Bliss[/gold] to your [gold]Hand[/gold].",
+  "RUINA2-BLISS.title": "Moment of Bliss",
+
+  "RUINA2-HYSTERIA.description": "",
+  "RUINA2-HYSTERIA.smartDescription": "Whenever you play [blue]{Cards:diff()}[/blue] [gold]Attacks[/gold] in a single turn, you gain [blue]{WeakPower:diff()}[/blue] [gold]Weak[/gold]. \nWhenever you play [blue]{Cards:diff()}[/blue] [gold]Skills[/gold] in a single turn, you gain [blue]{FrailPower:diff()}[/blue] [gold]Frail[/gold].\nThe first time this effect triggers this combat, this enemy will use a [gold]strong debuff[/gold] next turn instead of attacking.",
+  "RUINA2-HYSTERIA.title": "Hysteria",
+
+  "RUINA2-SEARCH.description": "",
+  "RUINA2-SEARCH.smartDescription": "Whenever you receive unblocked attack damage from this creature, [gold]Exhaust[/gold] the top card of your [gold]Draw Pile[/gold].",
+  "RUINA2-SEARCH.title": "Searching for Wisdom",
+
+  "RUINA2-EROSION.description": "Receives increased damage from attacks. Reduced by [blue]1[/blue] each turn.",
+  "RUINA2-EROSION.smartDescription": "Receives [blue]{Amount}[/blue] more damage from attacks. Reduced by [blue]1[/blue] each turn.",
+  "RUINA2-EROSION.title": "Erosion",
+
+  "RUINA2-BLIND_FURY.description": "",
+  "RUINA2-BLIND_FURY.smartDescription": "After losing [blue]{Amount}[/blue] HP, this creature will use a [gold]powerful attack[/gold] next turn that targets ALL other creatures (including you).",
+  "RUINA2-BLIND_FURY.title": "Blind Fury",
+
+  "RUINA2-JUSTICE.description": "",
+  "RUINA2-JUSTICE.smartDescription": "This creature deals triple damage to enemies without [gold]Block[/gold].",
+  "RUINA2-JUSTICE.title": "In the Name of Justice",
+
+  "RUINA2-POINTLESS_HATE.description": "",
+  "RUINA2-POINTLESS_HATE.smartDescription": "Gains [blue]{Amount}[/blue] [gold]Block[/gold] at the end of each turn.",
+  "RUINA2-POINTLESS_HATE.title": "Pointless Hate",
+
+  "RUINA2-SENSELESS_WRATH.description": "",
+  "RUINA2-SENSELESS_WRATH.smartDescription": "Whenever a [gold]debuff[/gold] is successfully applied to this creature, it gains [blue]{Amount}[/blue] [gold]Artifact[/gold].",
+  "RUINA2-SENSELESS_WRATH.title": "Senseless Wrath",
+
+  "RUINA2-EASILY_DISTRACTED.description": "",
+  "RUINA2-EASILY_DISTRACTED.smartDescription": "Whenever this creature is hit by an [gold]Attack[/gold]{IsMultiplayer: [blue]{Amount}[/blue] times in a turn|}, it cancels one of its intents.",
+  "RUINA2-EASILY_DISTRACTED.title": "Easily Distracted",
+
+  "RUINA2-COURAGE.description": "",
+  "RUINA2-COURAGE.smartDescription": "Whenever the [gold]Road Home[/gold] is hit by an [gold]Attack[/gold]{IsMultiplayer: [blue]{Amount}[/blue] times in a turn|}, this creature gains [blue]{StrengthGain:diff()}[/blue] [gold]Strength[/gold] this turn.\nIf the [gold]Road Home[/gold] dies, will immediately attempt to flee.",
+  "RUINA2-COURAGE.title": "Courage",
+
+  "RUINA2-WAY_HOME.description": "",
+  "RUINA2-WAY_HOME.smartDescription": "On death, the [gold]Road Home[/gold] will begin to use a [gold]powerful[/gold] attack.",
+  "RUINA2-WAY_HOME.title": "On the Way Home",
+
+  "RUINA2-MULTIPLAYER_ALLY.description": "",
+  "RUINA2-MULTIPLAYER_ALLY.smartDescription": "Deals [blue]{Amount}%[/blue] more attack damage to enemies.\nReceives [blue]{Amount}%[/blue] more attack damage from enemies.",
+  "RUINA2-MULTIPLAYER_ALLY.title": "Multiplayer Adjustment",
+
+  "RUINA2-CENTER_OF_ATTENTION.description": "",
+  "RUINA2-CENTER_OF_ATTENTION.smartDescription": "Random targeting effects always target this creature.",
+  "RUINA2-CENTER_OF_ATTENTION.title": "Center of Attention",
+
+  "RUINA2-FEAR.description": "",
+  "RUINA2-FEAR.smartDescription": "Whenever {IsMultiplayer:players|you} play {IsMultiplayer:[blue]{Amount}[/blue] [gold]Attacks[/gold] in a single turn|an [gold]Attack[/gold]}, this creature loses [blue]{StrengthLoss:diff()}[/blue] [gold]Strength[/gold] this turn.",
+  "RUINA2-FEAR.title": "Fear",
+
+  "RUINA2-SONG.description": "",
+  "RUINA2-SONG.smartDescription": "At the end of this creature's turn, it gains [blue]{Amount}[/blue] [gold]Strength[/gold] and [blue]1[/blue] [gold]Vulnerable[/gold].",
+  "RUINA2-SONG.title": "Pine for the Song",
+
+  "RUINA2-WINTERS_INCEPTION.description": "",
+  "RUINA2-WINTERS_INCEPTION.smartDescription": "The first [gold]Attack[/gold] you play each turn is [gold]Afflicted[/gold] with [purple]Laurel Wreath[/purple]. This creature receives [blue]{Amount}%[/blue] less damage from [gold]Attacks[/gold] without [purple]Laurel Wreath[/purple].",
+  "RUINA2-WINTERS_INCEPTION.title": "Winter's Inception",
+
+  "RUINA2-PATTERN.description": "",
+  "RUINA2-PATTERN.smartDescription": "Whenever this creature deals [blue]{Amount}[/blue] unblocked attack damage to players in a single turn, its [gold]Temporary Strength[/gold] becomes permanent.",
+  "RUINA2-PATTERN.title": "Pattern Recognition",
+
+  "RUINA2-LONELY.description": "",
+  "RUINA2-LONELY.smartDescription": "When this creature is the only enemy left, it receives [blue]{Amount}%[/blue] more damage from attacks.",
+  "RUINA2-LONELY.title": "Being Lonely is Sad",
+
+  "RUINA2-SURPRISE_PRESENT.description": "",
+  "RUINA2-SURPRISE_PRESENT.smartDescription": "Upon death, summons a [gold]Wee Witch's Friend[/gold].",
+  "RUINA2-SURPRISE_PRESENT.title": "Surprise Present",
+
+  "RUINA2-MEAL.description": "",
+  "RUINA2-MEAL.smartDescription": "If this creature is at or below [blue]{Amount}[/blue] HP at the end of the round, the boss [gold]consumes[/gold] it.",
+  "RUINA2-MEAL.title": "Prepared Meal",
+
+  "RUINA2-SATIATION.description": "",
+  "RUINA2-SATIATION.smartDescription": "Whenever this creature [gold]consumes[/gold] a minion, it gains [blue]{Amount}[/blue] [gold]Weak[/gold] and [gold]Vulnerable[/gold] and loses [blue]{StrengthLoss:diff()}[/blue] [gold]Strength[/gold].",
+  "RUINA2-SATIATION.title": "Momentary Satiation",
+
+  "RUINA2-FRAGILE.description": "Receives more damage from attacks.",
+  "RUINA2-FRAGILE.smartDescription": "Receives [blue]{Amount}[/blue] more damage from attacks.",
+  "RUINA2-FRAGILE.title": "Fragile",
+
+  "RUINA2-AFFECTION.description": "",
+  "RUINA2-AFFECTION.smartDescription": "Whenever this creature fully or partially blocks damage from an [gold]Attack[/gold], applies [blue]{Amount}[/blue] [gold]Fragile[/gold] to the attacker.",
+  "RUINA2-AFFECTION.title": "Affection",
+
+  "RUINA2-PLEASURE.description": "",
+  "RUINA2-PLEASURE.smartDescription": "At the start of your turn, gain {Energy:energyIcons()}. At the end of your turn, take [blue]{Amount}[/blue] damage.",
+  "RUINA2-PLEASURE.title": "Pleasure",
+
+  "RUINA2-FERVENT_ADORATION.description": "",
+  "RUINA2-FERVENT_ADORATION.smartDescription": "At the start of your turn, draw [blue]{Cards:diff()}[/blue] {Cards:plural:card|cards}. At the end of your turn, take [blue]{Amount}[/blue] damage.",
+  "RUINA2-FERVENT_ADORATION.title": "Fervent Adoration",
+
+  "RUINA2-ENDLESS_PERFORMANCE.description": "",
+  "RUINA2-ENDLESS_PERFORMANCE.smartDescription": "At the end of the first [blue]{Amount}[/blue] rounds, shuffle a [gold]Performer[/gold] into your [gold]Discard Pile[/gold].\nWhenever a [gold]Performer[/gold] is [gold]Exhausted[/gold] or [gold]Transformed[/gold], add a copy of it to your [gold]Discard Pile[/gold].",
+  "RUINA2-ENDLESS_PERFORMANCE.title": "Endless Performance",
+
+  "RUINA2-MIMICRY.description": "",
+  "RUINA2-MIMICRY.smartDescription": "This creature deals additional damage with attacks equal to the most recent instance of unblocked attack damage it has received from [gold]Attacks[/gold]. (Max [blue]{DamageCap:diff()}[/blue]).",
+  "RUINA2-MIMICRY.title": "Mimicry",
+
+  "RUINA2-DONT_LEAVE.description": "",
+  "RUINA2-DONT_LEAVE.smartDescription": "When this creature dies, it revives this turn with the HP of another enemy.",
+  "RUINA2-DONT_LEAVE.title": "Don't Leave Me",
+
+  "RUINA2-MONSTER_REGEN.description": "",
+  "RUINA2-MONSTER_REGEN.smartDescription": "Heals [blue]{Amount}[/blue] HP every turn.",
+  "RUINA2-MONSTER_REGEN.title": "Regeneration",
+
+  "RUINA2-EXPRESSION.description": "",
+  "RUINA2-EXPRESSION.smartDescription": "Whenever {IsMultiplayer:players|you} play [blue]{Amount}[/blue] cards, this creature immediately changes its intent.",
+  "RUINA2-EXPRESSION.title": "Today's Expression",
+
+  "RUINA2-ENCHANTED.description": "",
+  "RUINA2-ENCHANTED.smartDescription": "This creature's attacks deal [blue]1[/blue] damage.\n[gold]Enchanted[/gold] is removed after this creature loses [blue]{DamageCounter:diff()}[/blue] more HP.",
+  "RUINA2-ENCHANTED.title": "Enchanted",
+
+  "RUINA2-SALVATION.description": "",
+  "RUINA2-SALVATION.smartDescription": "This creature's attacks [red]instantly kill[/red] [gold]Enchanted[/gold] creatures.\n[gold]Enchanted[/gold] is removed after [gold]Enchanted[/gold] creatures lose a certain amount of HP.",
+  "RUINA2-SALVATION.title": "Salvation",
+
+  "RUINA2-BIG_EYES.description": "",
+  "RUINA2-BIG_EYES.smartDescription": "At the end of the round, shuffle [blue]{Amount}[/blue] [gold]Dazzled[/gold] into your [gold]Draw Pile[/gold].",
+  "RUINA2-BIG_EYES.title": "Big Eyes",
+
+  "RUINA2-LONG_ARMS.description": "",
+  "RUINA2-LONG_ARMS.smartDescription": "Remove ALL [gold]debuffs[/gold] from this creature and the [gold]boss[/gold] at the end of the round.",
+  "RUINA2-LONG_ARMS.title": "Long Arms",
+
+  "RUINA2-FADING_TWILIGHT.description": "",
+  "RUINA2-FADING_TWILIGHT.smartDescription": "Whenever an [gold]Egg[/gold] is destroyed, this creature loses [blue]{Amount}%[/blue] of its current HP.",
+  "RUINA2-FADING_TWILIGHT.title": "Fading Twilight",
+
+  "RUINA2-MARTYR.description": "",
+  "RUINA2-MARTYR.smartDescription": "On death, explodes and deals [blue]{Amount}[/blue] damage to you.",
+  "RUINA2-MARTYR.title": "Martyr",
+
+  "RUINA2-MEET_AGAIN.description": "",
+  "RUINA2-MEET_AGAIN.smartDescription": "When this creature is at or below [blue]{Amount}[/blue] HP, it will [gold]suicide[/gold] on its turn without triggering [gold]Martyr[/gold].",
+  "RUINA2-MEET_AGAIN.title": "Meet Again as Stars",
+
+  "RUINA2-PROMISE_OF_WINTER.description": "",
+  "RUINA2-PROMISE_OF_WINTER.smartDescription": "At the start of your turn, [purple]Freeze[/purple] [blue]{Amount}[/blue] {Amount:plural:card|cards} in your [gold]Hand[/gold].",
+  "RUINA2-PROMISE_OF_WINTER.title": "Promise of Winter",
+
+  "RUINA2-KAI_AND_GERDA.description": "",
+  "RUINA2-KAI_AND_GERDA.smartDescription": "On death, [purple]Unfreeze[/purple] ALL your cards.",
+  "RUINA2-KAI_AND_GERDA.title": "Kai and Gerda",
+
+  "RUINA2-UNNERVING.description": "",
+  "RUINA2-UNNERVING.smartDescription": "Receives [blue]{Amount}%[/blue] less damage from attacks.\nWhenever you gain [gold]Block[/gold], this creature loses that much HP.",
+  "RUINA2-UNNERVING.title": "Unnerving",
+
+  "RUINA2-LEARN.description": "",
+  "RUINA2-LEARN.smartDescription": "Whenever you play an [gold]Attack[/gold], you gain [blue]{Fragile:diff()}[/blue] [gold]Fragile[/gold] this turn. \nWhenever you play a [gold]Skill[/gold], this creature gains [blue]{Block:diff()}[/blue] [gold]Block[/gold] next turn.",
+  "RUINA2-LEARN.title": "Learn",
+
+  "RUINA2-TEMP_FRAGILE.description": "Receives more damage from attacks this turn.",
+  "RUINA2-TEMP_FRAGILE.smartDescription": "Receives [blue]{Amount}[/blue] more damage from attacks this turn.",
+  "RUINA2-TEMP_FRAGILE.title": "Temporary Fragile",
+
+  "RUINA2-PUNISHMENT.description": "",
+  "RUINA2-PUNISHMENT.smartDescription": "After this creature is hit by an [gold]Attack[/gold], it will use a [gold]powerful[/gold] attack next turn.",
+  "RUINA2-PUNISHMENT.title": "Punishment",
+
+  "RUINA2-LOCK.description": "",
+  "RUINA2-LOCK.smartDescription": "On death, add a [gold]Forest Keeper's Lock[/gold] to your [gold]Hand[/gold].",
+  "RUINA2-LOCK.title": "Forest Keeper's Lock",
+
+  "RUINA2-SIN.description": "",
+  "RUINA2-SIN.smartDescription": "Whenever you play a card that costs [blue]{Amount}[/blue] or less, increase its cost by [blue]{CostIncrease:diff()}[/blue] this combat.",
+  "RUINA2-SIN.title": "Weight Sin",
+
+  "RUINA2-TICKING_TIME.description": "",
+  "RUINA2-TICKING_TIME.smartDescription": "Whenever {IsMultiplayer:players|you} play [blue]{Amount}[/blue] cards in a single turn, immediately end {IsMultiplayer:everyone's|your} turn.",
+  "RUINA2-TICKING_TIME.title": "Ticking Time",
+
+  "RUINA2-DREAM.description": "",
+  "RUINA2-DREAM.smartDescription": "At the end of the first [blue]{TotalBrothers:diff()}[/blue] rounds, summons a [gold]Brother[/gold].\nWhen all [blue]{TotalBrothers:diff()}[/blue] [gold]Brothers[/gold] have died, this creature becomes [gold]Stunned[/gold] for [blue]1[/blue] turn.",
+  "RUINA2-DREAM.title": "Broken Dreams",
+
+  "RUINA2-FALSE_GIFT2_POWER.description": "",
+  "RUINA2-FALSE_GIFT2_POWER.smartDescription": "At the end of {Amount:plural:this turn|[blue]{}[/blue] turns}, lose [blue]{StrengthPower:diff()}[/blue] [gold]Strength[/gold] and [gold]Dexterity[/gold].",
+  "RUINA2-FALSE_GIFT2_POWER.title": "False Gift",
+
+  "RUINA2-FALSE_GIFT3_POWER.description": "",
+  "RUINA2-FALSE_GIFT3_POWER.smartDescription": "At the end of {Amount:plural:this turn|[blue]{}[/blue] turns}, take [blue]{Damage:diff()}[/blue] damage.",
+  "RUINA2-FALSE_GIFT3_POWER.title": "False Gift",
+
+  "RUINA2-WEBBED.description": "",
+  "RUINA2-WEBBED.smartDescription": "You cannot play [gold]Attacks[/gold] this turn.",
+  "RUINA2-WEBBED.title": "Webbed",
+
+  "RUINA2-HUNT.description": "",
+  "RUINA2-HUNT.smartDescription": "Whenever a [gold]Spiderling[/gold] dies or if this creature is alone, uses a [gold]strong[/gold] attack next turn.",
+  "RUINA2-HUNT.title": "Hunt",
+
+  "RUINA2-NAIL.description": "",
+  "RUINA2-NAIL.smartDescription": "Whenever you play a card this turn, take [blue]{Amount}[/blue] damage.",
+  "RUINA2-NAIL.title": "Nail",
+
+  "RUINA2-SILENCE.description": "",
+  "RUINA2-SILENCE.smartDescription": "This creature hasn't awakened yet.",
+  "RUINA2-SILENCE.title": "Only Silence Remains",
+
+  "RUINA2-LAMENTATION.description": "",
+  "RUINA2-LAMENTATION.smartDescription": "The first card you play from your [gold]Hand[/gold] each turn is [gold]Afflicted[/gold] with [purple]Coffin[/purple].",
+  "RUINA2-LAMENTATION.title": "Lamentation",
+
+  "RUINA2-SMALL_BEAK.description": "",
+  "RUINA2-SMALL_BEAK.smartDescription": "The first card drawn each turn is [gold]Afflicted[/gold] with [purple]Punished[/purple] until this [gold]Egg[/gold] is destroyed.",
+  "RUINA2-SMALL_BEAK.title": "Small Beak",
+
+  "RUINA2-BLEED.description": "Whenever you hit with an [gold]Attack[/gold] this turn, you take damage.",
+  "RUINA2-BLEED.smartDescription": "Whenever you hit with an [gold]Attack[/gold] this turn, you take [blue]{Amount}[/blue] damage.",
+  "RUINA2-BLEED.title": "Bleed",
+
+  "RUINA2-BLEED_ENEMY.description": "Whenever this creature hits with an attack this turn, it takes damage.",
+  "RUINA2-BLEED_ENEMY.smartDescription": "Whenever this creature hits with an attack this turn, it takes [blue]{Amount}[/blue] damage.",
+  "RUINA2-BLEED_ENEMY.title": "Bleed",
+
+  "RUINA2-ADVENT.description": "",
+  "RUINA2-ADVENT.smartDescription": "Every [blue]{Amount}th[/blue] card you play this combat becomes [gold]Afflicted[/gold] with [purple]Judas[/purple]. If the card has [purple]Apostle[/purple], it loses [purple]Apostle[/purple] instead.",
+  "RUINA2-ADVENT.title": "God's Traitor",
+  
+  "RUINA2-THIRST_POWER.description": "",
+  "RUINA2-THIRST_POWER.smartDescription": "Whenever you hit a [gold]Bleeding[/gold] enemy with an [gold]Attack[/gold] this turn, gain [blue]{Amount}[/blue] [gold]Strength[/gold].",
+  "RUINA2-THIRST_POWER.title": "Thirst",
+
+  "RUINA2-COBALT_SCAR_POWER.description": "",
+  "RUINA2-COBALT_SCAR_POWER.smartDescription": "Whenever you play [blue]{Cards:diff()}[/blue] [gold]Attacks[/gold], deal [blue]{Amount}[/blue] damage to ALL enemies.",
+  "RUINA2-COBALT_SCAR_POWER.title": "Cobalt Scar",
+
+  "RUINA2-SWORD_SHARPENED_POWER.description": "",
+  "RUINA2-SWORD_SHARPENED_POWER.smartDescription": "[gold]Sword Sharpened by Tears[/gold] has been played from your [gold]Hand[/gold] on this enemy [blue]{Amount}[/blue] {Amount:plural:time|times}.",
+  "RUINA2-SWORD_SHARPENED_POWER.title": "Sword Sharpened by Tears",
+
+  "RUINA2-HOMING_INSTINCT_POWER.description": "",
+  "RUINA2-HOMING_INSTINCT_POWER.smartDescription": "At the start of your turn, apply [blue]{Amount}[/blue] [gold]Yellow Brick Road[/gold] to a random enemy.",
+  "RUINA2-HOMING_INSTINCT_POWER.title": "Homing Instinct",
+
+  "RUINA2-YELLOW_BRICK_ROAD.description": "The next time you hit this creature with an [gold]Attack[/gold], gain {energyPrefix:energyIcons(1)}.",
+  "RUINA2-YELLOW_BRICK_ROAD.smartDescription": "The next time {Applier.StringValue:cond:[gold]{Applier.StringValue}[/gold] hits|you hit} this creature with an [gold]Attack[/gold], gain {Amount:energyIcons()}.",
+  "RUINA2-YELLOW_BRICK_ROAD.title": "Yellow Brick Road",
+
+  "RUINA2-HORNET_POWER.description": "",
+  "RUINA2-HORNET_POWER.smartDescription": "Your next{Amount:plural:| [blue]{Amount}[/blue]} [gold]{Amount:plural:Attack|Attacks}[/gold] costs [blue]0[/blue] and [gold]{Amount:plural:deals|deal}[/gold] double damage.",
+  "RUINA2-HORNET_POWER.title": "Hornet",
+
+  "RUINA2-FOURTH_MATCH_FLAME_POWER.description": "",
+  "RUINA2-FOURTH_MATCH_FLAME_POWER.smartDescription": "At the start of your turn, deal [blue]{Amount}[/blue] damage to ALL enemies and add a [gold]Burn[/gold] with [gold]Ethereal[/gold] to your [gold]Hand[/gold].",
+  "RUINA2-FOURTH_MATCH_FLAME_POWER.title": "Fourth Match Flame",
+
+  "RUINA2-MAGIC_BULLET_POWER.description": "",
+  "RUINA2-MAGIC_BULLET_POWER.smartDescription": "Receives [blue]{Increase}%[/blue] more damage from attacks for [blue]{Amount}[/blue] {Amount:plural:turn|turns}.",
+  "RUINA2-MAGIC_BULLET_POWER.title": "Magic Bullet",
+
+  "RUINA2-GRINDER_POWER.description": "",
+  "RUINA2-GRINDER_POWER.smartDescription": "The first time you deal [blue]{DamageThreshold:diff()}[/blue] attack damage each turn, gain {Amount:energyIcons()} next turn.",
+  "RUINA2-GRINDER_POWER.title": "Grinder Mk. 5-2",
+
+  "RUINA2-RED_EYES_POWER.description": "",
+  "RUINA2-RED_EYES_POWER.smartDescription": "The next debuff applied to this creature is increased by [blue]{Amount}%[/blue].",
+  "RUINA2-RED_EYES_POWER.title": "Red Eyes",
+
+  "RUINA2-LAETITIA_POWER.description": "",
+  "RUINA2-LAETITIA_POWER.smartDescription": "The first{Amount:plural:| [blue]{Amount}[/blue]} [blue]0[/blue] or [blue]1[/blue] cost {Amount:plural:card|cards} you play each turn {Amount:plural:is|are} played twice.",
+  "RUINA2-LAETITIA_POWER.title": "Laetitia",
+
+  "RUINA2-FAINT_AROMA_POWER.description": "",
+  "RUINA2-FAINT_AROMA_POWER.smartDescription": "The first [gold]Attack[/gold] you play each turn applies [gold]Poison[/gold] equal to [blue]{Amount}%[/blue] of the damage dealt.",
+  "RUINA2-FAINT_AROMA_POWER.title": "Faint Aroma",
+
+  "RUINA2-ASPIRATION_POWER.description": "",
+  "RUINA2-ASPIRATION_POWER.smartDescription": "At the end of combat, heal [blue]{Amount}[/blue] HP.",
+  "RUINA2-ASPIRATION_POWER.title": "Aspiration",
+
+  "RUINA2-FROST_SPLINTER_POWER.description": "",
+  "RUINA2-FROST_SPLINTER_POWER.smartDescription": "At the start of your turn, gain {Amount:energyIcons()}, draw [blue]{Amount}[/blue] additional {Amount:plural:card|cards}, and [purple]Freeze[/purple] [blue]{Amount}[/blue] {Amount:plural:card|cards}.",
+  "RUINA2-FROST_SPLINTER_POWER.title": "Frost Splinter",
+
+  "RUINA2-STARBOUND.description": "At the start of this creature's turn, it loses HP based on your current {singleStarIcon}.",
+  "RUINA2-STARBOUND.smartDescription": "At the start of this creature's turn, it loses HP equal to [blue]{Amount}[/blue] times {Applier.StringValue:cond:[gold]{Applier.StringValue}'s[/gold]|your} current {singleStarIcon}.",
+  "RUINA2-STARBOUND.title": "Starbound",
+
+  "RUINA2-HEAVEN_POWER.description": "",
+  "RUINA2-HEAVEN_POWER.smartDescription": "Whenever you are attacked this turn, deal damage back equal to your remaining [gold]Block[/gold].",
+  "RUINA2-HEAVEN_POWER.title": "Heaven",
+
+  "RUINA2-DEAD_SILENCE_POWER.description": "",
+  "RUINA2-DEAD_SILENCE_POWER.smartDescription": "Take [blue]{Amount}[/blue] extra {Amount:plural:turn|turns} after you end your turn.",
+  "RUINA2-DEAD_SILENCE_POWER.title": "Dead Silence",
+
+  "RUINA2-PARADISE_LOST_POWER.description": "",
+  "RUINA2-PARADISE_LOST_POWER.smartDescription": "Whenever you [gold]Exhaust[/gold] [blue]12[/blue] cards, deal [blue]{Amount}[/blue] damage to ALL enemies.\nAt the start of your turn, [gold]Exhaust[/gold] [blue]{ExhaustAmount:diff()}[/blue] {ExhaustAmount:plural:card|cards}.",
+  "RUINA2-PARADISE_LOST_POWER.title": "Paradise Lost",
+
+  "RUINA2-LAMP_POWER.description": "",
+  "RUINA2-LAMP_POWER.smartDescription": "Whenever you are attacked this turn, deal [blue]{Amount}[/blue] damage back.",
+  "RUINA2-LAMP_POWER.title": "Lamp",
+
+  "RUINA2-BEAK_POWER.description": "",
+  "RUINA2-BEAK_POWER.smartDescription": "At the start of your turn, reduce the cost of the{Amount:plural:| [blue]{Amount}[/blue]} highest cost {Amount:plural:card|cards} in your [gold]Hand[/gold] to [blue]0[/blue] and give {Amount:plural:it|them} [gold]Exhaust[/gold].",
+  "RUINA2-BEAK_POWER.title": "Beak",
+
+  "RUINA2-GOODBYE_POWER.description": "",
+  "RUINA2-GOODBYE_POWER.smartDescription": "The next [gold]Attack[/gold] you play deals double damage.",
+  "RUINA2-GOODBYE_POWER.title": "Goodbye",
+
+  "RUINA2-PRESCRIPTS_GRACE_ATTACK.description": "",
+  "RUINA2-PRESCRIPTS_GRACE_ATTACK.smartDescription": "Your next {Amount:plural:[gold]Attack[/gold] is|[blue]{}[/blue] [gold]Attacks[/gold] are} played an extra time this turn.",
+  "RUINA2-PRESCRIPTS_GRACE_ATTACK.title": "Prescript's Grace - Attack",
+
+  "RUINA2-PRESCRIPTS_GRACE_SKILL.description": "",
+  "RUINA2-PRESCRIPTS_GRACE_SKILL.smartDescription": "Your next {Amount:plural:[gold]Skill[/gold] is|[blue]{}[/blue] [gold]Skills[/gold] are} played an extra time this turn.",
+  "RUINA2-PRESCRIPTS_GRACE_SKILL.title": "Prescript's Grace - Skill",
+
+  "RUINA2-PRESCRIPTS_GRACE_POWER.description": "",
+  "RUINA2-PRESCRIPTS_GRACE_POWER.smartDescription": "Your next {Amount:plural:[gold]Power[/gold] is|[blue]{}[/blue] [gold]Powers[/gold] are} played an extra time this turn.",
+  "RUINA2-PRESCRIPTS_GRACE_POWER.title": "Prescript's Grace - Power",
+
+  "RUINA2-GEON.description": "",
+  "RUINA2-GEON.smartDescription": "Deals [blue]{Amount}%[/blue] more damage with attacks.\nChanges every turn.",
+  "RUINA2-GEON.title": "Geon of Four Trigrams",
+
+  "RUINA2-GON.description": "",
+  "RUINA2-GON.smartDescription": "Receives [blue]{Amount}%[/blue] less damage from attacks.\nChanges every turn.",
+  "RUINA2-GON.title": "Gon of Four Trigrams",
+
+  "RUINA2-RI.description": "",
+  "RUINA2-RI.smartDescription": "ALL players draw [blue]{Amount}[/blue] {Amount:plural:card|cards} next turn.\nChanges every turn.",
+  "RUINA2-RI.title": "Ri of Four Trigrams",
+
+  "RUINA2-CHURCH.description": "",
+  "RUINA2-CHURCH.smartDescription": "Whenever a minion dies, this creature loses [blue]{Amount}[/blue] HP.\nDead minions are replaced at the end of the round.",
+  "RUINA2-CHURCH.title": "Church of Gears",
+
+  "RUINA2-DARK_BARGAIN.description": "",
+  "RUINA2-DARK_BARGAIN.smartDescription": "This creature's [gold]Mass Attack[/gold] targets ALL other characters (including you).\nThis creature's attacks deal [blue]{DamageBonus}%[/blue] more damage to enemies.\nWhenever {IsMultiplayer:a player|you} fully [gold]{IsMultiplayer:Blocks|Block}[/gold] a hit from this creature's [gold]Mass Attack[/gold], increase this bonus by [blue]{Increase}%[/blue].",
+  "RUINA2-DARK_BARGAIN.title": "Dark Bargain",
+
+  "RUINA2-FRESH_MEAT_POWER.description": "",
+  "RUINA2-FRESH_MEAT_POWER.smartDescription": "On death, the stolen card is returned to your [gold]Draw Pile[/gold].",
+  "RUINA2-FRESH_MEAT_POWER.title": "Fresh Meat",
+
+  "RUINA2-SHARKSKIN.description": "",
+  "RUINA2-SHARKSKIN.smartDescription": "Every [blue]{Turns}[/blue] turns, this creature gains [blue]{ArtifactPower}[/blue] [gold]Artifact[/gold]. This creature receives [blue]{Amount}%[/blue] less damage from attacks while it has [gold]Artifact[/gold].",
+  "RUINA2-SHARKSKIN.title": "Sharkskin",
+
+  "RUINA2-SLASH_STANCE.description": "",
+  "RUINA2-SLASH_STANCE.smartDescription": "Deals [blue]{Amount}%[/blue] more damage with attacks.\n\nYou can click the buttons next to this creature's intent to change [gold]Stances[/gold].",
+  "RUINA2-SLASH_STANCE.title": "Slash Stance",
+
+  "RUINA2-PIERCE_STANCE.description": "",
+  "RUINA2-PIERCE_STANCE.smartDescription": "Every other attack while in this [gold]Stance[/gold] doubles the next debuff applied to the enemy.\n\nYou can click the buttons next to this creature's intent to change [gold]Stances[/gold].",
+  "RUINA2-PIERCE_STANCE.title": "Pierce Stance",
+
+  "RUINA2-GUARD_STANCE.description": "",
+  "RUINA2-GUARD_STANCE.smartDescription": "Negate all debuffs applied to this creature.\n\nYou can click the buttons next to this creature's intent to change [gold]Stances[/gold].",
+  "RUINA2-GUARD_STANCE.title": "Guard Stance",
+
+  "RUINA2-MELODY.description": "",
+  "RUINA2-MELODY.smartDescription": "Each turn, a random sequence is generated in the [gold]Melody[/gold] card. At the end of the round, if you didn't complete the [gold]Melody[/gold], you gain [blue]{Amount}[/blue] [gold]Fragile[/gold].",
+  "RUINA2-MELODY.title": "Melody",
+
+  "RUINA2-MESSENGER.description": "",
+  "RUINA2-MESSENGER.smartDescription": "At the end of the round, put a random [gold]Prescript[/gold] card into your [gold]Hand[/gold].",
+  "RUINA2-MESSENGER.title": "Messenger",
+
+  "RUINA2-DRAGON.description": "",
+  "RUINA2-DRAGON.smartDescription": "Whenever you play [blue]{Amount}[/blue] cards, [gold]Exhaust[/gold] up to [blue]{Exhaust}[/blue] {Exhaust:plural:card|cards}. If you [gold]Exhausted[/gold] a [gold]Status[/gold], draw [blue]{Cards}[/blue] {Cards:plural:card|cards}.",
+  "RUINA2-DRAGON.title": "Children of the Dragon",
+
+  "RUINA2-EMOTION.description": "",
+  "RUINA2-EMOTION.smartDescription": "Whenever {IsMultiplayer:players|you} [gold]Exhaust[/gold] {IsMultiplayer:[blue]{Amount}[/blue]|a} {Amount:plural:card|cards}, this creature gains [blue]{StrengthAmount}[/blue] [gold]Strength[/gold].\nAfter this creature reaches [blue]{FirstStrengthThreshold}[/blue] or [blue]{SecondStrengthThreshold}[/blue] [gold]Strength[/gold], uses a [gold]powerful[/gold] attack next turn.",
+  "RUINA2-EMOTION.title": "Rising Emotion",
+
+  "RUINA2-FLAME_SHIELD.description": "",
+  "RUINA2-FLAME_SHIELD.smartDescription": "Whenever you hit this creature with an [gold]Attack[/gold], add [blue]{Amount}[/blue] [gold]Burn[/gold] to your [gold]Hand[/gold].\nRemoved after [blue]{Turns}[/blue] turns.",
+  "RUINA2-FLAME_SHIELD.title": "Flame Shield",
+
+  "RUINA2-SWORD_OF_EMBERS.description": "",
+  "RUINA2-SWORD_OF_EMBERS.smartDescription": "Deals [blue]{Amount}%[/blue] more damage with attacks.",
+  "RUINA2-SWORD_OF_EMBERS.title": "Sword of Embers",
+
+  "RUINA2-PUPPET_STRINGS.description": "",
+  "RUINA2-PUPPET_STRINGS.smartDescription": "When this creature dies, it revives next turn at full HP.",
+  "RUINA2-PUPPET_STRINGS.title": "Puppet Strings",
+
+  "RUINA2-MASTERMIND.description": "",
+  "RUINA2-MASTERMIND.smartDescription": "This creature receives [blue]{Amount}%[/blue] less damage from attacks unless it is [gold]Marked[/gold].",
+  "RUINA2-MASTERMIND.title": "Mastermind",
+
+  "RUINA2-MARK.description": "Receives more damage from attacks for [blue]1[/blue] turn.",
+  "RUINA2-MARK.smartDescription": "Receives [blue]{Increase}%[/blue] more damage from attacks for [blue]{Amount}[/blue] {Amount:plural:turn|turns}.",
+  "RUINA2-MARK.title": "Mark",
+
+  "RUINA2-FINISHING_TOUCH.description": "",
+  "RUINA2-FINISHING_TOUCH.smartDescription": "After this creature attacks, it applies [blue]1[/blue] [gold]Mark[/gold] to the target.",
+  "RUINA2-FINISHING_TOUCH.title": "Finishing Touch",
+
+  "RUINA2-CONTRACT_LIGHT_POWER.description": "",
+  "RUINA2-CONTRACT_LIGHT_POWER.smartDescription": "At the start of your turn, gain {Amount:energyIcons()}.\nYou cannot draw cards during your turn.",
+  "RUINA2-CONTRACT_LIGHT_POWER.title": "Contract of Light",
+
+  "RUINA2-CONTRACT_LIBERTY_POWER.description": "",
+  "RUINA2-CONTRACT_LIBERTY_POWER.smartDescription": "At the start of your turn, draw [blue]{Amount}[/blue] {Amount:plural:card|cards} and lose {Energy:energyIcons()}.",
+  "RUINA2-CONTRACT_LIBERTY_POWER.title": "Contract of Liberty",
+
+  "RUINA2-CONTRACT_MIGHT_POWER.description": "",
+  "RUINA2-CONTRACT_MIGHT_POWER.smartDescription": "You can only play [blue]{Amount}[/blue] {Amount:plural:card|cards} per turn.",
+  "RUINA2-CONTRACT_MIGHT_POWER.title": "Contract of Might",
+
+  "RUINA2-PRICE_OF_TIME.description": "",
+  "RUINA2-PRICE_OF_TIME.smartDescription": "Whenever {IsMultiplayer:players|you} play [blue]{Amount}[/blue] cards, this creature takes a turn.\nThis creature's normal turn is skipped.",
+  "RUINA2-PRICE_OF_TIME.title": "Price of Time",
+
+  "RUINA2-RESONANCE.description": "",
+  "RUINA2-RESONANCE.smartDescription": "Whenever {IsMultiplayer:players|you} play {IsMultiplayer:[blue]{Amount}[/blue] cards|a card}, shift this creature's intents to the right by [blue]1[/blue]. (The first intent targets you. The other intents target your [green]ally[/green].)",
+  "RUINA2-RESONANCE.title": "Resonance",
+
+  "RUINA2-BLUE_REVERB.description": "",
+  "RUINA2-BLUE_REVERB.smartDescription": "At the end of the round, gains [blue]{Amount}[/blue] [gold]Strength[/gold].",
+  "RUINA2-BLUE_REVERB.title": "The Blue Reverberation",
+
+  "RUINA2-BLACK_SILENCE.description": "",
+  "RUINA2-BLACK_SILENCE.smartDescription": "At the end of the round, gains [blue]{Amount}[/blue] [gold]Strength[/gold].\nUses a [gold]powerful[/gold] attack after [blue]9[/blue] turns.",
+  "RUINA2-BLACK_SILENCE.title": "The Black Silence",
+
+  "RUINA2-VIBRATION.description": "At the end of this creature's turn, take damage.",
+  "RUINA2-VIBRATION.smartDescription": "At the end of this creature's turn, it takes [blue]{Amount}[/blue] damage.",
+  "RUINA2-VIBRATION.title": "Vibration",
+
+  "RUINA2-RED_MIST.description": "",
+  "RUINA2-RED_MIST.smartDescription": "Whenever this creature deals unblocked attack damage, gains [blue]{Amount}[/blue] [gold]Strength[/gold] at end of round.\nThis creature doubles its [gold]Strength[/gold] after [blue]{Turns}[/blue] turns.",
+  "RUINA2-RED_MIST.title": "The Red Mist",
+
+  "RUINA2-BLOOD_RED.description": "",
+  "RUINA2-BLOOD_RED.smartDescription": "Whenever this creature deals unblocked attack damage, it heals that much HP.",
+  "RUINA2-BLOOD_RED.title": "Blood Red Night",
+
+  "RUINA2-ARBITERS_JUDGEMENT.description": "",
+  "RUINA2-ARBITERS_JUDGEMENT.smartDescription": "After attacking, this creature cancels the enemy's [blue]2nd[/blue] intent.\nThis creature targets the last enemy {IsMultiplayer:players|you} targeted with a card this combat.",
+  "RUINA2-ARBITERS_JUDGEMENT.title": "Arbiter's Judgement",
+
+  "RUINA2-CAPTIVE_AUDIENCE.description": "",
+  "RUINA2-CAPTIVE_AUDIENCE.smartDescription": "Your single-enemy-target cards can only target the enemy with [gold]Spotlight[/gold].",
+  "RUINA2-CAPTIVE_AUDIENCE.title": "Captive Audience",
+
+  "RUINA2-SPOTLIGHT.description": "On death or at the end of the round, transfers to the next enemy.",
+  "RUINA2-SPOTLIGHT.smartDescription": "On death or at the end of the round, transfers to the next enemy.",
+  "RUINA2-SPOTLIGHT.title": "Spotlight",
+
+  "RUINA2-GAM.description": "",
+  "RUINA2-GAM.smartDescription": "ALL players gain {Amount:energyIcons()} next turn.\nChanges every turn.",
+  "RUINA2-GAM.title": "Gam of Four Trigrams"
+}

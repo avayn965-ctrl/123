@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>RuinaRussian</AssemblyName>
+    <Version>1.1.5-ru.1</Version>
+    <Deterministic>true</Deterministic>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="sts2" HintPath="$(GameAssembly)" Private="false" />
+    <Reference Include="GodotSharp" HintPath="$(GodotSharpAssembly)" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(HarmonyAssembly)" Private="false" />
+    <EmbeddedResource Include="../localization/**/*.json" LogicalName="Localization.%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

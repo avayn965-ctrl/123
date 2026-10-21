@@ -1,0 +1,17 @@
+{
+  "RUINA2-NEOW_ANGELA.title": "Angela",
+  "RUINA2-NEOW_ANGELA.epithet": "Director and Librarian of Her Role's Namesake",
+  "RUINA2-NEOW_ANGELA.talk.firstVisitEver.0-0.ancient": "Greetings. I am Angela, the director and librarian of my role's namesake.",
+
+  "RUINA2-NEOW_ANGELA.talk.ANY.0-0r.ancient": "Greetings, dear guest.",
+  "RUINA2-NEOW_ANGELA.talk.ANY.1-0r.ancient": "Would you care for a boon?",
+  "RUINA2-NEOW_ANGELA.talk.ANY.2-0r.ancient": "And so the script continues, never-ending.",
+  "RUINA2-NEOW_ANGELA.talk.ANY.3-0r.ancient": "The librarians aren't the only people I can bring back.",
+  "RUINA2-NEOW_ANGELA.talk.ANY.4-0r.ancient": "May you find your book in this place.",
+
+  "RUINA2-NEOW_ANGELA.talk.SILENT.0-0r.ancient": "A quiet guest? What a rarity.",
+  "RUINA2-NEOW_ANGELA.talk.SILENT.0-0r.next": "Say Nothing",
+  "RUINA2-NEOW_ANGELA.talk.SILENT.0-1r.char": "...",
+  "RUINA2-NEOW_ANGELA.talk.SILENT.0-1r.next": "Continue",
+  "RUINA2-NEOW_ANGELA.talk.SILENT.0-2r.ancient": "Let us see if your silence persists in the face of these trials."
+}

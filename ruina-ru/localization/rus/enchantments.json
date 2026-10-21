@@ -1,0 +1,12 @@
+{
+  "RUINA2-OBSESSION.title": "Одержимость",
+  "RUINA2-OBSESSION.description": "Эта карта получает [gold]Врождённость[/gold] и должна разыгрываться раньше других карт в вашей [gold]Руке[/gold].",
+  "RUINA2-OBSESSION.extraCardText": "[purple]Должна разыгрываться раньше других карт[/purple].",
+  "RUINA2-STEADY_HEART.title": "Непоколебимое сердце",
+  "RUINA2-STEADY_HEART.description": "Эта карта получает [gold]Сохранение[/gold] и [gold]Истощение[/gold]. Можно [gold]зачаровать[/gold] только карты [gold]без Истощения[/gold], которые [gold]не являются Талантами[/gold].",
+  "RUINA2-STEADY_HEART.extraCardText": "",
+  "RUINA2-VANISHING.title": "Исчезновение",
+  "RUINA2-VANISHING.description": "Эта карта стоит на [blue]{Amount}[/blue] меньше и [gold]истощается[/gold]. Можно [gold]зачаровать[/gold] только карты [gold]без Истощения[/gold], которые [gold]не являются Талантами[/gold].",
+  "RUINA2-PILLAR.title": "Столп",
+  "RUINA2-PILLAR.description": "Эта карта даёт на [blue]{Amount}[/blue] больше [gold]Блока[/gold], но получает [gold]Бесплотность[/gold]."
+}

@@ -1,0 +1,11 @@
+{
+  "RUINA2-MULTI_INTENT_ATTACK.description": "Этот враг намерен [gold]атаковать[/gold] цель [gold]{Target}[/gold] и нанести [blue]{Damage}[/blue] урона [blue]{Repeat}[/blue] раз.",
+  "RUINA2-MULTI_INTENT_DEBUFF.description": "Этот враг намерен наложить [gold]ослабление[/gold] на цель [gold]{Target}[/gold].",
+  "RUINA2-ALLY_ATTACK.description": "Этот [green]союзник[/green] намерен [gold]атаковать[/gold] цель [gold]{Target}[/gold] и нанести [blue]{Damage}[/blue] урона [blue]{Repeat}[/blue] раз.",
+  "RUINA2-ALLY_DEBUFF.description": "Этот [green]союзник[/green] намерен наложить [gold]ослабление[/gold] на цель [gold]{Target}[/gold].",
+  "RUINA2-ALLY_DEFEND.description": "Этот [green]союзник[/green] намерен получить [gold]Блок[/gold] в свой ход.",
+  "RUINA2-ALLY_BUFF.description": "Этот [green]союзник[/green] намерен использовать [gold]усиление[/gold].",
+  "RUINA2-MULTI_INTENT_MASS_ATTACK.description": "Этот враг намерен [gold]атаковать[/gold] [gold]ВСЕХ противников[/gold] и нанести [blue]{Damage}[/blue] урона [blue]{Repeat}[/blue] раз.",
+  "RUINA2-ALLY_MASS_ATTACK.description": "Этот [green]союзник[/green] намерен [gold]атаковать[/gold] [gold]ВСЕХ противников[/gold] и нанести [blue]{Damage}[/blue] урона [blue]{Repeat}[/blue] раз.",
+  "RUINA2-ALLY_FRIENDLY_FIRE_MASS_ATTACK.description": "Этот [green]союзник[/green] намерен [gold]атаковать[/gold] [gold]ВСЕХ других существ[/gold], включая вас, и нанести [blue]{Damage}[/blue] урона [blue]{Repeat}[/blue] раз."
+}
